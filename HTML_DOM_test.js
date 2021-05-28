@@ -23,9 +23,19 @@ function addParagraph() {
 	para.id = "para4";
 	var paratext = document.createTextNode("Paragraph 4");
 	para.appendChild(paratext);
-	var div = document.getElementById("div2")
-	var para3 = document.getElementById("para3")
+	var div = document.getElementById("div2");
+	var para3 = document.getElementById("para3");
 	if (para3.nextSibling.id != "para4"){
 		div.insertBefore(para, para3.nextSibling);
+	}
+}
+
+// function to toggle color
+function toggleColor() {
+	head = document.getElementById("head2");
+	if (head.style.color == "red"){
+		head.style.color = "green";
+	} else {
+		head.style.color = "red";
 	}
 }
