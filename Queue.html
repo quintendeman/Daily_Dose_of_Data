@@ -2,53 +2,87 @@
 <html>
 <head>
 <style>
+* {
+    margin: 0;
+	padding: 0;
+}
 body {
 	font-family: monospace;
+	padding: 0px;
+	margin: 0px;
+}
+#header, #footer {
+	background-color: #6699CC;
+	height: 80px;
 }
 h1 {
 	text-align: center;
-	font-size: 36px;
+	line-height: 80px;
+	font-size: 40px;
+	color: White;
+}
+h2 {
+	text-align: center;
+	line-height: 80px;
+	color: White;
 }
 button {
 	text-align: center;
 	font-size: 18px;
 	font-weight: bold;
-	width: 100px;
 	height: 50px;
+	padding: 0px;
 	margin: 4px;
+}
+.halfButton {
+	width: 100px;
+	float: left;
+}
+.fullButton {
+	width: 208px;
 }
 input {
 	font-size: 18px;
-	width: 84px;
-	height: 44px;
+	width: 96px;
+	height: 46px;
+	padding: 0px;
 	margin: 4px;
-	padding: 1px 6px;
 }
-canvas {
-	background-color: LightGrey;
-	width: 100%;
-	height: 703px;
+table, td {
+	border: 1px solid Black;
+	padding: 0;
+	height: 651px;
 }
 </style>
 </head>
 
 <body>
 
-<div>
-<h1>Queue</h1>
-<hr>
+<div id="header">
+<h1>Queue Visualization</h1>
 </div>
 
-<table style="width: 100%;">
-<td style="width: 226px; vertical-align: top;">
-<button type="button" style="float: left;">Enqueue</button>
+<div id="mainContent">
+<table style="width: 100%; border-collapse: collapse">
+<tbody>
+<tr>
+<td style="width: 216px; vertical-align: top; padding: 2px; background-color: LightGrey;">
+<button type="button" class="halfButton" style="background-color: LightGreen;">Enqueue</button>
 <input></input>
-<br>
-<button type="button" style="float: left; width: 208px;">Dequeue</button>
+<button type="button" class="fullButton" style="background-color: #FFCCCB;">Dequeue</button>
+<button type="button" class="fullButton" style="background-color: #FBCEB1;">Peek</button>
 </td>
 <td>
-<canvas></canvas>
+<canvas height="600" width="900"></canvas>
 </td>
+</tr>
+</tbody>
 </table>
+</div>
+
+<div id="footer">
+<h2>Made by Quinten De Man</h2>
+</div>
+
 </body>
 </html>
