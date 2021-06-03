@@ -67,10 +67,10 @@ table, td {
 <tbody>
 <tr>
 <td style="width: 216px; vertical-align: top; padding: 2px; background-color: LightGrey;">
-<button type="button" class="halfButton" style="background-color: LightGreen;">Enqueue</button>
-<input></input>
-<button type="button" class="fullButton" style="background-color: #FFCCCB;">Dequeue</button>
-<button type="button" class="fullButton" style="background-color: #FBCEB1;">Peek</button>
+<button type="button" class="halfButton" style="background-color: #90EE90;" onclick="mainEnqueue()">Enqueue</button>
+<input type="text" id="enqueueInput"></input>
+<button type="button" class="fullButton" style="background-color: #FFCCCB;" onclick="mainDequeue()">Dequeue</button>
+<button type="button" class="fullButton" style="background-color: #FBCEB1;" onclick="mainPeek()">Peek</button>
 </td>
 <td>
 <canvas height="600" width="900"></canvas>
@@ -83,6 +83,8 @@ table, td {
 <div id="footer">
 <h2>Made by Quinten De Man</h2>
 </div>
+
+<script src="Queue.js"></script>
 
 </body>
 </html>
