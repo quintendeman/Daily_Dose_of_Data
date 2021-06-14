@@ -13,6 +13,10 @@ body {
 	background-color: #6699CC;
 	height: 80px;
 }
+#information {
+	background-color: LightGrey;
+	height: 419px;
+}
 h1 {
 	text-align: center;
 	line-height: 80px;
@@ -55,10 +59,10 @@ input {
 	margin: 4px;
 	padding-left: 8px;
 }
-table, td {
+td {
 	border: 1px solid Black;
+	margin: 0;
 	padding: 0;
-	height: 651px;
 }
 </style>
 </head>
@@ -69,11 +73,15 @@ table, td {
 <h1>Queue Visualization</h1>
 </div>
 
+<div id="information">
+
+</div>
+
 <div id="mainContent">
 <table style="width: 100%; border-collapse: collapse">
 <tbody>
 <tr>
-<td style="width: 216px; vertical-align: top; padding: 2px; background-color: LightGrey;">
+<td style="width: 216px; vertical-align: top; padding: 2px; background-color: DarkGrey;">
 <button type="button" class="halfButton" style="background-color: #90EE90;" onclick="mainEnqueue()">Enqueue</button>
 <input type="text" id="queueInput" class="halfInput"></input>
 <button type="button" class="fullButton" style="background-color: #FFCCCB;" onclick="mainDequeue()">Dequeue</button>
@@ -83,7 +91,7 @@ table, td {
 <button type="button" class="fullButton" style="background-color: #FBCEB1;" onclick="mainPeek()">Peek</button>
 </td>
 <td>
-<canvas id="mainCanvas" height="600" width="900"></canvas>
+<canvas id="mainCanvas" height="232" width="1480"></canvas>
 </td>
 </tr>
 </tbody>
