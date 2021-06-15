@@ -19,8 +19,6 @@ class Queue {
 
 // initialize a Queue to be used by the page
 var mainQueue = new Queue()
-mainQueue.enqueue(1)	//temporary
-mainQueue.enqueue(2)	//temporary
 var lastReturned = undefined
 // get the canvas and canvas context
 var canvas = document.getElementById("mainCanvas")
@@ -56,7 +54,7 @@ function refreshCanvas() {
 	ctx.fillStyle = "#000000"
 	ctx.fillText("Dequeue", 26, canvas.height/2+4)
 	ctx.fillText("Enqueue", mainQueue.array.length*100+121, canvas.height/2+4)
-	ctx.lineWidth = 5
+	ctx.lineWidth = 3
 	ctx.font = "bold 25px monospace"
 	ctx.textAlign = "center"
 	for (var i = 0; i < mainQueue.array.length; i++) {
