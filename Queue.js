@@ -54,8 +54,8 @@ function refreshCanvas() {
 	ctx.fillStyle = "#000000"
 	ctx.fillText("Dequeue", 26, canvas.height/2+4)
 	ctx.fillText("Enqueue", mainQueue.array.length*100+121, canvas.height/2+4)
-	ctx.lineWidth = 3
-	ctx.font = "bold 25px monospace"
+	ctx.lineWidth = 4
+	ctx.font = "bold 28px monospace"
 	ctx.textAlign = "center"
 	for (var i = 0; i < mainQueue.array.length; i++) {
 		ctx.beginPath()

@@ -15,7 +15,9 @@ body {
 }
 #information {
 	background-color: LightGrey;
-	height: 419px;
+	height: 417px;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
 }
 h1 {
 	text-align: center;
@@ -35,13 +37,29 @@ button {
 	height: 50px;
 	padding: 0px;
 	margin: 4px;
+	border-radius: 8px;
+	border: 1px solid black;
 }
-.halfButton {
+.enqueueButton {
 	width: 100px;
 	float: left;
+	background-color: #90EE90;
+	transition-duration: 0.1s;
 }
-.fullButton {
+.enqueueButton:hover, .dequeueButton:hover, .peekButton:hover {
+	background-color: #FFFFFF;
+}
+.enqueueButton:active, .dequeueButton:active, .peekButton:active {
+	background-color: #000000;
+	color: #FFFFFF;
+}
+.dequeueButton {
 	width: 208px;
+	background-color: #FFCCCB;
+}
+.peekButton {
+	width: 208px;
+	background-color: #FBCEB1;
 }
 input {
 	text-align: center;
@@ -82,13 +100,13 @@ td {
 <tbody>
 <tr>
 <td style="width: 216px; vertical-align: top; padding: 2px; background-color: DarkGrey;">
-<button type="button" class="halfButton" style="background-color: #90EE90;" onclick="mainEnqueue()">Enqueue</button>
+<button class="enqueueButton" onclick="mainEnqueue()">Enqueue</button>
 <input type="text" id="queueInput" class="halfInput"></input>
-<button type="button" class="fullButton" style="background-color: #FFCCCB;" onclick="mainDequeue()">Dequeue</button>
-<img src="curved_arrow.png" class="arrow" style="transform: rotate(0deg); float: left;">
+<button class="dequeueButton" onclick="mainDequeue()">Dequeue</button>
+<img src="Images/curved_arrow.png" class="arrow" style="transform: rotate(0deg); float: left;">
 <input type="text" id = "queueOutput" class="halfInput" readonly></input>
-<img src="curved_arrow.png" class="arrow" style="transform: rotate(180deg); float: right;">
-<button type="button" class="fullButton" style="background-color: #FBCEB1;" onclick="mainPeek()">Peek</button>
+<img src="Images/curved_arrow.png" class="arrow" style="transform: rotate(180deg); float: right;">
+<button class="peekButton" onclick="mainPeek()">Peek</button>
 </td>
 <td>
 <canvas id="mainCanvas" height="232" width="1480"></canvas>
