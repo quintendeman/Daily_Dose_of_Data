@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.push-button {background-color: LightGreen; width: 102px;}
+.pop-button {background-color: Pink; width: 214px;}
+.peek-button {background-color: Orange; width: 214px;}
+</style>
+<link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+
+<header>
+<h1>Stack Visualization</h1>
+</header>
+
+<div id="information-section">
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+<p>Information goes here.</p>
+</div>
+
+<div id="interactive-section-header">
+<h2>You can interact with the stack visualization here! Only integer values are accepted.</h2>
+</div>
+<div id="interactive-section">
+<div id="controls">
+<button class="push-button">Push</button><input id="stack-input" style="width:100px;"></input><br>
+<button class="pop-button">Pop</button><br>
+<img src="Images/curved_arrow.png" class="arrow-image" style="transform: rotate(0deg);"><input id="stack-ouput"></input><img src="Images/curved_arrow.png" class="arrow-image" style="transform: rotate(180deg);"><br>
+<button class="peek-button">Peek</button>
+</div>
+
+<div id="visualization">
+<canvas id="main-canvas" height="250" width="1480"></canvas>
+</div>
+
+</div>
+
+<footer>
+<h2>Made by Quinten De Man</h2>
+</footer>
+
+</body>
+</html>
