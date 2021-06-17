@@ -5,6 +5,30 @@
 body {
 	font-family: monospace;
 }
+nav {
+	background-color: #273BE2;
+	border-bottom: 2px solid Black;
+	width: 100%;
+	height: 60px;
+}
+nav ul {
+	list-style-type: none;
+}
+nav ul li {
+	border: 1px solid Black;
+	float: left;
+}
+nav ul li a {
+	color: White;
+	font-size: 24px;
+	line-height: 60px;
+	font-weight: bold;
+	text-decoration: none;
+	padding: 20px;
+}
+nav ul li:hover {
+	background-color: #374BF2;
+}
 header, footer {
 	background-color: #6699CC;
 	height: 80px;
@@ -12,25 +36,26 @@ header, footer {
 	text-align: center;
 	color: White;
 }
-h1 {
+header h1 {
 	font-size: 40px;
 }
-h2 {
+footer h2 {
 	font-size: 20px;
 }
 #information-section {
-	background-color: LightGrey;
+	background-color: White;
 	border-top: 2px solid Black;
 	border-bottom: 2px solid Black;
 	padding: 10px;
 }
-p {
+#information-section p {
 	font-size: 16px;
 }
 #interactive-section-header {
 	background-color: DarkGrey;
 	height: 40px;
 	line-height: 40px;
+	font-size: 16px;
 	text-align: center;
 	border-bottom: 2px solid Black;
 }
@@ -52,7 +77,6 @@ button {
 	border: 1px solid Black;
 	border-radius: 8px;
 	vertical-align: top;
-	transition-duration: 0.2s;
 }
 button:hover {
 	background-color: White;
