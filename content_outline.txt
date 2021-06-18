@@ -20,12 +20,9 @@ Trees
 	Binary Heap
 	Priority Queue
 	Trie
-	Segment Trees
-	Fenwick Trees
 	B-Tree
 Graphs
-	(Graph)
-	(Directed Graph)
+	(Graph/Directed Graph)
 	Adjacency List
 	Adjacency Matrix
 	Directed Acyclic Graph
