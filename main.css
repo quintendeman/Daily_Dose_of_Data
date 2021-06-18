@@ -15,8 +15,8 @@ nav ul {
 	list-style-type: none;
 }
 nav ul li {
-	border: 1px solid Black;
 	float: left;
+	position: relative;
 }
 nav ul li a {
 	color: White;
@@ -24,7 +24,25 @@ nav ul li a {
 	line-height: 60px;
 	font-weight: bold;
 	text-decoration: none;
-	padding: 20px;
+	padding: 16px;
+	border: 1px solid Black;
+}
+nav ul li ul {
+	display: none;
+	position: absolute;
+	background-color: #273BE2;
+	width: 100%;
+	border-bottom: 1px solid Black;
+}
+nav ul li:hover ul {
+	display: block;
+}
+nav ul li ul li {
+	padding: 10px 20px;
+	border: 1px solid Black;
+	border-bottom: none;
+	color: White;
+	float: none;
 }
 nav ul li:hover {
 	background-color: #374BF2;
