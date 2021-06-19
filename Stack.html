@@ -66,10 +66,10 @@
 </div>
 <div id="interactive-section">
 <div id="controls">
-<button class="push-button">Push</button><input id="stack-input"></input><br>
-<button class="pop-button">Pop</button><br>
+<button class="push-button" onclick="mainPush()">Push</button><input id="stack-input"></input><br>
+<button class="pop-button" onclick="mainPop()">Pop</button><br>
 <img src="Images/curved_arrow.png" class="arrow-image" style="transform: rotate(0deg);"><input id="stack-ouput"></input><img src="Images/curved_arrow.png" class="arrow-image" style="transform: rotate(180deg);"><br>
-<button class="peek-button">Peek</button>
+<button class="peek-button" onclick="mainPeek()">Peek</button>
 </div>
 
 <div id="visualization">
@@ -81,6 +81,8 @@
 <footer>
 <h2>Made by Quinten De Man and Zackary Lassetter</h2>
 </footer>
+
+<script src="Stack.js"></script>
 
 </body>
 </html>

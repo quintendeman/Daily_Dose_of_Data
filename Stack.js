@@ -41,7 +41,7 @@ function drawLeftArrow(x, y, width, height) {
 	ctx.stroke()
 	ctx.fill()
 }
-
+// draw a right arrow with the point at (x,y)
 function drawRightArrow(x, y, width, height) {
 	ctx.beginPath()
 	ctx.moveTo(x, y)
@@ -62,21 +62,21 @@ function refreshCanvas() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height)
 	ctx.font = "bold 16px monospace"
 	ctx.textAlign = "start"
-	ctx.fillStyle = "#FFCCCB"
-	drawLeftArrow(15, canvas.height / 2, 75, 50)
-	ctx.fillStyle = "#90EE90"
-	drawRightArrow(90, canvas.height / 2 + 60, 75, 50)
+	ctx.fillStyle = "LightGreen"
+	drawLeftArrow(15 + mainStack.array.length * 100, canvas.height / 2 - 20, 75, 50)
+	ctx.fillStyle = "Pink"
+	drawRightArrow(100 + mainStack.array.length * 100, canvas.height / 2 + 20, 75, 50)
 	ctx.fillStyle = "#000000"
-	ctx.fillText("Pop", 26, canvas.height / 2 + 4)
-	ctx.fillText("Push", 25, canvas.height / 2 + 65)
+	ctx.fillText("Push", 40 + mainStack.array.length * 100, canvas.height / 2 - 16)
+	ctx.fillText("Pop", 40 + mainStack.array.length * 100, canvas.height / 2 + 24)
 	ctx.lineWidth = 4
 	ctx.font = "bold 28px monospace"
 	ctx.textAlign = "center"
 	for (var i = 0; i < mainStack.array.length; i++) {
 		ctx.beginPath()
-		ctx.arc(i * 100 + 150, canvas.height / 2, 40, 0, 2 * Math.PI)
+		ctx.arc(i * 100 + 60, canvas.height / 2, 40, 0, 2 * Math.PI)
 		ctx.stroke()
-		ctx.fillText(mainStack.array[mainStack.array.length - i - 1], i * 100 + 148, canvas.height / 2 + 8)
+		ctx.fillText(mainStack.array[i], i * 100 + 58, canvas.height / 2 + 8)
 	}
 }
 //load the canvas in the beginning
