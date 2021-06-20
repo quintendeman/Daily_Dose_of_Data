@@ -14,11 +14,7 @@ var Sort = function (_React$Component) {
     function Sort() {
         _classCallCheck(this, Sort);
 
-        var _this = _possibleConstructorReturn(this, (Sort.__proto__ || Object.getPrototypeOf(Sort)).call(this));
-
-        _this.left = "left";
-        _this.right = "right";
-        return _this;
+        return _possibleConstructorReturn(this, (Sort.__proto__ || Object.getPrototypeOf(Sort)).call(this));
     }
 
     _createClass(Sort, [{
@@ -28,16 +24,14 @@ var Sort = function (_React$Component) {
                 "div",
                 null,
                 React.createElement(
-                    "p",
-                    null,
-                    "This is left: ",
-                    this.left
+                    "h1",
+                    { style: { textAlign: "center" } },
+                    this.props.left
                 ),
                 React.createElement(
-                    "p",
-                    null,
-                    "This is right: ",
-                    this.right
+                    "h2",
+                    { style: { textAlign: "center" } },
+                    this.props.right
                 )
             );
         }
@@ -45,6 +39,13 @@ var Sort = function (_React$Component) {
 
     return Sort;
 }(React.Component);
+//function Sort(props) {
+//    return <div>
+//        <h1>This will be sorted {props.left}</h1>
+//        <h2>This is sorted: {props.right}</h2>
+//        </div>
+//}
+
 
 var domContainer = document.querySelector('#sort_container');
-ReactDOM.render(React.createElement(Sort, null), domContainer);
+ReactDOM.render(React.createElement(Sort, { left: "HELLO", right: "EHLLO" }), domContainer);

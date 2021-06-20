@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    "\\Testing"
+    "",
+    "\\Testing",
+    "\\Testing\\src"
   ],
+  "SelectedNode": "\\Testing\\src\\Sort.js",
   "PreviewInSolutionExplorer": false
 }
