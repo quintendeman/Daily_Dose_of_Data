@@ -11,27 +11,63 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Sort = function (_React$Component) {
     _inherits(Sort, _React$Component);
 
-    function Sort() {
+    function Sort(props) {
         _classCallCheck(this, Sort);
 
-        return _possibleConstructorReturn(this, (Sort.__proto__ || Object.getPrototypeOf(Sort)).call(this));
+        var _this = _possibleConstructorReturn(this, (Sort.__proto__ || Object.getPrototypeOf(Sort)).call(this, props));
+
+        _this.insertSort = function () {
+            if (_this.state.unsorted === "") {
+                _this.setState(function (state) {
+                    return {
+                        unsorted: "",
+                        sorted: _this.state.sorted
+                    };
+                });
+            } else {
+                _this.setState(function (state) {
+                    return {
+                        unsorted: _this.state.unsorted.substring(1),
+                        sorted: insert(_this.state.unsorted[0], _this.state.sorted)
+                    };
+                });
+            }
+        };
+
+        _this.state = {
+            unsorted: "18952093",
+            sorted: ""
+        };
+        return _this;
     }
+
+    //componentDidMount() {
+    //    this.setState((state) => ({
+    //        unsorted: this.props.sortInput
+    //    }));
+    //}
+
 
     _createClass(Sort, [{
         key: "render",
         value: function render() {
             return React.createElement(
                 "div",
-                null,
+                { style: { textAlign: "center" } },
                 React.createElement(
                     "h1",
-                    { style: { textAlign: "center" } },
-                    this.props.left
+                    null,
+                    this.state.unsorted
                 ),
                 React.createElement(
-                    "h2",
-                    { style: { textAlign: "center" } },
-                    this.props.right
+                    "button",
+                    { onClick: this.insertSort },
+                    "Insert"
+                ),
+                React.createElement(
+                    "h1",
+                    null,
+                    this.state.sorted
                 )
             );
         }
@@ -39,13 +75,14 @@ var Sort = function (_React$Component) {
 
     return Sort;
 }(React.Component);
-//function Sort(props) {
-//    return <div>
-//        <h1>This will be sorted {props.left}</h1>
-//        <h2>This is sorted: {props.right}</h2>
-//        </div>
-//}
 
+function insert(c, str) {
+    var i = 0;
+    while (parseInt(c) > parseInt(str[i])) {
+        i++;
+    }
+    return str.substring(0, i) + c + str.substring(i);
+}
 
 var domContainer = document.querySelector('#sort_container');
-ReactDOM.render(React.createElement(Sort, { left: "HELLO", right: "EHLLO" }), domContainer);
+ReactDOM.render(React.createElement(Sort, null), domContainer);
