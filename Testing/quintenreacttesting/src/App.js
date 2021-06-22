@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { Component } from 'react';
+import './App.css';
+import Stack from './Stack/Stack'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-      </header>
-    </div>
-  );
+class App extends Component {
+	state = {}
+	render() {
+		return (
+			<>
+				<p>Here is the stack:</p>
+				<Stack />
+			</>
+		);
+	}
 }
 
 export default App;
