@@ -1,41 +1,52 @@
-import React, { Component } from 'react';
+import React, { useState, useRef } from 'react';
 import './Stack.css';
 
-class Stack extends Component {
+const StackComponent = () => {
 	
-	constructor(props){
-		super(props);
-		this.state = { stack: [] };
-		this.stackInput = React.createRef();
-		this.stackOutput = React.createRef();
+	const [stack, setStack] = useState([])
+	const stackInput = useRef()
+	const stackOutput = useRef()
+	
+	//We call setStack without changing anything to force a re-render
+	const forceUpdate = () => {
+		setStack(prevStack => (prevStack));
 	}
 	
-	push = () => {
-		const data = this.stackInput.current.value;
-		this.setState(prevState => ({
-			stack: [...prevState.stack, data]
-		}))
-		this.stackInput.current.value = null;
+	const push = () => {
+		const data = parseInt(stackInput.current.value);
+		if (!isNaN(data)) {
+			stack.push(data);
+			forceUpdate();
+		}
+		stackInput.current.value = null;
 	}
 	
-	//note to self slice O(n) should make better (clone?)
-	pop = () => {
-		this.setState(prevState => ({
-			stack: prevState.stack.slice(0,prevState.stack.length-1)
-		}))
+	const pop = () => {
+		const data = stack.pop();
+		forceUpdate();
+		if (data === undefined)
+			stackOutput.current.value = "None";
+		else
+			stackOutput.current.value = data;
 	}
 	
-	render() {
-		return (
-			<>
-				<p>Stack goes here.</p>
-				<button onClick={this.push}>Push</button>
-				<input ref={this.stackInput} type="text" />
-				<button onClick={this.pop}>Pop</button>
-				<input ref={this.stackOutput} type="text" readOnly />
-			</>
-		);
+	const peek = () => {
+		const data = stack[stack.length-1];
+		if (data === undefined)
+			stackOutput.current.value = "None";
+		else
+			stackOutput.current.value = data;
 	}
+	return (
+		<>
+			<button onClick={push}>Push</button>
+			<input ref={stackInput} type="text" />
+			<br />
+			<button onClick={pop}>Pop</button>
+			<input ref={stackOutput} type="text" readOnly />
+			<button onClick={peek}>Peek</button>
+		</>
+	);
 }
 
-export default Stack;
+export default StackComponent;

@@ -7,7 +7,6 @@ class App extends Component {
 	render() {
 		return (
 			<>
-				<p>Here is the stack:</p>
 				<Stack />
 			</>
 		);
