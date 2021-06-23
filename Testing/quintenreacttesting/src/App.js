@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Stack from './Stack/Stack'
+import Stack from './Stack/Stack';
 
 class App extends Component {
 	state = {}

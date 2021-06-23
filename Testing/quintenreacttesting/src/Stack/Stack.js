@@ -1,15 +1,17 @@
 import React, { useState, useRef } from 'react';
 import './Stack.css';
+import StackDisplay from './StackDisplay';
 
-const StackComponent = () => {
+const Stack = () => {
 	
-	const [stack, setStack] = useState([])
-	const stackInput = useRef()
-	const stackOutput = useRef()
+	const [, forceRender] = useState(0);
+	const [stack,] = useState([]);
+	const stackInput = useRef();
+	const stackOutput = useRef();
 	
 	//We call setStack without changing anything to force a re-render
 	const forceUpdate = () => {
-		setStack(prevStack => (prevStack));
+		forceRender(renders => renders+1);
 	}
 	
 	const push = () => {
@@ -37,6 +39,7 @@ const StackComponent = () => {
 		else
 			stackOutput.current.value = data;
 	}
+	
 	return (
 		<>
 			<button onClick={push}>Push</button>
@@ -45,8 +48,10 @@ const StackComponent = () => {
 			<button onClick={pop}>Pop</button>
 			<input ref={stackOutput} type="text" readOnly />
 			<button onClick={peek}>Peek</button>
+			<br />
+			<StackDisplay stack={stack} />
 		</>
 	);
 }
 
-export default StackComponent;
+export default Stack;
