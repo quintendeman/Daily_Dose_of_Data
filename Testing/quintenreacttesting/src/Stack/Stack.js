@@ -41,16 +41,27 @@ const Stack = () => {
 	}
 	
 	return (
-		<>
-			<button onClick={push}>Push</button>
-			<input ref={stackInput} type="text" />
-			<br />
-			<button onClick={pop}>Pop</button>
-			<input ref={stackOutput} type="text" readOnly />
-			<button onClick={peek}>Peek</button>
-			<br />
-			<StackDisplay stack={stack} />
-		</>
+		<div className="interactive-section">
+			<div className="controls">
+				<button id="pushButton" onClick={push}>Push</button>
+				<input id="stackInput" ref={stackInput} type="text" />
+				<br />
+				<button id="popButton" onClick={pop}>Pop</button>
+				<br />
+				<input id="stackOutput" ref={stackOutput} type="text" readOnly />
+				<br />
+				<button id="peekButton" onClick={peek}>Peek</button>
+				<br />
+			</div>
+			<div className="visualization">
+				<StackDisplay stack={stack} />
+				<div id="stackTop">
+					<p>&#x2190;-- Push</p>
+					<br />
+					<p>--&#x2192; Pop</p>
+				</div>
+			</div>
+		</div>
 	);
 }
 

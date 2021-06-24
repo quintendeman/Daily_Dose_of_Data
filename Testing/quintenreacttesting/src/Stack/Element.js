@@ -3,7 +3,7 @@ import './Element.css';
 
 const Element = (props) => {
 	return (
-		<p>{props.value}</p>
+		<p className="element">{props.value}</p>
 	);
 }
 
