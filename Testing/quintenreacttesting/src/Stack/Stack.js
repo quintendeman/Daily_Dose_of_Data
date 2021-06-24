@@ -1,6 +1,15 @@
 import React, { useState, useRef } from 'react';
-import './Stack.css';
-import StackDisplay from './StackDisplay';
+import './Stack.scss';
+import Element from '../Element/Element'
+
+//returns a list of element components from the stack array
+const StackDisplay = (props) => {
+	return (
+		props.stack.map((value, index) => {
+			return <Element key={index} value={value} />
+		})
+	);
+}
 
 const Stack = () => {
 	
@@ -41,7 +50,7 @@ const Stack = () => {
 	}
 	
 	return (
-		<div className="interactive-section">
+		<div className="stack">
 			<div className="controls">
 				<button id="pushButton" onClick={push}>Push</button>
 				<input id="stackInput" ref={stackInput} type="text" />
@@ -56,9 +65,9 @@ const Stack = () => {
 			<div className="visualization">
 				<StackDisplay stack={stack} />
 				<div id="stackTop">
-					<p>&#x2190;-- Push</p>
+					<p>&#x2190; Push</p>
 					<br />
-					<p>--&#x2192; Pop</p>
+					<p>&#x2192; Pop</p>
 				</div>
 			</div>
 		</div>

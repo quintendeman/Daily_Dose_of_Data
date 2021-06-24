@@ -1,0 +1,41 @@
+.stack {
+
+	display: flex;
+	align-items: center;
+	margin: 20px;
+
+	#pushButton {
+		background-color: #CFC;
+		width: 100px;
+	}
+	#popButton {
+		background-color: #FCC;
+		width: 210px;
+	}
+	#peekButton {
+		background-color: #EEE;
+		width: 210px;
+	}
+	#pushButton:hover, #popButton:hover, #peekButton:hover {
+		background-color: White;
+	}
+	#pushButton:active, #popButton:active, #peekButton:active {
+		background-color: Black;
+		color: White;
+	}
+	#stackOutput {
+		margin: 5px 60px;
+	}
+	#stackTop {
+		display: inline-block;
+		height: 60px;
+		margin: 5px;
+		p {
+			display: inline-block;
+			font-size: 20px;
+			height: 30px;
+			line-height: 30px;
+		}
+	}
+
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import './Element.css';
+import './Element.scss';
 
 const Element = (props) => {
 	return (

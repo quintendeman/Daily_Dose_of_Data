@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
+import './App.scss';
+import Navigation from './Navigation/Navigation';
 import Stack from './Stack/Stack';
 
 class App extends Component {
@@ -7,6 +8,7 @@ class App extends Component {
 	render() {
 		return (
 			<>
+				<Navigation />
 				<Stack />
 			</>
 		);
