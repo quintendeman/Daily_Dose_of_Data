@@ -1,18 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.scss';
 import Navigation from './Navigation/Navigation';
 import Stack from './Stack/Stack';
 
-class App extends Component {
-	state = {}
-	render() {
+const App = () => {
 		return (
 			<>
-				<Navigation />
-				<Stack />
+				<div className="main">
+					<Navigation />
+					<Stack />
+				</div>
 			</>
 		);
-	}
 }
 
 export default App;

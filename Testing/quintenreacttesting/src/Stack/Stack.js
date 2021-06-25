@@ -4,11 +4,9 @@ import Element from '../Element/Element'
 
 //returns a list of element components from the stack array
 const StackDisplay = (props) => {
-	return (
-		props.stack.map((value, index) => {
-			return <Element key={index} value={value} />
-		})
-	);
+	return props.stack.map((value, index) => {
+		return <Element key={index} value={value} />
+	});
 }
 
 const Stack = () => {
