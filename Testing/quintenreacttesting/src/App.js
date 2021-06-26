@@ -9,6 +9,7 @@ const App = () => {
 		return (
 			<>
 				<BrowserRouter>
+					<header>WEBSITE NAME</header>
 					<div className="main">
 						<Navigation />
 						<Switch>
@@ -20,6 +21,7 @@ const App = () => {
 							</Route>
 						</Switch>
 					</div>
+					<footer>Made by Quinten De Man and Zackary Lassetter</footer>
 				</BrowserRouter>
 			</>
 		);
