@@ -23,6 +23,27 @@ input {
 	border: none;
 	vertical-align: top;
 }
+.information {
+	background-color:#EEE;
+	border-radius: 20px;
+	margin: 10px;
+	padding: 20px 360px;
+	font-family: Sans-serif;
+	font-size: 16px;
+	line-height: 1.7;
+	ul {
+		padding: 10px 0px 10px 25px;
+	}
+	table {
+		margin-left: auto;
+		margin-right: auto;
+		border-collapse: collapse;
+	}
+	td, th {
+		padding: 5px 20px;
+		border: 1pt solid Black;
+	}
+}
 .controls {
 	padding: 10px;
 	background-color: #AAA;
