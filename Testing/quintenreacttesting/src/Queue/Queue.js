@@ -1,6 +1,49 @@
 import React, { useState, useRef } from 'react';
-import './Stack.scss';
+import './Queue.scss';
 import Element from '../Element/Element';
+
+//define Queue Node class
+class Node {
+    constructor(value) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+//define Queue class with linked list implementation
+class Queue {
+    constructor() {
+        this.head = null;
+        this.tail = null;
+    }
+    enqueue (data) {
+        if (this.head == null) {
+            this.tail = new Node(data);
+            this.head = this.tail;
+        } else {
+            this.tail.next = new Node(data);
+            this.tail = this.tail.next;
+        }
+    }
+    dequeue () {
+        if (this.head == null) {
+            return undefined;
+        } else {
+            const temp = this.head;
+            this.head = this.head.next;
+            if (this.head == null)
+                this.tail = null;
+            return temp.value;
+        }
+    }
+    peek () {
+        if (this.head == null) {
+            return undefined;
+        } else {
+            return this.head.value;
+        }
+    }
+}
 
 //returns a list of react element components from the stack component array
 const StackDisplay = (props) => {
