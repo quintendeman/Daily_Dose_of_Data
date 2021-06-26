@@ -11,7 +11,7 @@ class Node {
 }
 
 //define Queue class with linked list implementation
-class Queue {
+class QueueClass {
     constructor() {
         this.head = null;
         this.tail = null;
@@ -45,75 +45,82 @@ class Queue {
     }
 }
 
-//returns a list of react element components from the stack component array
-const StackDisplay = (props) => {
-	return props.stack.map((value, index) => {
-		return <Element key={index} value={value} />
-	});
+//returns a list of react element components from the queue component linked list
+const QueueDisplay = (props) => {
+	var current = props.queue.head;
+    var index = 0;
+    var componentList = [];
+    while(current != null) {
+        componentList.push(<Element key={index} value={current.value} />);
+        current = current.next;
+        index++;
+    }
+    return componentList;
 }
 
-//main react component for stack
-const Stack = () => {
+//main react component for queue
+const Queue = () => {
 	
 	const [, forceRender] = useState(0);
-	const [stack,] = useState([]);
-	const stackInput = useRef();
-	const stackOutput = useRef();
+	const [queue,] = useState(new QueueClass());
+	const queueInput = useRef();
+	const queueOutput = useRef();
 	
-	//We call setStack without changing anything to force a re-render
+	//We call update on fake state variable to force rerender
 	const forceUpdate = () => {
 		forceRender(renders => renders+1);
 	}
 	
-	const push = () => {
-		const data = parseInt(stackInput.current.value);
+	const enqueue = () => {
+		const data = parseInt(queueInput.current.value);
 		if (!isNaN(data)) {
-			stack.push(data);
+			queue.enqueue(data);
 			forceUpdate();
 		}
-		stackInput.current.value = null;
+		queueInput.current.value = null;
 	}
 	
-	const pop = () => {
-		const data = stack.pop();
+	const dequeue = () => {
+		const data = queue.dequeue();
 		forceUpdate();
 		if (data === undefined)
-			stackOutput.current.value = "None";
+			queueOutput.current.value = "None";
 		else
-			stackOutput.current.value = data;
+			queueOutput.current.value = data;
 	}
 	
 	const peek = () => {
-		const data = stack[stack.length-1];
+		const data = queue.peek();
 		if (data === undefined)
-			stackOutput.current.value = "None";
+			queueOutput.current.value = "None";
 		else
-			stackOutput.current.value = data;
+			queueOutput.current.value = data;
 	}
 	
 	return (
-		<div className="stack">
+		<div className="queue">
 			<div className="controls">
-				<button id="pushButton" onClick={push}>Push</button>
-				<input id="stackInput" ref={stackInput} type="text" />
+				<button id="enqueueButton" onClick={enqueue}>Enqueue</button>
+				<input id="queueInput" ref={queueInput} type="text" />
 				<br />
-				<button id="popButton" onClick={pop}>Pop</button>
+				<button id="dequeueButton" onClick={dequeue}>Dequeue</button>
 				<br />
-				<input id="stackOutput" ref={stackOutput} type="text" readOnly />
+				<input id="queueOutput" ref={queueOutput} type="text" readOnly />
 				<br />
 				<button id="peekButton" onClick={peek}>Peek</button>
 				<br />
 			</div>
 			<div className="visualization">
-				<StackDisplay stack={stack} />
-				<div id="stackTop">
-					<p>&#x2190; Push</p>
-					<br />
-					<p>&#x2192; Pop</p>
+				<div className="queueEnd">
+                <p>Dequeue &#x2190;</p>
+                </div>
+                <QueueDisplay queue={queue} />
+				<div className="queueEnd">
+					<p>&#x2190; Enqueue</p>
 				</div>
 			</div>
 		</div>
 	);
 }
 
-export default Stack;
+export default Queue;

@@ -17,7 +17,7 @@ const Stack = () => {
 	const stackInput = useRef();
 	const stackOutput = useRef();
 	
-	//We call setStack without changing anything to force a re-render
+	//We call update on fake state variable to force rerender
 	const forceUpdate = () => {
 		forceRender(renders => renders+1);
 	}

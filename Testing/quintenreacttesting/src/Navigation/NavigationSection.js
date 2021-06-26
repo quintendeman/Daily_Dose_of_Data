@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const NavigationList = (props) => {
     return props.list.map((value, index) => {
-        return <li key={index}><p>{value}</p></li>
+        return <li key={index}><Link to={"/"+value}>{value}</Link></li>
     });
 }
 

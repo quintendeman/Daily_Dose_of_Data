@@ -12,9 +12,11 @@
 
     ul li {
         margin: 5px;
-        p {
+        a, p {
             display: inline-block;
             font-size: 16px;
+            text-decoration: none;
+            color: #000;
             height: 30px;
             line-height: 30px;
             padding-left: 10px;
@@ -22,13 +24,16 @@
             background-color: #6AE;
             border-radius: 25px;
         }
-        p:hover {
+        a:hover {
             background-color: #7BF;
+        }
+        a:active {
+            background-color: #8CF;
         }
         ul li {
             margin-right: 0px;
             margin-left: 30px;
-            p {
+            a {
                 display: block;
                 font-size: 14px;
             }
