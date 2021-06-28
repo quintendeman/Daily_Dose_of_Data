@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.scss';
 import Navigation from './Navigation/Navigation';
 import List from './List/List';
+import ListInformation from './List/ListInformation';
 import Stack from './Stack/Stack';
 import StackInformation from './Stack/StackInformation';
 import Queue from './Queue/Queue';
@@ -23,6 +24,7 @@ const App = () => {
 								</div>
 							</Route>
 							<Route exact path="/list">
+								<ListInformation />
 								<List />
 							</Route>
 							<Route exact path="/stack">
