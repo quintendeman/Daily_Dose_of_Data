@@ -3,6 +3,7 @@ import React from 'react';
 const StackInformation = () => {
     return (
         <div className="information">
+            <h1>Stack</h1>
             <p>A stack is an Abstract Data Type (ADT) that represents a linear data structure. Elements are stored in a sequential order depending on when they are added to the stack. Elements may only be added or removed from one end of the stack. Therefore a stack is a last-in-first-out (LIFO) data structure. When an element is removed from the stack, it must be the last element that was added onto the end. Likewise, the last element to be removed before the stack is empty would be the first element that was inserted.</p>
             <br />
             <p><u>A stack has the following basic operations:</u></p>
