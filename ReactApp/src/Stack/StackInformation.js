@@ -14,7 +14,7 @@ const StackInformation = () => {
             <br />
             <p><u>Since a stack is an ADT, it has multiple possible implementations:</u></p>
             <ul>
-                <li><b>Array Implementation:</b> An array is allocated with a certain capacity to represent the stack. The index of the current top of the stack is kept track of. The advantages of this implementation are its simplicity and low memory usage. The main disadvantage is that the size of the array cannot change so there is a limit to how much data can be stored. On the other hand, the space allocated may be way more than needed.</li>
+                <li><b>Array Implementation:</b> An array is allocated with a certain capacity to represent the stack. The index of the current top of the stack is kept track of. The advantages of this implementation are its simplicity and relatively low memory usage. The main disadvantage is that the size of the array cannot change so there is a limit to how much data can be stored. On the other hand, the space allocated may be way more than needed.</li>
                 <li><b>Linked List Implementation:</b> A linked list is created to represent the stack. Elements are added and removed from the head of the linked last. The advantage of this implementation is its ability to be resized at runtime, therefore only using as much memory as is needed. The disadvantage of this is that the pointers involved in linked lists use more memory than a simple array.</li>
             </ul>
             <br />

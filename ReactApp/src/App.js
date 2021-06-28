@@ -3,8 +3,9 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.scss';
 import Navigation from './Navigation/Navigation';
 import Stack from './Stack/Stack';
-import StackInformation from './Stack/StackInformation'
+import StackInformation from './Stack/StackInformation';
 import Queue from './Queue/Queue';
+import QueueInformation from './Queue/QueueInformation';
 
 const App = () => {
 		return (
@@ -20,6 +21,7 @@ const App = () => {
 								<Stack />	
 							</Route>
 							<Route path="/queue">
+								<QueueInformation />
 								<Queue />
 							</Route>
 						</Switch>
