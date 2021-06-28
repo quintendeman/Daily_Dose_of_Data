@@ -2,6 +2,17 @@ import React, { useState, useRef } from 'react';
 import './List.scss';
 import Element from '../Element/Element';
 
+const ListDisplay = (props) => {
+    return props.list.map((value, index) => {
+        return (
+            <div className="labeledElement">
+                <label>{index}</label>
+                <Element key={index} value={value}></Element>
+            </div>
+        );
+    });
+}
+
 //main react component for list
 const List = () => {
 
@@ -82,6 +93,7 @@ const List = () => {
                 </span>
             </div>
             <div className="visualization">
+                <ListDisplay list={list} />
             </div>
         </div>
     );
