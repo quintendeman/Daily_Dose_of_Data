@@ -8,6 +8,7 @@ import Stack from './Stack/Stack';
 import StackInformation from './Stack/StackInformation';
 import Queue from './Queue/Queue';
 import QueueInformation from './Queue/QueueInformation';
+import SelectionSort from './SelectionSort/SelectionSort';
 
 const App = () => {
 		return (
@@ -23,17 +24,20 @@ const App = () => {
 									<p>Home page</p>
 								</div>
 							</Route>
-							<Route exact path="/list">
+							<Route exact path="/List">
 								<ListInformation />
 								<List />
 							</Route>
-							<Route exact path="/stack">
+							<Route exact path="/Stack">
 								<StackInformation />
 								<Stack />	
 							</Route>
-							<Route exact path="/queue">
+							<Route exact path="/Queue">
 								<QueueInformation />
 								<Queue />
+							</Route>
+							<Route exact path="/Selection Sort">
+								<SelectionSort />
 							</Route>
 						</Switch>
 						</div>
