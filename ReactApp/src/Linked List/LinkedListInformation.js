@@ -15,6 +15,18 @@ const LinkedListInformation = () => {
 				<li><Link to="/Stack"><b>Stacks</b></Link></li>
 				<li><Link to="/Queue"><b>Queues</b></Link></li>
 			</ul>
+			<h2 style={{ textAlign: "center" }}><u>Time Complexities: </u></h2>
+			<table>
+				<tbody>
+					<tr><th>Insert at head</th><td><b>O(1)</b></td></tr>
+					<tr><th>Remove at head</th><td><b>O(1)</b></td></tr>
+					<tr><th>Get from head</th><td><b>O(1)</b></td></tr>
+					<tr><th>Insert at given Index</th><td><b>O(n)</b></td></tr>
+					<tr><th>Remove at given Index</th><td><b>O(n)</b></td></tr>
+					<tr><th>Get from given Index</th><td><b>O(n)</b></td></tr>
+					<tr><th>Indexing</th><td><b>O(n)</b></td></tr>
+				</tbody>
+			</table>
 
 		</div>
 		//TODO add more 
