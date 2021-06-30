@@ -16,6 +16,7 @@ class LinkedListClass {
         this.size = 0;
     }
 
+    //for insertion at tail -- currently unused
     insert(data) {
         if (this.head == null) {
             this.head = new Node(data);
@@ -64,6 +65,31 @@ class LinkedListClass {
         }
         return current.value;
     }
+
+    remove(index) {
+        var i = 0;
+        var curr, prev, next;
+        if (index < this.size && this.size > 0) {
+            if (index == 0) {
+                this.head = this.head.next;
+                this.size--;
+            }
+            else {
+                i++;
+                prev = this.head;
+                curr = prev.next;
+                next = curr.next;
+                while (i != index) {
+                    i++;
+                    prev = prev.next;
+                    curr = curr.next;
+                    next = next.next;
+                }
+                prev.next = next;
+                this.size--;
+            }
+        }
+    }
 }
 
 const LinkedListDisplay = (props) => {
@@ -71,11 +97,17 @@ const LinkedListDisplay = (props) => {
     var index = 0;
     var componentList = [];
     while (current != null) {
-        componentList.push(<Element key={index} value={current.value} />);
+        componentList.push(
+            <div key={index} className="labeledElement">
+                <label>{index}</label>
+                <Element value={current.value}></Element>
+                <p>&#x2192;</p>
+            </div>
+        );
         current = current.next;
         index++;
-        componentList.push(<p key={index}>&#x2192;</p>);
-        index++;
+        componentList.push();
+        
     }
     componentList.push(<Element key={index} value="null" />);
     return componentList;
@@ -116,6 +148,19 @@ const LinkedList = () => {
         if (index < list.size) {
             listOutput.current.value = list.get(index);
         }
+        else {
+            listOutput.current.value = "Invalid";
+        }
+        getIndex.current.value = null;
+    }
+
+    function remove() {
+        const index = parseInt(removeIndex.current.value);
+        if (!isNaN(index)) {
+            list.remove(index);
+            forceUpdate();
+        }
+        removeIndex.current.value = null;
     }
 
 
@@ -133,7 +178,7 @@ const LinkedList = () => {
                     <input id="insertValue" ref={insertValue} type="text"></input>
                 </span>
                 <br />
-                <button id="removeButton" >Remove</button>
+                <button onClick={ remove }id="removeButton" >Remove</button>
                 <span className="labeledInput">
                     <label>Index</label>
                     <input id="removeIndex" ref={removeIndex} type="text"></input>

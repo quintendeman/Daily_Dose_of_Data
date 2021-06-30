@@ -9,6 +9,8 @@ import StackInformation from './Stack/StackInformation';
 import Queue from './Queue/Queue';
 import QueueInformation from './Queue/QueueInformation';
 import SelectionSort from './SelectionSort/SelectionSort';
+import LinkedList from './Linked List/LinkedList';
+import LinkedListInformation from './Linked List/LinkedListInformation';
 
 const App = () => {
 		return (
@@ -36,6 +38,10 @@ const App = () => {
 								<QueueInformation />
 								<Queue />
 							</Route>
+								<Route exact path="/Linked List">
+									<LinkedListInformation/>
+									<LinkedList />
+								</Route>
 							<Route exact path="/Selection Sort">
 								<SelectionSort />
 							</Route>

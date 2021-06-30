@@ -9,7 +9,7 @@ const Navigation = () => {
         <div className="navigation">
             <ul>
                 <li><Link to="/">Home</Link></li>
-                <li><NavigationSection title={"Data Structures"} list={["List", "Stack", "Queue"]} /></li>
+                <li><NavigationSection title={"Data Structures"} list={["List", "Stack", "Queue", "Linked List"]} /></li>
                 <li><NavigationSection title={"Algorithms"} list={["Insertion Sort", "Selection Sort", "Bubble Sort", "Merge Sort", "Quick Sort"]} /></li>
                 <li><Link to="/about">About Us</Link></li>
             </ul>
