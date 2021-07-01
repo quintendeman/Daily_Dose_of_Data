@@ -28,9 +28,9 @@ const InsertionSort = () => {
     const [array,] = useState([3, 7, 2, -3, 0, 22, 5, 1, -8, 9]);
     const sorting = useRef(false);
     const interval = useRef(null);
-    const sortedEndIndex = useRef(1);
-    const currentFocus = useRef(0);
-    const currentCompare = useRef(0);
+    const sortedEndIndex = useRef(-1);
+    const currentFocus = useRef(-1);
+    const currentCompare = useRef(-1);
     const toggleSortingButton = useRef();
 
 
@@ -41,7 +41,7 @@ const InsertionSort = () => {
 
     //completes one step of the sorting algorithm
     const sortingStep = () => {
-
+        
         if (sortedEndIndex.current === array.length) {
             currentCompare.current = -1;
             currentFocus.current = -1;
@@ -74,8 +74,13 @@ const InsertionSort = () => {
                 currentCompare.current = currentFocus.current;
             }
         }
-       
-        currentCompare.current--;
+
+        if (currentFocus.current === -1) {
+            currentFocus.current++;
+            sortedEndIndex.current = 1;
+            currentCompare.current = currentFocus.current;
+        }
+        else currentCompare.current--;
 
     }
 
