@@ -11,6 +11,7 @@ import QueueInformation from './Queue/QueueInformation';
 import SelectionSort from './SelectionSort/SelectionSort';
 import LinkedList from './Linked List/LinkedList';
 import LinkedListInformation from './Linked List/LinkedListInformation';
+import InsertionSort from './Insertion Sort/InsertionSort';
 
 const App = () => {
 		return (
@@ -44,6 +45,9 @@ const App = () => {
 								</Route>
 							<Route exact path="/Selection Sort">
 								<SelectionSort />
+							</Route>
+							<Route exact path="/Insertion Sort">
+								<InsertionSort />
 							</Route>
 						</Switch>
 						</div>
