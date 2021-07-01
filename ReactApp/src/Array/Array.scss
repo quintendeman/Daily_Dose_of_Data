@@ -1,0 +1,85 @@
+.array {
+    p {
+        display: inline-block;
+        height: 60px;
+        line-height: 60px;
+    }
+
+    .labeledElement {
+        position: relative;
+        display: inline-block;
+
+        label {
+            position: absolute;
+            font-size: 10px;
+            padding: 12px;
+        }
+    }
+
+    display: flex;
+    align-items: center;
+    margin: 10px;
+
+    #insertButton {
+        background-color: #CFC;
+        width: 64px;
+    }
+
+    #removeButton {
+        background-color: #FCC;
+        width: 100px;
+    }
+
+    #getButton {
+        background-color: #EEE;
+        width: 100px;
+    }
+
+    #makeButton {
+        background-color: #ffd800;
+        width: 100px;
+    }
+
+    #insertButton:hover, #removeButton:hover, #getButton:hover, #makeButton:hover {
+        background-color: White;
+    }
+
+    #insertButton:active, #removeButton:active, #getButton:active, #makeButton:active {
+        background-color: Black;
+        color: White;
+    }
+
+    #insertIndex {
+        width: 63px;
+    }
+
+    #insertValue {
+        width: 63px;
+    }
+
+    #listOutput {
+        margin: 5px 60px;
+    }
+
+
+    .labeledInput {
+        position: relative;
+
+        label {
+            position: absolute;
+            font-size: 10px;
+            padding: 6px;
+        }
+    }
+
+    .labeledElement {
+        position: relative;
+        display: inline-block;
+
+        label {
+            position: absolute;
+            font-size: 10px;
+            padding: 12px;
+        }
+    }
+}

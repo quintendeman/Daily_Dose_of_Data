@@ -94,7 +94,7 @@ const InsertionSort = () => {
             interval.current = setInterval(() => {
                 sortingStep();
                 forceUpdate();
-            }, 200);
+            }, 100);
             sorting.current = true;
             toggleSortingButton.current.innerHTML = "Stop";
         }

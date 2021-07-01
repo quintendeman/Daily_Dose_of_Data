@@ -12,6 +12,7 @@ import SelectionSort from './SelectionSort/SelectionSort';
 import LinkedList from './Linked List/LinkedList';
 import LinkedListInformation from './Linked List/LinkedListInformation';
 import InsertionSort from './Insertion Sort/InsertionSort';
+import Array from './Array/Array';
 
 const App = () => {
 		return (
@@ -38,6 +39,9 @@ const App = () => {
 							<Route exact path="/Queue">
 								<QueueInformation />
 								<Queue />
+							</Route>
+							<Route exact path="/Array">
+								<Array />
 							</Route>
 								<Route exact path="/Linked List">
 									<LinkedListInformation/>
