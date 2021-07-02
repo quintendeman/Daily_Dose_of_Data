@@ -12,7 +12,7 @@ const BubbleSortDisplay = (props) => {
                 return <Element key={index} value={value} color="pink" border="bordered" />
             }
             if (index === props.max.current) {
-                return <Element key={index} value={value} color="green" border="bordered" />
+                return <Element key={index} value={value} color="yellow" border="bordered" />
             }
             else return <Element key={index} value={value} border="bordered" />
             
