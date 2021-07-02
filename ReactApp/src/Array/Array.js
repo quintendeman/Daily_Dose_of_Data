@@ -33,7 +33,8 @@ const Array = () => {
             while (size > 0) {
                 array.push(null);
                 size--;
-            }
+        }
+        arraySize.current.value = null;
             forceUpdate();
         
     }
@@ -41,7 +42,7 @@ const Array = () => {
     const insert = () => {
         const index = parseInt(insertIndex.current.value);
         const value = parseInt(insertValue.current.value);
-        if (!isNaN(index) && !isNaN(value) && index >= 0 && index <= array.length) {
+        if (!isNaN(index) && !isNaN(value) && index >= 0 && index < array.length) {
             array[index] = value;
             forceUpdate();
         } else {
@@ -56,10 +57,16 @@ const Array = () => {
         if (!isNaN(index) && index >= 0 && index < array.length) {
             const data = array[index];
             arrayOutput.current.value = data;
+            if (array[index] == null) {
+                arrayOutput.current.value = "Invalid";
+            }
             array[index] = null;
+            
             forceUpdate();
             
-        } else {
+        }
+        
+        else {
             arrayOutput.current.value = "Invalid";
         }
         removeIndex.current.value = null;
@@ -70,6 +77,9 @@ const Array = () => {
         if (!isNaN(index) && index >= 0 && index < array.length) {
             const data = array[index];
             arrayOutput.current.value = data;
+            if (array[index] == null) {
+                arrayOutput.current.value = "null";
+            }
         } else {
             arrayOutput.current.value = "Invalid";
         }

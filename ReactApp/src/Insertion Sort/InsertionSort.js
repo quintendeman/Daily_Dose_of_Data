@@ -3,7 +3,7 @@ import './InsertionSort.scss';
 import Element from '../Element/Element';
 
 
-const SelectionSortDisplay = (props) => {
+const InsertionSortDisplay = (props) => {
     return props.array.map((value, index) => {
         if (index === props.currentCompare && index === props.currentFocus)
             return <Element key={index} value={value} color="pink" border="bordered" />
@@ -107,7 +107,7 @@ const InsertionSort = () => {
                 <button ref={toggleSortingButton} onClick={toggleSorting}>Start</button>
             </div>
             <div className="visualization">
-                <SelectionSortDisplay array={array} sortedEndIndex={sortedEndIndex.current} currentFocus={currentFocus.current} currentCompare={currentCompare.current} />
+                <InsertionSortDisplay array={array} sortedEndIndex={sortedEndIndex.current} currentFocus={currentFocus.current} currentCompare={currentCompare.current} />
             </div>
         </div>
         );

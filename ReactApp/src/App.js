@@ -13,6 +13,7 @@ import LinkedList from './Linked List/LinkedList';
 import LinkedListInformation from './Linked List/LinkedListInformation';
 import InsertionSort from './Insertion Sort/InsertionSort';
 import Array from './Array/Array';
+import BubbleSort from './Bubble Sort/BubbleSort'
 
 const App = () => {
 		return (
@@ -52,6 +53,9 @@ const App = () => {
 							</Route>
 							<Route exact path="/Insertion Sort">
 								<InsertionSort />
+							</Route>
+							<Route exact path="/Bubble Sort">
+								<BubbleSort />
 							</Route>
 						</Switch>
 						</div>
