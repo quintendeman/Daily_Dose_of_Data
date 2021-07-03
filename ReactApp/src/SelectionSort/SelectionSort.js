@@ -102,6 +102,16 @@ const SelectionSort = () => {
             toggleSortingButton.current.classList.add("pinkButton");
         }
     }
+    //changes the animation speed of sorting when the slider changes
+    const updateSpeed = () => {
+        if (sorting.current) {
+            clearInterval(interval.current);
+            interval.current = setInterval(() => {
+                sortingStep();
+                forceUpdate();
+            }, 1000-speedSlider.current.value);
+        }
+    }
 
     return (
         <div className="selection-sort">
@@ -117,7 +127,7 @@ const SelectionSort = () => {
                     <br />
                     <span className="labeledSlider">
                         <label>Animation Speed</label>
-                        <input className="slider" ref={speedSlider} min="0" max="990" type="range"></input>
+                        <input className="slider" ref={speedSlider} onChange={updateSpeed} min="0" max="990" type="range"></input>
                     </span>
                 </div>
                 <div className="visualization">
