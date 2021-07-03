@@ -59,7 +59,7 @@ class LinkedListClass {
     get(index) {
         var i = 0;
         var current = this.head;
-        while (i != index) {
+        while (i !== index) {
             current = current.next;
             i++;
         }
@@ -70,7 +70,7 @@ class LinkedListClass {
         var i = 0;
         var curr, prev, next;
         if (index < this.size && this.size > 0) {
-            if (index == 0) {
+            if (index === 0) {
                 this.head = this.head.next;
                 this.size--;
             }
@@ -79,7 +79,7 @@ class LinkedListClass {
                 prev = this.head;
                 curr = prev.next;
                 next = curr.next;
-                while (i != index) {
+                while (i !== index) {
                     i++;
                     prev = prev.next;
                     curr = curr.next;

@@ -48,8 +48,8 @@ const InsertionSort = () => {
             return;
         }
         if (array[currentCompare.current] < array[currentFocus.current]) {
-            var temp = array[currentFocus.current];
-            for (var i = currentFocus.current - 1; i > currentCompare.current; i--) {
+            let temp = array[currentFocus.current];
+            for (let i = currentFocus.current - 1; i > currentCompare.current; i--) {
                 array[i + 1] = array[i];
             }
             array[currentCompare.current + 1] = temp;
@@ -60,8 +60,8 @@ const InsertionSort = () => {
         }
         if (currentCompare.current === 0) {
             if (array[currentCompare.current] > array[currentFocus.current]) {
-                var temp = array[currentFocus.current];
-                for (var i = currentFocus.current - 1; i >= currentCompare.current; i--) {
+                let temp = array[currentFocus.current];
+                for (let i = currentFocus.current - 1; i >= currentCompare.current; i--) {
                     array[i + 1] = array[i];
                 }
                 array[currentCompare.current] = temp;
