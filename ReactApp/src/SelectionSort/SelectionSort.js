@@ -108,11 +108,17 @@ const SelectionSort = () => {
             <div id="main">
                 <div className="controls">
                     <button id="generateArrayButton" ref={generateArrayButton} onClick={generateArray}>Random</button>
-                    <input id="arraySizeInput" ref={arraySizeInput} type="text"></input>
+                    <span className="labeledInput">
+                        <label>Array Size</label>
+                        <input id="arraySizeInput" ref={arraySizeInput} type="text"></input>
+                    </span>
                     <br />
                     <button id="toggleSortingButton" className="greenButton" ref={toggleSortingButton} onClick={toggleSorting}>Sort</button>
                     <br />
-                    <input className="slider" ref={speedSlider} min="0" max="990" type="range"></input>
+                    <span className="labeledSlider">
+                        <label>Animation Speed</label>
+                        <input className="slider" ref={speedSlider} min="0" max="990" type="range"></input>
+                    </span>
                 </div>
                 <div className="visualization">
                     <SelectionSortDisplay array={array} sortedEndIndex={sortedEndIndex.current} currentFocus={currentFocus.current} currentMinimum={currentMinimum.current} />

@@ -1,24 +1,14 @@
 .array {
+
+    display: flex;
+    align-items: center;
+    margin: 10px;
+
     p {
         display: inline-block;
         height: 60px;
         line-height: 60px;
     }
-
-    .labeledElement {
-        position: relative;
-        display: inline-block;
-
-        label {
-            position: absolute;
-            font-size: 10px;
-            padding: 12px;
-        }
-    }
-
-    display: flex;
-    align-items: center;
-    margin: 10px;
 
     #insertButton {
         background-color: #CFC;
@@ -61,25 +51,4 @@
         margin: 5px 60px;
     }
 
-
-    .labeledInput {
-        position: relative;
-
-        label {
-            position: absolute;
-            font-size: 10px;
-            padding: 6px;
-        }
-    }
-
-    .labeledElement {
-        position: relative;
-        display: inline-block;
-
-        label {
-            position: absolute;
-            font-size: 10px;
-            padding: 12px;
-        }
-    }
 }

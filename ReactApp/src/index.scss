@@ -30,6 +30,32 @@ input {
 	border: none;
 	vertical-align: top;
 }
+.labeledInput {
+	position: relative;
+	label {
+		position: absolute;
+		font-size: 10px;
+		padding: 6px;
+	}
+}
+.labeledElement {
+	position: relative;
+	display: inline-block;
+	label {
+		position: absolute;
+		font-size: 10px;
+		padding: 12px;
+	}
+}
+.labeledSlider {
+	position: relative;
+	label {
+		position: absolute;
+		font-size: 10px;
+		padding: 6px;
+		padding-left: 15px;
+	}
+}
 .information {
 	background-color:#EEE;
 	border-radius: 20px;
