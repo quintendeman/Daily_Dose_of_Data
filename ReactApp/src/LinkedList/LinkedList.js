@@ -98,18 +98,18 @@ const LinkedListDisplay = (props) => {
     var componentList = [];
     while (current != null) {
         componentList.push(
-            <div key={index} className="labeledElement">
+            <div key={2*index} className="labeledElement">
                 <label>{index}</label>
                 <Element value={current.value}></Element>
-                <p>&#x2192;</p>
             </div>
+        );
+        componentList.push(
+            <p className="arrow" key={2*index+1}>&#x2192;</p>
         );
         current = current.next;
         index++;
-        componentList.push();
-        
     }
-    componentList.push(<Element key={index} value="null" />);
+    componentList.push(<Element key={2*index} value="null" />);
     return componentList;
 
     
@@ -147,8 +147,7 @@ const LinkedList = () => {
         const index = parseInt(getIndex.current.value);
         if (index < list.size) {
             listOutput.current.value = list.get(index);
-        }
-        else {
+        } else {
             listOutput.current.value = "Invalid";
         }
         getIndex.current.value = null;
@@ -156,9 +155,12 @@ const LinkedList = () => {
 
     function remove() {
         const index = parseInt(removeIndex.current.value);
-        if (!isNaN(index)) {
+        if (!isNaN(index) && index < list.size) {
+            listOutput.current.value = list.get(index);
             list.remove(index);
             forceUpdate();
+        } else {
+            listOutput.current.value = "Invalid";
         }
         removeIndex.current.value = null;
     }
