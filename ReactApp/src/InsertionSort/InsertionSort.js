@@ -97,11 +97,26 @@ const InsertionSort = () => {
 
     return (
         <div className="insertion-sort">
-            <div className="controls">
-                <button ref={toggleSortingButton} onClick={toggleSorting}>Start</button>
+            <div id="main">
+                <div className="controls">
+                    <button ref={toggleSortingButton} onClick={toggleSorting}>Start</button>
+                </div>
+                <div className="visualization">
+                    <InsertionSortDisplay array={array} sortedEndIndex={sortedEndIndex.current} currentInserting={currentInserting.current} currentCompare={currentCompare.current} />
+                </div>
             </div>
-            <div className="visualization">
-                <InsertionSortDisplay array={array} sortedEndIndex={sortedEndIndex.current} currentInserting={currentInserting.current} currentCompare={currentCompare.current} />
+            <div className="legend">
+                <Element color="green"></Element>
+                <p>= Sorted</p>
+                < br />
+                <Element></Element>
+                <p>= Unsorted</p>
+                <br />
+                <Element color="yellow"></Element>
+                <p>= Current Element to be Inserted</p>
+                <br />
+                <Element color="green" border="bordered"></Element>
+                <p>= Current Focus</p>
             </div>
         </div>
         );

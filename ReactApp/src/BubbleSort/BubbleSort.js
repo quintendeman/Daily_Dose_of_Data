@@ -30,8 +30,8 @@ const BubbleSort = () => {
     const interval = useRef(null);
     const swappedOnPass = useRef(false);
     const sortedStart = useRef(array.length - 1);
-    const focusOne = useRef(0);
-    const focusTwo = useRef(1);
+    const focusOne = useRef(-1);
+    const focusTwo = useRef(-1);
     const min = useRef(-1);
     const max = useRef(-1);
     const toggleSortingButton = useRef();
@@ -50,6 +50,11 @@ const BubbleSort = () => {
     //completes one step of the sorting algorithm
     const sortingStep = () => {
         if (sortedStart.current <= 0) return;
+        if (focusOne.current === -1 && focusTwo.current === -1){
+            focusOne.current = 0;
+            focusTwo.current = 1;
+            return;
+        }
         if (max.current === sortedStart.current) {
             if (swappedOnPass.current === false) {
                 sortedStart.current = -1;
@@ -99,7 +104,7 @@ const BubbleSort = () => {
             interval.current = setInterval(() => {
                 sortingStep();
                 forceUpdate();
-            }, 100);
+            }, 1000);
             sorting.current = true;
             toggleSortingButton.current.innerHTML = "Stop";
         }
@@ -107,11 +112,29 @@ const BubbleSort = () => {
 
     return (
         <div className="bubble-sort">
-            <div className="controls">
-                <button ref={toggleSortingButton} onClick={toggleSorting}>Start</button>
+            <div id="main">
+                <div className="controls">
+                    <button ref={toggleSortingButton} onClick={toggleSorting}>Start</button>
+                </div>
+                <div className="visualization">
+                    <BubbleSortDisplay array={array} sortedStart={sortedStart} focusOne={focusOne} focusTwo={focusTwo} min={min} max={max}/>
+                </div>
             </div>
-            <div className="visualization">
-                <BubbleSortDisplay array={array} sortedStart={sortedStart} focusOne={focusOne} focusTwo={focusTwo} min={min} max={max}/>
+            <div className="legend">
+                <Element color="green"></Element>
+                <p>= Sorted</p>
+                < br />
+                <Element></Element>
+                <p>= Unsorted</p>
+                <br />
+                <Element border="bordered"></Element>
+                <p>= Current Focuses</p>
+                <br />
+                <Element color="pink"></Element>
+                <p>= Lesser of Focuses</p>
+                <br />
+                <Element color="yellow"></Element>
+                <p>= Greater of Focuses</p>
             </div>
         </div>);
 }

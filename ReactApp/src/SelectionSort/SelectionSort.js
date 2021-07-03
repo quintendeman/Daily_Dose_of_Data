@@ -134,7 +134,7 @@ const SelectionSort = () => {
                     <SelectionSortDisplay array={array} sortedEndIndex={sortedEndIndex.current} currentFocus={currentFocus.current} currentMinimum={currentMinimum.current} />
                 </div>
             </div>
-            <div id="legend">
+            <div className="legend">
                 <Element color="green"></Element>
                 <p>= Sorted</p>
                 < br />
