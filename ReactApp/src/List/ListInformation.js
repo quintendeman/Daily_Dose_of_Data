@@ -25,9 +25,9 @@ const ListInformation = () => {
                     <tr><th>Insert at head</th><td>O(n)</td><td><b>O(1)</b></td></tr>
                     <tr><th>Remove at head</th><td>O(n)</td><td><b>O(1)</b></td></tr>
                     <tr><th>Get from head</th><td>O(1)</td><td>O(1)</td></tr>
-                    <tr><th>Insert at given Index</th><td>O(n)</td><td>O(n)</td></tr>
-                    <tr><th>Remove at given Index</th><td>O(n)</td><td>O(n)</td></tr>
-                    <tr><th>Get from given Index</th><td><b>O(1)</b></td><td>O(n)</td></tr>
+                    <tr><th>Insert at given index</th><td>O(n)</td><td>O(n)</td></tr>
+                    <tr><th>Remove at given index</th><td>O(n)</td><td>O(n)</td></tr>
+                    <tr><th>Get from given index</th><td><b>O(1)</b></td><td>O(n)</td></tr>
                 </tbody>
             </table>
         </div>

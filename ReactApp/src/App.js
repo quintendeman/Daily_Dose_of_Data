@@ -9,11 +9,11 @@ import StackInformation from './Stack/StackInformation';
 import Queue from './Queue/Queue';
 import QueueInformation from './Queue/QueueInformation';
 import SelectionSort from './SelectionSort/SelectionSort';
-import LinkedList from './Linked List/LinkedList';
-import LinkedListInformation from './Linked List/LinkedListInformation';
-import InsertionSort from './Insertion Sort/InsertionSort';
+import LinkedList from './LinkedList/LinkedList';
+import LinkedListInformation from './LinkedList/LinkedListInformation';
+import InsertionSort from './InsertionSort/InsertionSort';
 import Array from './Array/Array';
-import BubbleSort from './Bubble Sort/BubbleSort'
+import BubbleSort from './BubbleSort/BubbleSort'
 
 const App = () => {
 		return (
