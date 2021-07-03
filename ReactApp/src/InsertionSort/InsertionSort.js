@@ -5,19 +5,18 @@ import Element from '../Element/Element';
 
 const InsertionSortDisplay = (props) => {
     return props.array.map((value, index) => {
-        if (index === props.currentCompare && index === props.currentFocus)
-            return <Element key={index} value={value} color="pink" border="bordered" />
+        if (index === props.currentCompare && index === props.currentInserting)
+            return <Element key={index} value={value} color="yellow" border="bordered" />
 
         if (index === props.currentCompare)
             return <Element key={index} value={value} color="green" border="bordered" />
 
-        
+        if (index === props.currentInserting)
+            return <Element key={index} value={value} color="yellow" />
+
         if (index < props.sortedEndIndex)
             return <Element key={index} value={value} color="green" />
 
-
-        if (index === props.currentFocus)
-            return <Element key={index} value={value} color="pink" />
         return <Element key={index} value={value} />
     });
 }
@@ -25,11 +24,11 @@ const InsertionSortDisplay = (props) => {
 const InsertionSort = () => {
 
     const [, forceRender] = useState(0);
-    const [array,] = useState([3, 7, 2, -3, 0, 22, 5, 1, -8, 9]);
+    const [array,] = useState([3, 1, 2, -3, 0, 22, 5, 1, -8, 9]);
     const sorting = useRef(false);
     const interval = useRef(null);
     const sortedEndIndex = useRef(-1);
-    const currentFocus = useRef(-1);
+    const currentInserting = useRef(-1);
     const currentCompare = useRef(-1);
     const toggleSortingButton = useRef();
 
@@ -42,45 +41,40 @@ const InsertionSort = () => {
     //completes one step of the sorting algorithm
     const sortingStep = () => {
         
-        if (sortedEndIndex.current === array.length) {
+        if (sortedEndIndex.current === array.length+1) {
             currentCompare.current = -1;
-            currentFocus.current = -1;
-            return;
+            currentInserting.current = -1;
         }
-        if (array[currentCompare.current] < array[currentFocus.current]) {
-            let temp = array[currentFocus.current];
-            for (let i = currentFocus.current - 1; i > currentCompare.current; i--) {
+        //if found lower element, insert current after that, restart process
+        else if (array[currentCompare.current] < array[currentInserting.current]) {
+            let temp = array[currentInserting.current];
+            for (let i = currentInserting.current - 1; i > currentCompare.current; i--) {
                 array[i + 1] = array[i];
             }
             array[currentCompare.current + 1] = temp;
-            currentFocus.current++;
-            currentCompare.current = currentFocus.current + 1;
+            currentInserting.current++;
+            currentCompare.current = currentInserting.current;
             sortedEndIndex.current++;
-
         }
-        if (currentCompare.current === 0) {
-            if (array[currentCompare.current] > array[currentFocus.current]) {
-                let temp = array[currentFocus.current];
-                for (let i = currentFocus.current - 1; i >= currentCompare.current; i--) {
-                    array[i + 1] = array[i];
-                }
-                array[currentCompare.current] = temp;
-                currentFocus.current++;
-                currentCompare.current = currentFocus.current + 1;
-                sortedEndIndex.current++;
+        //if at end of sorted and none lower found, insert at beginning, restart process
+        else if (currentCompare.current === 0) {
+            let temp = array[currentInserting.current];
+            for (let i = currentInserting.current - 1; i >= currentCompare.current; i--) {
+                array[i + 1] = array[i];
             }
-            else {
-                currentFocus.current++;
-                currentCompare.current = currentFocus.current;
-            }
+            array[currentCompare.current] = temp;
+            currentInserting.current++;
+            currentCompare.current = currentInserting.current;
+            sortedEndIndex.current++;
         }
-
-        if (currentFocus.current === -1) {
-            currentFocus.current++;
+        else if (currentInserting.current === -1) {
+            currentInserting.current++;
             sortedEndIndex.current = 1;
-            currentCompare.current = currentFocus.current;
+            currentCompare.current = currentInserting.current;
         }
-        else currentCompare.current--;
+        else {
+            currentCompare.current--;
+        }
 
     }
 
@@ -94,7 +88,7 @@ const InsertionSort = () => {
             interval.current = setInterval(() => {
                 sortingStep();
                 forceUpdate();
-            }, 100);
+            }, 500);
             sorting.current = true;
             toggleSortingButton.current.innerHTML = "Stop";
         }
@@ -107,7 +101,7 @@ const InsertionSort = () => {
                 <button ref={toggleSortingButton} onClick={toggleSorting}>Start</button>
             </div>
             <div className="visualization">
-                <InsertionSortDisplay array={array} sortedEndIndex={sortedEndIndex.current} currentFocus={currentFocus.current} currentCompare={currentCompare.current} />
+                <InsertionSortDisplay array={array} sortedEndIndex={sortedEndIndex.current} currentInserting={currentInserting.current} currentCompare={currentCompare.current} />
             </div>
         </div>
         );
