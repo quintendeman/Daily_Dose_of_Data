@@ -5,20 +5,21 @@ Lists
 	(Stack)
 	(Queue)
 	Array
-	Matrix
 	Array List
 	Linked List
 	Doubly Linked List
-	Circular Linked List
 	Skip List
 Trees
 	(Tree)
 	Binary Tree
 	Binary Search Tree
+	Cartesian Tree
+	Splay Tree
 	AVL Tree
 	Red-Black Tree
+	KD Tree
 	Binary Heap
-	Priority Queue
+	(Priority Queue)
 	Trie
 	B-Tree
 Graphs
@@ -60,12 +61,5 @@ Graphs
 	Kruscal's Algorithm (MST)
 	Boruvka's Algorithm (MST)
 	Djikstra's Algorithm (SPT)
+	A* Algorithm
 	Shortest Path in a DAG
-Other (May get to last)
-	D&C Exponentiation
-	D&C Matrix Multiplication
-	Strassen's Matrix Multiplication
-	D&C Median of 2 Sorted Arrays
-	DP Edit Distance
-	DP Knapsack Problem
-	DP Fibonacci Sequence
