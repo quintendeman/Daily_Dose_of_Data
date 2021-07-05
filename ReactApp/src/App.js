@@ -8,6 +8,7 @@ import Stack from './Stack/Stack';
 import StackInformation from './Stack/StackInformation';
 import Queue from './Queue/Queue';
 import QueueInformation from './Queue/QueueInformation';
+import BinaryTree from './BinaryTree/BinaryTree';
 import SelectionSort from './SelectionSort/SelectionSort';
 import LinkedList from './LinkedList/LinkedList';
 import LinkedListInformation from './LinkedList/LinkedListInformation';
@@ -52,7 +53,7 @@ const App = () => {
 
 							</Route>
 							<Route exact path="/Tree">
-
+								<BinaryTree />
 							</Route>
 							<Route exact path="/Graph">
 

@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import './LinkedList.scss';
 import Element from '../Element/Element';
 
-
 class Node {
     constructor(value) {
         this.value = value;
@@ -165,10 +164,8 @@ const LinkedList = () => {
         removeIndex.current.value = null;
     }
 
-
     return (
         <div className="linked-list">
-
             <div className="controls">
                 <button id="insertButton" onClick={insert}>Insert</button>
                 <span className="labeledInput">
@@ -199,8 +196,8 @@ const LinkedList = () => {
                 <LinkedListDisplay list={list} />
             </div>
         </div>
-        
-        );
+    );
+
 }
 
-export default LinkedList
+export default LinkedList;
