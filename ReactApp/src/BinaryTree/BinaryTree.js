@@ -22,7 +22,7 @@ class BinaryTreeClass {
 const BinaryTreeLevel = (props) => {
     return props.list.map((node, index) => {
         if (node === null)
-            return <Element key={index} value={""} />;
+            return <Element key={index} value={""} color={"none"} />;
         else
             return <Element key={index} value={node.value} />;
     });
@@ -56,11 +56,10 @@ const BinaryTreeDisplay = (props) => {
                 nextQueue.push(currQueue[i].left);
                 nextQueue.push(currQueue[i].right);
             }
-            console.log(currQueue);
         }
         levelComponents.push(
-            <div className="binary-tree-level">
-                <BinaryTreeLevel key={levelComponents.length} list={currQueue} />
+            <div key={levelComponents.length} className="binary-tree-level">
+                <BinaryTreeLevel list={currQueue} />
             </div>
         );
     }
@@ -76,6 +75,10 @@ exampleTree.root.left.right = new BinaryTreeNode(27);
 exampleTree.root.right.left = new BinaryTreeNode(-42);
 exampleTree.root.right.right = new BinaryTreeNode(0);
 exampleTree.root.right.left.right = new BinaryTreeNode(18);
+exampleTree.root.left.right.right = new BinaryTreeNode(-36);
+exampleTree.root.left.right.left = new BinaryTreeNode(2);
+exampleTree.root.left.left.left = new BinaryTreeNode(-5);
+exampleTree.root.right.right.right = new BinaryTreeNode(-17);
 
 //main react component for binary tree
 const BinaryTree = () => {
