@@ -12,6 +12,13 @@
         width: 100px;
         background-color: #EEE;
     }
+    #toggleSortingButton:hover, #generateArrayButton:hover {
+		background-color: White;
+	}
+	#toggleSortingButton:active, #generateArrayButton:active {
+		background-color: Black;
+		color: White;
+	}
     .greenButton {
         background-color: #CFC;
     }

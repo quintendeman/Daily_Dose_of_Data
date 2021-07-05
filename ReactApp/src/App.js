@@ -44,10 +44,25 @@ const App = () => {
 							<Route exact path="/Array">
 								<Array />
 							</Route>
-								<Route exact path="/Linked List">
-									<LinkedListInformation/>
-									<LinkedList />
-								</Route>
+							<Route exact path="/Linked List">
+								<LinkedListInformation/>
+								<LinkedList />
+							</Route>
+							<Route exact path="/Array List">
+
+							</Route>
+							<Route exact path="/Tree">
+
+							</Route>
+							<Route exact path="/Graph">
+
+							</Route>
+							<Route exact path="/Set">
+
+							</Route>
+							<Route exact path="/Map">
+								
+							</Route>
 							<Route exact path="/Selection Sort">
 								<SelectionSort />
 							</Route>
@@ -56,6 +71,12 @@ const App = () => {
 							</Route>
 							<Route exact path="/Bubble Sort">
 								<BubbleSort />
+							</Route>
+							<Route exact path="/Merge Sort">
+
+							</Route>
+							<Route exact path="/Quick Sort">
+
 							</Route>
 						</Switch>
 						</div>

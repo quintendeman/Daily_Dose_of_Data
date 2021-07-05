@@ -62,4 +62,5 @@ Graphs
 	Boruvka's Algorithm (MST)
 	Djikstra's Algorithm (SPT)
 	A* Algorithm
+	Topological Sort
 	Shortest Path in a DAG
