@@ -25,7 +25,8 @@ const BubbleSortDisplay = (props) => {
 
 const BubbleSort = () => {
     const [, forceRender] = useState(0);
-    const [array,] = useState([3, 7, 2, -3, 0, 22, 5, 1, -8, 9]);
+    const [array, setArray] = useState([]);
+    const [sorted, setSorted] = useState(false);
     const sorting = useRef(false);
     const interval = useRef(null);
     const swappedOnPass = useRef(false);
@@ -35,10 +36,40 @@ const BubbleSort = () => {
     const min = useRef(-1);
     const max = useRef(-1);
     const toggleSortingButton = useRef();
+    const generateArrayButton = useRef();
+    const arraySizeInput = useRef();
+    const speedSlider = useRef();
     
     //We call update on fake state variable to force rerender
     const forceUpdate = () => {
         forceRender(renders => renders + 1);
+    }
+    //initializes a random array for sorting
+    const generateArray = () => {
+        if (sorting.current) {
+            toggleSorting();
+        }
+        const size = parseInt(arraySizeInput.current.value);
+        if (!isNaN(size) && size > 0) {
+            var newArray = new Array(size);
+            for (let i = 0; i < size; i++) {
+                newArray[i] = randInt(-999, 1000);
+            }
+            setArray(newArray);
+            setSorted(false);
+            sortedStart.current = newArray.length - 1;
+            focusOne.current = -1;
+            focusTwo.current = -1;
+            min.current = -1;
+            max.current = -1
+            //swappedOnPass.current = false;
+            //sorting.current = false;
+            //currentMinimum.current = -1;
+        }
+        arraySizeInput.current.value = null;
+    }
+    const randInt = (min, max) => {
+        return Math.floor(Math.random() * (max - min) + min);
     }
 
     function swap(arr, x, y) {
@@ -49,13 +80,22 @@ const BubbleSort = () => {
 
     //completes one step of the sorting algorithm
     const sortingStep = () => {
-        if (sortedStart.current <= 0) return;
+        if (max.current === 1 && sortedStart.current === 1) {
+            sortedStart.current = -1;
+            return;
+        }
+
+        if (sortedStart.current <= 0) {
+            setSorted(true);
+            toggleSorting();
+            return;
+        }
         if (focusOne.current === -1 && focusTwo.current === -1){
             focusOne.current = 0;
             focusTwo.current = 1;
             return;
         }
-        if (max.current === sortedStart.current) {
+        if (max.current >= sortedStart.current) {
             if (swappedOnPass.current === false) {
                 sortedStart.current = -1;
             }
@@ -66,6 +106,7 @@ const BubbleSort = () => {
             focusTwo.current = 1;
             swappedOnPass.current = false;
             sortedStart.current--;
+            
         }
         if (min.current === -1) {
             if (array[focusOne.current] < array[focusTwo.current]) {
@@ -83,14 +124,15 @@ const BubbleSort = () => {
             var temp = max.current;
             max.current = min.current;
             min.current = temp;
-
         } 
         else {
             min.current = -1;
             max.current = -1;
             focusOne.current++;
             focusTwo.current++;
+            
         }
+        
     }
 
     //function to turn sorting on and off by button click
@@ -98,15 +140,30 @@ const BubbleSort = () => {
         if (sorting.current) {
             clearInterval(interval.current);
             sorting.current = false;
-            toggleSortingButton.current.innerHTML = "Start";
+            toggleSortingButton.current.innerHTML = "Sort";
+            toggleSortingButton.current.classList.remove("pinkButton");
+            toggleSortingButton.current.classList.add("greenButton");
         }
         else {
             interval.current = setInterval(() => {
                 sortingStep();
                 forceUpdate();
-            }, 1000);
+            }, 1000 - speedSlider.current.value);
             sorting.current = true;
             toggleSortingButton.current.innerHTML = "Stop";
+            toggleSortingButton.current.classList.remove("greenButton");
+            toggleSortingButton.current.classList.add("pinkButton");
+        }
+    }
+
+    //changes the animation speed of sorting when the slider changes
+    const updateSpeed = () => {
+        if (sorting.current) {
+            clearInterval(interval.current);
+            interval.current = setInterval(() => {
+                sortingStep();
+                forceUpdate();
+            }, 1000 - speedSlider.current.value);
         }
     }
 
@@ -114,7 +171,18 @@ const BubbleSort = () => {
         <div className="bubble-sort">
             <div id="main">
                 <div className="controls">
-                    <button ref={toggleSortingButton} onClick={toggleSorting}>Start</button>
+                    <button id="generateArrayButton" ref={generateArrayButton} onClick={generateArray}>Random</button>
+                    <span className="labeledInput">
+                        <label>Array Size</label>
+                        <input id="arraySizeInput" ref={arraySizeInput} type="text"></input>
+                    </span>
+                    <br />
+                    <button id="toggleSortingButton" className="greenButton" ref={toggleSortingButton} onClick={toggleSorting}>Sort</button>
+                    <br />
+                    <span className="labeledSlider">
+                        <label>Animation Speed</label>
+                        <input className="slider" ref={speedSlider} onChange={updateSpeed} min="0" max="990" type="range"></input>
+                    </span>
                 </div>
                 <div className="visualization">
                     <BubbleSortDisplay array={array} sortedStart={sortedStart} focusOne={focusOne} focusTwo={focusTwo} min={min} max={max}/>

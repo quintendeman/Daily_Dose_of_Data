@@ -24,13 +24,17 @@ const InsertionSortDisplay = (props) => {
 const InsertionSort = () => {
 
     const [, forceRender] = useState(0);
-    const [array,] = useState([3, 1, 2, -3, 0, 22, 5, 1, -8, 9]);
+    const [array, setArray] = useState([]);
+    const [sorted, setSorted] = useState(false);
     const sorting = useRef(false);
     const interval = useRef(null);
     const sortedEndIndex = useRef(-1);
     const currentInserting = useRef(-1);
     const currentCompare = useRef(-1);
     const toggleSortingButton = useRef();
+    const generateArrayButton = useRef();
+    const arraySizeInput = useRef();
+    const speedSlider = useRef();
 
 
     //We call update on fake state variable to force rerender
@@ -38,10 +42,35 @@ const InsertionSort = () => {
         forceRender(renders => renders + 1);
     }
 
+    //initializes a random array for sorting
+    const generateArray = () => {
+        if (sorting.current) {
+            toggleSorting();
+        }
+        const size = parseInt(arraySizeInput.current.value);
+        if (!isNaN(size) && size > 0) {
+            var newArray = new Array(size);
+            for (let i = 0; i < size; i++) {
+                newArray[i] = randInt(-999, 1000);
+            }
+            setArray(newArray);
+            setSorted(false);
+            sortedEndIndex.current = -1;
+            currentInserting.current = -1;
+            currentCompare.current = -1;
+        }
+        arraySizeInput.current.value = null;
+    }
+    const randInt = (min, max) => {
+        return Math.floor(Math.random() * (max - min) + min);
+    }
+
     //completes one step of the sorting algorithm
     const sortingStep = () => {
         
-        if (sortedEndIndex.current === array.length+1) {
+        if (sortedEndIndex.current === array.length) {
+            setSorted(true);
+            toggleSorting();
             currentCompare.current = -1;
             currentInserting.current = -1;
         }
@@ -83,14 +112,28 @@ const InsertionSort = () => {
         if (sorting.current) {
             clearInterval(interval.current);
             sorting.current = false;
-            toggleSortingButton.current.innerHTML = "Start";
+            toggleSortingButton.current.innerHTML = "Sort";
+            toggleSortingButton.current.classList.remove("pinkButton");
+            toggleSortingButton.current.classList.add("greenButton");
         } else {
             interval.current = setInterval(() => {
                 sortingStep();
                 forceUpdate();
-            }, 500);
+            }, 1000 - speedSlider.current.value);
             sorting.current = true;
             toggleSortingButton.current.innerHTML = "Stop";
+            toggleSortingButton.current.classList.remove("greenButton");
+            toggleSortingButton.current.classList.add("pinkButton");
+        }
+    }
+    //changes the animation speed of sorting when the slider changes
+    const updateSpeed = () => {
+        if (sorting.current) {
+            clearInterval(interval.current);
+            interval.current = setInterval(() => {
+                sortingStep();
+                forceUpdate();
+            }, 1000 - speedSlider.current.value);
         }
     }
 
@@ -99,7 +142,18 @@ const InsertionSort = () => {
         <div className="insertion-sort">
             <div id="main">
                 <div className="controls">
-                    <button ref={toggleSortingButton} onClick={toggleSorting}>Start</button>
+                    <button id="generateArrayButton" ref={generateArrayButton} onClick={generateArray}>Random</button>
+                    <span className="labeledInput">
+                        <label>Array Size</label>
+                        <input id="arraySizeInput" ref={arraySizeInput} type="text"></input>
+                    </span>
+                    <br />
+                    <button id="toggleSortingButton" className="greenButton" ref={toggleSortingButton} onClick={toggleSorting}>Sort</button>
+                    <br />
+                    <span className="labeledSlider">
+                        <label>Animation Speed</label>
+                        <input className="slider" ref={speedSlider} onChange={updateSpeed} min="0" max="990" type="range"></input>
+                    </span>
                 </div>
                 <div className="visualization">
                     <InsertionSortDisplay array={array} sortedEndIndex={sortedEndIndex.current} currentInserting={currentInserting.current} currentCompare={currentCompare.current} />
