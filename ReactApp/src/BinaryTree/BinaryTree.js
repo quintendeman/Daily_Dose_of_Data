@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './BinaryTree.scss';
 import Element from '../Element/Element';
 
@@ -34,7 +34,7 @@ const BinaryTreeLineLevel = (props) => {
     for (let i = 0; i < props.list.length; i++) {
         if (props.list[i] === null)
             lines.push(<div key={lines.length} className="binary-tree-line-none"></div>);
-        else if (i % 2 == 0)
+        else if (i % 2 === 0)
             lines.push(<div key={lines.length} className="binary-tree-line-left"></div>);
         else
             lines.push(<div key={lines.length} className="binary-tree-line-right"></div>);
@@ -46,19 +46,11 @@ const BinaryTreeLineLevel = (props) => {
 //react component to display the tree
 const BinaryTreeDisplay = (props) => {
     var levelComponents = [];
-    var nextQueue = [props.tree.root];
+    var nextQueue = [];
+    if (props.tree !== null)
+        nextQueue.push(props.tree.root);
     var currQueue = [];
     while (true) {
-        //break loop if entire level is null
-        var allNull = true;
-        for (let i = 0; i < nextQueue.length; i++) {
-            if (nextQueue[i] !== null) {
-                allNull = false;
-            }
-        }
-        if (allNull) {
-            break;
-        }
         //continue breadth-first traversal creating BinaryTreeLevel component every iteration
         currQueue = nextQueue;
         nextQueue = [];
@@ -72,11 +64,23 @@ const BinaryTreeDisplay = (props) => {
                 nextQueue.push(currQueue[i].right);
             }
         }
+        //add a level of nodes
         levelComponents.push(
             <div key={levelComponents.length} className="binary-tree-level">
                 <BinaryTreeLevel list={currQueue} />
             </div>
         );
+        //break loop if entire level is null
+        var allNull = true;
+        for (let i = 0; i < nextQueue.length; i++) {
+            if (nextQueue[i] !== null) {
+                allNull = false;
+            }
+        }
+        if (allNull) {
+            break;
+        }
+        //add a level of lines to the next level
         levelComponents.push(
             <div key={levelComponents.length} className="binary-tree-line-level">
                 <BinaryTreeLineLevel list={nextQueue} />
@@ -87,34 +91,45 @@ const BinaryTreeDisplay = (props) => {
     return levelComponents;
 }
 
-var exampleTree = new BinaryTreeClass(new BinaryTreeNode(10));
-exampleTree.root.left = new BinaryTreeNode(7);
-exampleTree.root.right = new BinaryTreeNode(-3);
-exampleTree.root.left.left = new BinaryTreeNode(13);
-exampleTree.root.left.right = new BinaryTreeNode(27);
-exampleTree.root.right.left = new BinaryTreeNode(-42);
-exampleTree.root.right.right = new BinaryTreeNode(0);
-exampleTree.root.right.left.right = new BinaryTreeNode(18);
-exampleTree.root.left.right.right = new BinaryTreeNode(-36);
-exampleTree.root.left.right.left = new BinaryTreeNode(2);
-exampleTree.root.left.left.left = new BinaryTreeNode(-5);
-exampleTree.root.right.right.right = new BinaryTreeNode(-17);
-
 //main react component for binary tree
 const BinaryTree = () => {
 
-    const [tree, ] = useState(exampleTree);
-    const [, forceRender] = useState(0);
-
-    //We call update on fake state variable to force rerender
-    const forceUpdate = () => {
-        forceRender(renders => renders + 1);
+    const [tree, setTree] = useState(null);
+    
+    //function to generate random tree
+    const randomTree = () => {
+        var newNodeChance = 0.9;
+        var levels = randInt(1,5);
+        var newTree = new BinaryTreeClass(new BinaryTreeNode(randInt(-999,1000)));
+        var nodes = [newTree.root];
+        var newNodes = [];
+        for (let level = 1; level <= levels; level++) {
+            for (let i = 0; i < nodes.length; i++) {
+                if (Math.random() < Math.pow(newNodeChance, level)) {
+                    nodes[i].left = new BinaryTreeNode(randInt(-999,1000));
+                    newNodes.push(nodes[i].left);
+                }
+                if (Math.random() < Math.pow(newNodeChance, level)) {
+                    nodes[i].right = new BinaryTreeNode(randInt(-999,1000));
+                    newNodes.push(nodes[i].right);
+                }
+            }
+            nodes = newNodes;
+            newNodes = [];
+        }
+        setTree(newTree);
     }
+    const randInt = (min, max) => {
+        return Math.floor(Math.random() * (max-min) + min);
+    }
+
+    //initialize tree to a random tree
+    useEffect(randomTree, []);
 
     return (
         <div className="binary-tree">
             <div className="controls">
-                <button></button>
+                <button onClick={randomTree}>Random</button>
             </div>
             <div className="visualization">
                 <BinaryTreeDisplay tree={tree} />
