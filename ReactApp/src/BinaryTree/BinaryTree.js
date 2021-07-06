@@ -28,6 +28,21 @@ const BinaryTreeLevel = (props) => {
     });
 }
 
+//react component for lines between binary tree nodes
+const BinaryTreeLineLevel = (props) => {
+    var lines = [];
+    for (let i = 0; i < props.list.length; i++) {
+        if (props.list[i] === null)
+            lines.push(<div key={lines.length} className="binary-tree-line-none"></div>);
+        else if (i % 2 == 0)
+            lines.push(<div key={lines.length} className="binary-tree-line-left"></div>);
+        else
+            lines.push(<div key={lines.length} className="binary-tree-line-right"></div>);
+        
+    }
+    return lines;
+}
+
 //react component to display the tree
 const BinaryTreeDisplay = (props) => {
     var levelComponents = [];
@@ -60,6 +75,11 @@ const BinaryTreeDisplay = (props) => {
         levelComponents.push(
             <div key={levelComponents.length} className="binary-tree-level">
                 <BinaryTreeLevel list={currQueue} />
+            </div>
+        );
+        levelComponents.push(
+            <div key={levelComponents.length} className="binary-tree-line-level">
+                <BinaryTreeLineLevel list={nextQueue} />
             </div>
         );
     }
