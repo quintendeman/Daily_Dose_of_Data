@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import './SelectionSort.scss';
 import Element from '../Element/Element';
 
@@ -36,18 +36,14 @@ const SelectionSort = () => {
 		forceRender(renders => renders+1);
 	}
 
-    //initializes a random array for sorting
+    //sets state array to a random array for sorting
     const generateArray = () => {
         if (sorting.current) {
             toggleSorting();
         }
         const size = parseInt(arraySizeInput.current.value);
         if (!isNaN(size) && size > 0) {
-            var newArray = new Array(size);
-            for (let i = 0; i < size; i++) {
-                newArray[i] = randInt(-999,1000);
-            }
-            setArray(newArray);
+            setArray(randomArray(size));
             setSorted(false);
             sortedEndIndex.current = 0;
             currentFocus.current = -1;
@@ -55,13 +51,26 @@ const SelectionSort = () => {
         }
         arraySizeInput.current.value = null;
     }
+    //generates a random array within reasonable bounds
+    const randomArray = useCallback((size) => {
+        var newArray = new Array(size);
+            for (let i = 0; i < size; i++) {
+                newArray[i] = randInt(-999, 1000);
+            }
+        return newArray;
+    }, []);
     const randInt = (min, max) => {
         return Math.floor(Math.random() * (max-min) + min);
     }
 
+    //initialize the array randomly at start
+    useEffect(() => {
+        setArray(randomArray(randInt(5,50)));
+    }, [randomArray]);
+
     //completes one step of the sorting algorithm
     const sortingStep = () => {
-        if (sortedEndIndex.current === array.length) {
+        if (sortedEndIndex.current >= array.length) {
             setSorted(true);
             toggleSorting();
             return;

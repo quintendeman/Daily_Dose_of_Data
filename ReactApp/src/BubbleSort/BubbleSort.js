@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import './BubbleSort.scss';
 import Element from '../Element/Element';
 
@@ -44,20 +44,17 @@ const BubbleSort = () => {
     const forceUpdate = () => {
         forceRender(renders => renders + 1);
     }
-    //initializes a random array for sorting
+
+    //sets state array to a random array for sorting
     const generateArray = () => {
         if (sorting.current) {
             toggleSorting();
         }
         const size = parseInt(arraySizeInput.current.value);
         if (!isNaN(size) && size > 0) {
-            var newArray = new Array(size);
-            for (let i = 0; i < size; i++) {
-                newArray[i] = randInt(-999, 1000);
-            }
-            setArray(newArray);
+            setArray(randomArray(size));
             setSorted(false);
-            sortedStart.current = newArray.length - 1;
+            sortedStart.current = size - 1;
             focusOne.current = -1;
             focusTwo.current = -1;
             min.current = -1;
@@ -68,9 +65,23 @@ const BubbleSort = () => {
         }
         arraySizeInput.current.value = null;
     }
+    //generates a random array within reasonable bounds
+    const randomArray = useCallback((size) => {
+        var newArray = new Array(size);
+            for (let i = 0; i < size; i++) {
+                newArray[i] = randInt(-999, 1000);
+            }
+        sortedStart.current = size - 1;
+        return newArray;
+    }, []);
     const randInt = (min, max) => {
-        return Math.floor(Math.random() * (max - min) + min);
+        return Math.floor(Math.random() * (max-min) + min);
     }
+
+    //initialize the array randomly at start
+    useEffect(() => {
+        setArray(randomArray(randInt(5,50)));
+    }, [randomArray]);
 
     function swap(arr, x, y) {
         var temp = arr[x];
@@ -144,7 +155,7 @@ const BubbleSort = () => {
             toggleSortingButton.current.classList.remove("pinkButton");
             toggleSortingButton.current.classList.add("greenButton");
         }
-        else {
+        else if (!sorted) {
             interval.current = setInterval(() => {
                 sortingStep();
                 forceUpdate();
