@@ -38,11 +38,11 @@ const Stack = () => {
     useEffect(randomStack, []);
 	
 	const push = () => {
-		const data = parseInt(stackInput.current.value);
-		if (!isNaN(data)) {
-			stack.push(data);
-			forceUpdate();
-		}
+		var data = parseInt(stackInput.current.value);
+		if(isNaN(data))
+            data = 0;
+		stack.push(data);
+		forceUpdate();
 		stackInput.current.value = null;
 	}
 	

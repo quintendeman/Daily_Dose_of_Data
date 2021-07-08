@@ -50,18 +50,18 @@ const Array = () => {
     useEffect(randomArray, []);
 
     const build = () => {
-        array.length = 0;
-            var size = arraySize.current.value;
+        var newArray = [];
+            var size = parseInt(arraySize.current.value);
+            if(isNaN(size))
+                size = randInt(10, 60);
             while (size > 0) {
-                array.push(null);
+                newArray.push(null);
                 size--;
         }
-        arraySize.current.value = null;
-            forceUpdate();
-        
+        setArray(newArray);
     }
 
-    const insert = () => {
+    const set = () => {
         const index = parseInt(setIndex.current.value);
         const value = parseInt(setValue.current.value);
         if (!isNaN(index) && !isNaN(value) && index >= 0 && index < array.length) {
@@ -124,7 +124,7 @@ const Array = () => {
                     <input type="text" ref={arraySize}></input>
                 </span>
                 <br />
-                <button id="setButton" onClick={insert}>Set</button>
+                <button id="setButton" onClick={set}>Set</button>
                 <span className="labeledInput">
                     <label>Index</label>
                     <input id="setIndex" type="text" ref={setIndex}></input>

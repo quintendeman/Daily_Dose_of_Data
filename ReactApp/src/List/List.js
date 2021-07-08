@@ -52,9 +52,13 @@ const List = () => {
     useEffect(randomList, []);
 
     const insert = () => {
-        const index = parseInt(insertIndex.current.value);
-        const value = parseInt(insertValue.current.value);
-        if (!isNaN(index) && !isNaN(value) && index >= 0 && index <= list.length) {
+        var index = parseInt(insertIndex.current.value);
+        var value = parseInt(insertValue.current.value);
+        if(isNaN(index))
+            index = 0;
+        if(isNaN(value))
+            value = 0;
+        if (index >= 0 && index <= list.length) {
             list.splice(index, 0, value);
             forceUpdate();
         } else {
@@ -65,8 +69,10 @@ const List = () => {
     }
 
     const remove = () => {
-        const index = parseInt(removeIndex.current.value);
-        if (!isNaN(index) && index >= 0 && index < list.length) {
+        var index = parseInt(removeIndex.current.value);
+        if(isNaN(index))
+            index = 0;
+        if (index >= 0 && index < list.length) {
             const data = list.splice(index, 1);
             forceUpdate();
             listOutput.current.value = data;
@@ -77,8 +83,10 @@ const List = () => {
     }
 
     const get = () => {
-        const index = parseInt(getIndex.current.value);
-        if (!isNaN(index) && index >= 0 && index < list.length) {
+        var index = parseInt(getIndex.current.value);
+        if(isNaN(index))
+            index = 0;
+        if (index >= 0 && index < list.length) {
             const data = list[index];
             listOutput.current.value = data;
         } else {

@@ -87,11 +87,11 @@ const Queue = () => {
     useEffect(randomQueue, []);
 
 	const enqueue = () => {
-		const data = parseInt(queueInput.current.value);
-		if (!isNaN(data)) {
-			queue.enqueue(data);
-			forceUpdate();
-		}
+		var data = parseInt(queueInput.current.value);
+        if(isNaN(data))
+            data = 0;
+		queue.enqueue(data);
+		forceUpdate();
 		queueInput.current.value = null;
 	}
 	

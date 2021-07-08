@@ -153,11 +153,17 @@ const LinkedList = () => {
 
     //insertion only occurs at head for now
     function insert() {
-        const data = parseInt(insertValue.current.value);
-        const index = parseInt(insertIndex.current.value);
-        if (!isNaN(data)) {
+        var data = parseInt(insertValue.current.value);
+        var index = parseInt(insertIndex.current.value);
+        if(isNaN(data))
+            data = 0;
+        if(isNaN(index))
+            index = 0;
+        if (index >= 0 && index < list.size) {
             list.insertAt(data, index);
             forceUpdate();
+        } else {
+            listOutput.current.value = "Invalid";
         }
         insertValue.current.value = null;
         insertIndex.current.value = null;
@@ -165,8 +171,10 @@ const LinkedList = () => {
     }
 
     function get() {
-        const index = parseInt(getIndex.current.value);
-        if (index < list.size) {
+        var index = parseInt(getIndex.current.value);
+        if(isNaN(index))
+            index = 0;
+        if (index >= 0 && index < list.size) {
             listOutput.current.value = list.get(index);
         } else {
             listOutput.current.value = "Invalid";
@@ -175,8 +183,10 @@ const LinkedList = () => {
     }
 
     function remove() {
-        const index = parseInt(removeIndex.current.value);
-        if (!isNaN(index) && index < list.size) {
+        var index = parseInt(removeIndex.current.value);
+        if(isNaN(index))
+            index = 0;
+        if (index >= 0 && index < list.size) {
             listOutput.current.value = list.get(index);
             list.remove(index);
             forceUpdate();
