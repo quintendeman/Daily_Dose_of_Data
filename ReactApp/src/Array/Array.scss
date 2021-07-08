@@ -10,12 +10,12 @@
         line-height: 60px;
     }
 
-    #insertButton {
+    #setButton {
         background-color: #CFC;
         width: 64px;
     }
 
-    #removeButton {
+    #deleteButton {
         background-color: #FCC;
         width: 100px;
     }
@@ -25,29 +25,29 @@
         width: 100px;
     }
 
-    #makeButton {
-        background-color: #ffd800;
+    #buildButton {
+        background-color: #FE8;
         width: 100px;
     }
 
-    #insertButton:hover, #removeButton:hover, #getButton:hover, #makeButton:hover {
+    #setButton:hover, #deleteButton:hover, #getButton:hover, #buildButton:hover {
         background-color: White;
     }
 
-    #insertButton:active, #removeButton:active, #getButton:active, #makeButton:active {
+    #setButton:active, #deleteButton:active, #getButton:active, #buildButton:active {
         background-color: Black;
         color: White;
     }
 
-    #insertIndex {
+    #setIndex {
         width: 63px;
     }
 
-    #insertValue {
+    #setValue {
         width: 63px;
     }
 
-    #listOutput {
+    #arrayOutput {
         margin: 5px 60px;
     }
 

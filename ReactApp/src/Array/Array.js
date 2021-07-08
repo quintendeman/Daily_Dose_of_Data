@@ -5,9 +5,9 @@ import Element from '../Element/Element';
 const ArrayDisplay = (props) => {
     return props.array.map((value, index) => {
         return (
-            <div className="labeledElement">
+            <div key={index} className="labeledElement">
                 <label>{index}</label>
-                <Element key={index} value={value}></Element>
+                <Element value={value}></Element>
             </div>
         );
     });
@@ -17,9 +17,9 @@ const Array = () => {
     const [array,] = useState([]);
     const [, forceRender] = useState(0);
     const arraySize = useRef();
-    const insertIndex = useRef();
-    const insertValue = useRef();
-    const removeIndex = useRef();
+    const setIndex = useRef();
+    const setValue = useRef();
+    const deleteIndex = useRef();
     const arrayOutput = useRef();
     const getIndex = useRef();
 
@@ -40,20 +40,20 @@ const Array = () => {
     }
 
     const insert = () => {
-        const index = parseInt(insertIndex.current.value);
-        const value = parseInt(insertValue.current.value);
+        const index = parseInt(setIndex.current.value);
+        const value = parseInt(setValue.current.value);
         if (!isNaN(index) && !isNaN(value) && index >= 0 && index < array.length) {
             array[index] = value;
             forceUpdate();
         } else {
             arrayOutput.current.value = "Invalid";
         }
-        insertIndex.current.value = null;
-        insertValue.current.value = null;
+        setIndex.current.value = null;
+        setValue.current.value = null;
     }
 
     const remove = () => {
-        const index = parseInt(removeIndex.current.value);
+        const index = parseInt(deleteIndex.current.value);
         if (!isNaN(index) && index >= 0 && index < array.length) {
             const data = array[index];
             arrayOutput.current.value = data;
@@ -69,7 +69,7 @@ const Array = () => {
         else {
             arrayOutput.current.value = "Invalid";
         }
-        removeIndex.current.value = null;
+        deleteIndex.current.value = null;
     }
 
     const get = () => {
@@ -90,26 +90,26 @@ const Array = () => {
     return (
         <div className="array">
             <div className="controls">
-                <button id="makeButton" onClick={build}>Build</button>
+                <button id="buildButton" onClick={build}>Build</button>
                 <span className="labeledInput">
                     <label>Size</label>
                     <input type="text" ref={arraySize}></input>
                 </span>
                 <br />
-                <button id="insertButton" onClick={insert}>Set</button>
+                <button id="setButton" onClick={insert}>Set</button>
                 <span className="labeledInput">
                     <label>Index</label>
-                    <input type="text" ref={insertIndex}></input>
+                    <input id="setIndex" type="text" ref={setIndex}></input>
                 </span>
                 <span className="labeledInput">
                     <label>Value</label>
-                    <input type="text" ref={insertValue}></input>
+                    <input id="setValue" type="text" ref={setValue}></input>
                 </span>
                 <br />
-                <button id="removeButton" onClick={remove}>Delete</button>
+                <button id="deleteButton" onClick={remove}>Delete</button>
                 <span className="labeledInput">
                     <label>Index</label>
-                    <input type="text" ref={removeIndex}></input>
+                    <input type="text" ref={deleteIndex}></input>
                 </span>
                 <br />
                 <button id="getButton" onClick={get}>Get</button>
@@ -119,12 +119,15 @@ const Array = () => {
                 </span>
                 
                 <br />
-                <input type="text" ref={arrayOutput} readOnly></input>
+                <input id="arrayOutput" type="text" ref={arrayOutput} readOnly></input>
                 <br />
                 
             </div>
-            <ArrayDisplay array={ array }/ >
-        </div>);
+            <div className="visualization">
+                <ArrayDisplay array={array} />
+            </div>
+        </div>
+    );
 }
 
 export default Array;
