@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './Stack.scss';
 import Element from '../Element/Element';
 
@@ -13,7 +13,7 @@ const StackDisplay = (props) => {
 const Stack = () => {
 	
 	const [, forceRender] = useState(0);
-	const [stack,] = useState([]);
+	const [stack, setStack] = useState([]);
 	const stackInput = useRef();
 	const stackOutput = useRef();
 	
@@ -21,6 +21,21 @@ const Stack = () => {
 	const forceUpdate = () => {
 		forceRender(renders => renders+1);
 	}
+
+	//sets queue to a randomly generated queue
+    const randomStack = () => {
+        const size = randInt(10, 60);
+        var newStack = [];
+        for (let i = 0; i < size; i++)
+            newStack.push(randInt(-999,1000));
+        setStack(newStack);
+    }
+    const randInt = (min, max) => {
+        return Math.floor(Math.random() * (max-min) + min);
+    }
+
+    //initialize stack to random stack
+    useEffect(randomStack, []);
 	
 	const push = () => {
 		const data = parseInt(stackInput.current.value);
@@ -51,6 +66,8 @@ const Stack = () => {
 	return (
 		<div className="stack">
 			<div className="controls">
+				<button id="randomButton" onClick={randomStack}>Random</button>
+                <br />
 				<button id="pushButton" onClick={push}>Push</button>
 				<input id="stackInput" ref={stackInput} type="text" />
 				<br />

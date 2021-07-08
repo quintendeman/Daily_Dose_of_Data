@@ -129,7 +129,7 @@ const BinaryTree = () => {
     return (
         <div className="binary-tree">
             <div className="controls">
-                <button onClick={randomTree}>Random</button>
+                <button id="randomButton" onClick={randomTree}>Random</button>
             </div>
             <div className="visualization">
                 <BinaryTreeDisplay tree={tree} />

@@ -1,13 +1,13 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './List.scss';
 import Element from '../Element/Element';
 
 const ListDisplay = (props) => {
     return props.list.map((value, index) => {
         return (
-            <div className="labeledElement">
+            <div key={index} className="labeledElement">
                 <label>{index}</label>
-                <Element key={index} value={value}></Element>
+                <Element value={value}></Element>
             </div>
         );
     });
@@ -17,7 +17,8 @@ const ListDisplay = (props) => {
 const List = () => {
 
     const [, forceRender] = useState(0);
-    const [list,] = useState([]);
+    const [list, setList] = useState([]);
+    const randomSize = useRef();
     const insertIndex = useRef();
     const insertValue = useRef();
     const removeIndex = useRef();
@@ -28,6 +29,27 @@ const List = () => {
 	const forceUpdate = () => {
 		forceRender(renders => renders+1);
 	}
+
+    //sets list to a randomly generated list
+    const randomList = () => {
+        var size = randomSize.current.value;
+        if (size === "") {
+            size = randInt(10, 60);
+        }
+        if (!isNaN(parseInt(size)) && size > 0) {
+            var newList = [];
+            for (let i = 0; i < size; i++)
+                newList.push(randInt(-999,1000));
+            setList(newList);
+        }
+        randomSize.current.value = null;
+    }
+    const randInt = (min, max) => {
+        return Math.floor(Math.random() * (max-min) + min);
+    }
+
+    //initialize list to random list
+    useEffect(randomList, []);
 
     const insert = () => {
         const index = parseInt(insertIndex.current.value);
@@ -68,6 +90,12 @@ const List = () => {
     return (
         <div className="list">
             <div className="controls">
+                <button id="randomButton" onClick={randomList}>Random</button>
+                <span className="labeledInput">
+                    <label>Size</label>
+                    <input id="randomSizeInput" ref={randomSize} type="text"></input>
+                </span>
+                <br />
                 <button id="insertButton" onClick={insert}>Insert</button>
                 <span className="labeledInput">
                     <label>Index</label>

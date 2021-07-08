@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './Queue.scss';
 import Element from '../Element/Element';
 
@@ -62,7 +62,7 @@ const QueueDisplay = (props) => {
 const Queue = () => {
 	
 	const [, forceRender] = useState(0);
-	const [queue,] = useState(new QueueClass());
+	const [queue, setQueue] = useState(new QueueClass());
 	const queueInput = useRef();
 	const queueOutput = useRef();
 	
@@ -71,6 +71,21 @@ const Queue = () => {
 		forceRender(renders => renders+1);
 	}
 	
+	//sets queue to a randomly generated queue
+    const randomQueue = () => {
+        const size = randInt(10, 60);
+        var newQueue = new QueueClass();
+        for (let i = 0; i < size; i++)
+            newQueue.enqueue(randInt(-999,1000));
+        setQueue(newQueue);
+    }
+    const randInt = (min, max) => {
+        return Math.floor(Math.random() * (max-min) + min);
+    }
+
+    //initialize queue to random queue
+    useEffect(randomQueue, []);
+
 	const enqueue = () => {
 		const data = parseInt(queueInput.current.value);
 		if (!isNaN(data)) {
@@ -100,6 +115,8 @@ const Queue = () => {
 	return (
 		<div className="queue">
 			<div className="controls">
+				<button id="randomButton" onClick={randomQueue}>Random</button>
+                <br />
 				<button id="enqueueButton" onClick={enqueue}>Enqueue</button>
 				<input id="queueInput" ref={queueInput} type="text" />
 				<br />

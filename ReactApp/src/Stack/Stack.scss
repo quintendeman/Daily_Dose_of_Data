@@ -4,6 +4,10 @@
 	align-items: center;
 	margin: 10px;
 
+	#randomButton {
+		background-color: #EDF;
+		width: 210px;
+	}
 	#pushButton {
 		background-color: #CFC;
 		width: 100px;
@@ -16,10 +20,10 @@
 		background-color: #EEE;
 		width: 210px;
 	}
-	#pushButton:hover, #popButton:hover, #peekButton:hover {
+	#randomButton:hover, #pushButton:hover, #popButton:hover, #peekButton:hover {
 		background-color: White;
 	}
-	#pushButton:active, #popButton:active, #peekButton:active {
+	#randomButton:active, #pushButton:active, #popButton:active, #peekButton:active {
 		background-color: Black;
 		color: White;
 	}

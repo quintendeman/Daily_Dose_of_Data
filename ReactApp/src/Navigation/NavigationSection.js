@@ -9,7 +9,7 @@ const NavigationList = (props) => {
 
 const NavigationSection = (props) => {
     
-    const [dropDown, setDropDown] = useState(false);
+    const [dropDown, setDropDown] = useState(true);
 
     const toggleDropDown = () => {
         setDropDown(prevDropDown => !prevDropDown);

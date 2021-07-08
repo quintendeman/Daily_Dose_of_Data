@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './Array.scss';
 import Element from '../Element/Element';
 
@@ -14,8 +14,9 @@ const ArrayDisplay = (props) => {
 }
 
 const Array = () => {
-    const [array,] = useState([]);
+    const [array, setArray] = useState([]);
     const [, forceRender] = useState(0);
+    const randomSize = useRef();
     const arraySize = useRef();
     const setIndex = useRef();
     const setValue = useRef();
@@ -26,6 +27,27 @@ const Array = () => {
     const forceUpdate = () => {
         forceRender(renders => renders + 1);
     }
+
+    //sets array to a randomly generated array
+    const randomArray = () => {
+        var size = randomSize.current.value;
+        if (size === "") {
+            size = randInt(10, 60);
+        }
+        if (!isNaN(parseInt(size)) && size > 0) {
+            var newArray = [];
+            for (let i = 0; i < size; i++)
+                newArray.push(randInt(-999,1000));
+            setArray(newArray);
+        }
+        randomSize.current.value = null;
+    }
+    const randInt = (min, max) => {
+        return Math.floor(Math.random() * (max-min) + min);
+    }
+
+    //initialize list to random list
+    useEffect(randomArray, []);
 
     const build = () => {
         array.length = 0;
@@ -90,6 +112,12 @@ const Array = () => {
     return (
         <div className="array">
             <div className="controls">
+                <button id="randomButton" onClick={randomArray}>Random</button>
+                <span className="labeledInput">
+                    <label>Size</label>
+                    <input id="randomSizeInput" ref={randomSize} type="text"></input>
+                </span>
+                <br />
                 <button id="buildButton" onClick={build}>Build</button>
                 <span className="labeledInput">
                     <label>Size</label>

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './LinkedList.scss';
 import Element from '../Element/Element';
 
@@ -116,8 +116,9 @@ const LinkedListDisplay = (props) => {
 
 const LinkedList = () => {
 
-    const [list,] = useState(new LinkedListClass());
+    const [list, setList] = useState(new LinkedListClass());
     const [, forceRender] = useState(0);
+    const randomSize = useRef();
     const insertIndex = useRef();
     const insertValue = useRef();
     const removeIndex = useRef();
@@ -128,6 +129,27 @@ const LinkedList = () => {
     const forceUpdate = () => {
         forceRender(renders => renders + 1);
     }
+
+    //sets list to a randomly generated list
+    const randomList = () => {
+        var size = randomSize.current.value;
+        if (size === "") {
+            size = randInt(8, 40);
+        }
+        if (!isNaN(parseInt(size)) && size > 0) {
+            var newList = new LinkedListClass();
+            for (let i = 0; i < size; i++)
+                newList.insertAt(randInt(-999,1000), 0);
+            setList(newList);
+        }
+        randomSize.current.value = null;
+    }
+    const randInt = (min, max) => {
+        return Math.floor(Math.random() * (max-min) + min);
+    }
+
+    //initialize list to random list
+    useEffect(randomList, []);
 
     //insertion only occurs at head for now
     function insert() {
@@ -167,6 +189,12 @@ const LinkedList = () => {
     return (
         <div className="linked-list">
             <div className="controls">
+                <button id="randomButton" onClick={randomList}>Random</button>
+                <span className="labeledInput">
+                    <label>Size</label>
+                    <input id="randomSizeInput" ref={randomSize} type="text"></input>
+                </span>
+                <br />
                 <button id="insertButton" onClick={insert}>Insert</button>
                 <span className="labeledInput">
                     <label>Index</label>

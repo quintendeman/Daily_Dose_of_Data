@@ -4,6 +4,10 @@
 	align-items: center;
 	margin: 10px;
 
+    #randomButton {
+        background-color: #EDF;
+        width: 100px;
+    }
     #insertButton {
         background-color: #CFC;
 		width: 64px;
@@ -16,10 +20,10 @@
         background-color: #EEE;
 		width: 100px;
     }
-    #insertButton:hover, #removeButton:hover, #getButton:hover {
+    #randomButton:hover, #insertButton:hover, #removeButton:hover, #getButton:hover {
         background-color: White;
     }
-    #insertButton:active, #removeButton:active, #getButton:active {
+    #randomButton:active, #insertButton:active, #removeButton:active, #getButton:active {
         background-color: Black;
 		color: White;
     }

@@ -4,6 +4,10 @@
 	align-items: center;
 	margin: 10px;
 
+	#randomButton {
+		background-color: #EDF;
+		width: 210px;
+	}
 	#enqueueButton {
 		background-color: #CFC;
 		width: 100px;
@@ -16,10 +20,10 @@
 		background-color: #EEE;
 		width: 210px;
 	}
-	#enqueueButton:hover, #dequeueButton:hover, #peekButton:hover {
+	#randomButton:hover, #enqueueButton:hover, #dequeueButton:hover, #peekButton:hover {
 		background-color: White;
 	}
-	#enqueueButton:active, #dequeueButton:active, #peekButton:active {
+	#randomButton:active, #enqueueButton:active, #dequeueButton:active, #peekButton:active {
 		background-color: Black;
 		color: White;
 	}

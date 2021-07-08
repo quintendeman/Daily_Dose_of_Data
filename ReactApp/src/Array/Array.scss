@@ -4,49 +4,38 @@
     align-items: center;
     margin: 10px;
 
-    p {
-        display: inline-block;
-        height: 60px;
-        line-height: 60px;
+    #randomButton {
+        background-color: #EDF;
     }
-
     #setButton {
         background-color: #CFC;
         width: 64px;
     }
-
     #deleteButton {
         background-color: #FCC;
         width: 100px;
     }
-
     #getButton {
         background-color: #EEE;
         width: 100px;
     }
-
     #buildButton {
         background-color: #FE8;
         width: 100px;
     }
-
-    #setButton:hover, #deleteButton:hover, #getButton:hover, #buildButton:hover {
+    #randomButton:hover, #setButton:hover, #deleteButton:hover, #getButton:hover, #buildButton:hover {
         background-color: White;
     }
-
-    #setButton:active, #deleteButton:active, #getButton:active, #buildButton:active {
+    #randomButton:active, #setButton:active, #deleteButton:active, #getButton:active, #buildButton:active {
         background-color: Black;
         color: White;
     }
-
     #setIndex {
         width: 63px;
     }
-
     #setValue {
         width: 63px;
     }
-
     #arrayOutput {
         margin: 5px 60px;
     }
