@@ -15,18 +15,22 @@ class BinaryTreeNode {
 class BinarySearchTreeClass {
     constructor(){
         this.root = null;
+        this.height = 0;
     }
 
     insert(value) {
         var current = this.root;
         var parent = null;
+        var height = 1;
         while (current != null) {
             if (value < current.value) {
                 parent = current;
                 current = current.left;
+                height++;
             } else if (value > current.value) {
                 parent = current;
                 current = current.right;
+                height++;
             } else
                 return;
         }
@@ -36,6 +40,8 @@ class BinarySearchTreeClass {
             parent.left = new BinaryTreeNode(value);
         else
             parent.right = new BinaryTreeNode(value);
+        if (height > this.height)
+            this.height = height;
     }
 
     remove(value) {
@@ -122,7 +128,7 @@ class BinarySearchTreeClass {
 const BinarySearchTree = () => {
 
     const [, forceRender] = useState(0);
-    const [tree, ] = useState(new BinarySearchTreeClass());
+    const [tree, setTree] = useState(new BinarySearchTreeClass());
     const insertInput = useRef();
     const removeInput = useRef();
 
@@ -133,7 +139,15 @@ const BinarySearchTree = () => {
 
     //function to generate a random BST
     const randomTree = () => {
-
+        const height = randInt(2,6);
+        var newTree = new BinarySearchTreeClass();
+        var insertValue = null;
+        while(newTree.height <= height) {
+            insertValue = randInt(-999,1000);
+            newTree.insert(insertValue);
+        }
+        newTree.remove(insertValue);
+        setTree(newTree);
     }
     const randInt = (min, max) => {
         return Math.floor(Math.random() * (max-min) + min);
@@ -167,7 +181,7 @@ const BinarySearchTree = () => {
     return (
         <div className="binary-search-tree">
             <div className="controls">
-                <button id="randomButton">Random</button>
+                <button id="randomButton" onClick={randomTree}>Random</button>
                 <br />
                 <button id="insertButton" onClick={insert}>Insert</button>
                 <input ref={insertInput} type="text"></input>

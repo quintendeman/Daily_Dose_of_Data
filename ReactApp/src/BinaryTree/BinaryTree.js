@@ -26,11 +26,11 @@ const BinaryTree = () => {
     //function to generate random tree
     const randomTree = () => {
         var newNodeChance = 0.9;
-        var levels = randInt(1,5);
+        const levels = randInt(1,5);
         var newTree = new BinaryTreeClass(new BinaryTreeNode(randInt(-999,1000)));
         var nodes = [newTree.root];
         var newNodes = [];
-        for (let level = 1; level <= levels; level++) {
+        for (let level = 0; level < levels; level++) {
             for (let i = 0; i < nodes.length; i++) {
                 if (Math.random() < Math.pow(newNodeChance, level)) {
                     nodes[i].left = new BinaryTreeNode(randInt(-999,1000));
