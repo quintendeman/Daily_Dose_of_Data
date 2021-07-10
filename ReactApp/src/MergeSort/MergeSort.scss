@@ -1,0 +1,44 @@
+.merge-sort {
+
+    display: flex;
+    align-items: center;
+    margin: 10px;
+
+    .greenButton {
+        width: 210px;
+        background-color: #CFC;
+    }
+    .pinkButton {
+        width: 210px;
+        background-color: #FCC;
+    }
+    .greenButton:hover, .pinkButton:hover {
+        background-color: #FFF;
+    }
+    .greenButton:active, .pinkButton:active {
+        background-color: #000;
+        color: #FFF;
+    }
+
+    .merge-sort-display {
+        display: flex;
+        span.invisible {
+            display: block;
+            margin-bottom: 2px;
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background-color: #000;
+        }
+        .next-arrays {
+            border-left: 2px solid #000;
+        }
+        .merge-sort-next-list {
+            height: 142px;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+}
