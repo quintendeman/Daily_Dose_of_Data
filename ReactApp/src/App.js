@@ -16,6 +16,8 @@ import LinkedListInformation from './LinkedList/LinkedListInformation';
 import InsertionSort from './InsertionSort/InsertionSort';
 import Array from './Array/Array';
 import BubbleSort from './BubbleSort/BubbleSort'
+import ArrayList from './ArrayList/ArrayList';
+import ArrayListInformation from './ArrayList/ArrayListInformation';
 
 const App = () => {
 		return (
@@ -51,7 +53,8 @@ const App = () => {
 								<LinkedList />
 							</Route>
 							<Route exact path="/Array List">
-
+								<ArrayListInformation />
+								<ArrayList />
 							</Route>
 							<Route exact path="/Tree">
 								<BinaryTree />

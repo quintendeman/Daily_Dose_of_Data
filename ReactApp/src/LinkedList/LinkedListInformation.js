@@ -6,7 +6,7 @@ const LinkedListInformation = () => {
 			<h1>Linked List</h1>
 			<p>A Linked List is a linear data structure consisting of several nodes. Each node contains an element value, and a pointer to the next node's location in memory. The last node in the list will have a pointer to null. A pointer to the head of the list is always kept track of. A Linked List is one possible implementation of a List, an Abstract Data Type (ADT).</p>
 			<br />
-			<p><u>A list includes the following basic operations:</u></p>
+			<p><u>A linked list includes the following basic operations:</u></p>
             <ul>
                 <li><b>Insert:</b> inserts an element into the list at a specific index</li>
                 <li><b>Remove:</b> removes an element from the list at a specific index</li>
