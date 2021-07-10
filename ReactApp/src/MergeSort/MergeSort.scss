@@ -19,26 +19,20 @@
         background-color: #000;
         color: #FFF;
     }
-
-    .merge-sort-display {
+    hr {
+        border: none;
+        height: 30px;
+        background: none;
+    }
+    .arrow {
+        display: inline-block;
+        font-size: 30px;
+        height: 65px;
+        line-height: 65px;
+    }
+    .merge-sort-display-row {
         display: flex;
-        span.invisible {
-            display: block;
-            margin-bottom: 2px;
-        }
-        hr {
-            border: none;
-            height: 2px;
-            background-color: #000;
-        }
-        .next-arrays {
-            border-left: 2px solid #000;
-        }
-        .merge-sort-next-list {
-            height: 142px;
-            display: flex;
-            align-items: center;
-        }
+        align-items: center;
     }
 
 }

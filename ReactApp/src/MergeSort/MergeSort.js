@@ -3,63 +3,124 @@ import './MergeSort.scss';
 import Element from '../Element/Element';
 
 const exampleArrays = [[-4,0,3,7],[-8,1,2,11],[-5,3,8,9],[-9,-4,-3,2],[1,3,6]];
-const exampleNextArrays = [[1],[2],[3]];
+const exampleNextArrays = [[],[],[]];
 
 //react component to display merge sort arrays
 const MergeSortDisplay = (props) => {
     var componentList = [];
-    componentList.push(<hr key={componentList.length} />);
-    for (let i = 0; i < props.arrays.length; i++) {
-        for (let j = 0; j < props.arrays[i].length; j++)
-            componentList.push(<Element key={componentList.length} value={props.arrays[i][j]} />);
-        if (i % 2 === 0)
-            componentList.push(<span className="invisible" key={componentList.length} />);
-        else
-            componentList.push(<hr key={componentList.length} />);
-    }
-    if (props.arrays.length % 2 === 1) {
-        componentList.push(<Element key={componentList.length} color="none" />);
+    for (let i = 0; i < props.mergedArrays.length; i++) {
+        var array1 = props.arrays[2*i];
+        var array2 = [];
+        if (2*i+1 < props.arrays.length)
+            array2 = props.arrays[2*i+1];
+        componentList.push(<MergeSortDisplayRow key={componentList.length} array1={array1} array2={array2} mergedArray={props.mergedArrays[i]} />);
         componentList.push(<hr key={componentList.length} />);
     }
+    componentList.pop();
     return componentList;
 }
 
-//react component to display the arrays that are being formed in merge sort
-const MergeSortNextDisplay = (props) => {
-    var componentList = [];
-    componentList.push(<hr key={componentList.length} />);
-    for (let i = 0; i < props.arrays.length; i++) {
-        componentList.push(
-            <div className="merge-sort-next-list">
-                <ElementList array={props.arrays[i]} />
+//react component to display a merge sort row consisting of 2 arrays, and the array it is merging into
+const MergeSortDisplayRow = (props) => {
+    return (
+        <div className="merge-sort-display-row">
+            <div>
+                <MergeSortDisplayRowHelper1 array1={props.array1} array2={props.array2} />
             </div>
-        );
-        componentList.push(<hr key={componentList.length} />);
+            <div>
+                <MergeSortDisplayRowHelper2 array={props.mergedArray} />
+            </div>
+        </div>
+    );
+}
+const MergeSortDisplayRowHelper1 = (props) => {
+    var componentList = [];
+    for (let i = 0; i < props.array1.length; i++) {
+        if (i === props.array1.length-1)
+            componentList.push(<Element key={componentList.length} value={props.array1[i]} border="bordered" />);
+        else
+            componentList.push(<Element key={componentList.length} value={props.array1[i]} />);
     }
+    if (props.array1.length === 0)
+        componentList.push(<Element key={componentList.length} color="none" />);
+    componentList.push(<br key={componentList.length} />);
+    for (let i = 0; i < props.array2.length; i++) {
+        if (i === props.array2.length-1)
+            componentList.push(<Element key={componentList.length} value={props.array2[i]} border="bordered" />);
+        else
+            componentList.push(<Element key={componentList.length} value={props.array2[i]} />);
+    }
+    if (props.array2.length === 0)
+        componentList.push(<Element key={componentList.length} color="none" />);
     return componentList;
 }
-
-const ElementList = (props) => {
+const MergeSortDisplayRowHelper2 = (props) => {
     var componentList = [];
+    componentList.push(<p className="arrow" key={0}>&#x2192;</p>);
     for (let i = 0; i < props.array.length; i++)
-        componentList.push(<Element key={componentList.length} value={props.array[i]} />);
+        componentList.push(<Element key={componentList.length} color="green" value={props.array[i]} />);
     return componentList;
 }
 
 //react component for merge sort
 const MergeSort = () => {
 
-    const [arrays, setArrays] = useState(exampleArrays);
-    const [nextArrays, setNextArrays] = useState(exampleNextArrays);
+    const [, forceRender] = useState(0);
+    const [arrays, ] = useState(exampleArrays);
+    const [mergedArrays, ] = useState(exampleNextArrays);
     const [sorted, setSorted] = useState(false);
+    const [merged, setMerged] = useState(false);
     const sorting = useRef(false);
     const interval = useRef(null);
     const toggleSortingButton = useRef();
     const speedSlider = useRef();
 
+    //We call update on fake state variable to force rerender
+	const forceUpdate = () => {
+		forceRender(renders => renders+1);
+	}
+
     //function to do a single step of merge sorting
     const sortingStep = () => {
-        
+        if(!merged) {
+            //find the index of a row that still needs merging
+            var mergeRowIndex = null;
+            for (let i = 0; i < arrays.length; i++) {
+                if (arrays[i].length !== 0) {
+                    mergeRowIndex = Math.floor(i/2);
+                    break;
+                }
+            }
+            //if no rows found that still need to merge set merged to true
+            if (mergeRowIndex === null) {
+                setMerged(true);
+                return;
+            }
+            //perform 1 merge operation for the found row
+            var array1 = arrays[2*mergeRowIndex];
+            var array2 = [];
+            if (2*mergeRowIndex+1 < arrays.length)
+                array2 = arrays[2*mergeRowIndex+1];
+            //if either array is empty concatenate the other to the merged array
+            if (array1.length === 0) {
+                mergedArrays[mergeRowIndex] = array2.concat(mergedArrays[mergeRowIndex]);
+                arrays[2*mergeRowIndex+1] = [];
+            } else if (array2.length === 0) {
+                mergedArrays[mergeRowIndex] = array1.concat(mergedArrays[mergeRowIndex]);
+                arrays[2*mergeRowIndex] = [];
+            //add the max of the last elements to the merged array
+            } else {
+                if (array1[array1.length-1] >= array2[array2.length-1]) {
+                    mergedArrays[mergeRowIndex].unshift(array1[array1.length-1]);
+                    arrays[2*mergeRowIndex].pop();
+                } else {
+                    mergedArrays[mergeRowIndex].unshift(array2[array2.length-1]);
+                    arrays[2*mergeRowIndex+1].pop();
+                }
+            }
+        } else {
+
+        }
     }
 
     //function to turn sorting on and off by button click
@@ -73,6 +134,7 @@ const MergeSort = () => {
         } else if (!sorted) {
             interval.current = setInterval(() => {
                 sortingStep();
+                forceUpdate();
             }, 1000-speedSlider.current.value);
             sorting.current = true;
             toggleSortingButton.current.innerHTML = "Stop";
@@ -86,6 +148,7 @@ const MergeSort = () => {
             clearInterval(interval.current);
             interval.current = setInterval(() => {
                 sortingStep();
+                forceUpdate();
             }, 1000-speedSlider.current.value);
         }
     }
@@ -101,14 +164,7 @@ const MergeSort = () => {
                 </span>
             </div>
             <div className="visualization">
-                <div className="merge-sort-display">
-                    <div className="current-arrays">
-                        <MergeSortDisplay arrays={arrays} />
-                    </div>
-                    <div className="next-arrays">
-                        <MergeSortNextDisplay arrays={nextArrays} />
-                    </div>
-                </div>
+                <MergeSortDisplay arrays={arrays} mergedArrays={mergedArrays} />
             </div>
         </div>
     );
