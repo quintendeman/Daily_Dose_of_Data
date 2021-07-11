@@ -66,10 +66,10 @@ const MergeSortDisplayRowHelper2 = (props) => {
 const MergeSort = () => {
 
     const [, forceRender] = useState(0);
-    const [arrays, ] = useState(exampleArrays);
-    const [mergedArrays, ] = useState(exampleNextArrays);
+    const arrays = useRef(exampleArrays);
+    const mergedArrays = useRef(exampleNextArrays);
     const [sorted, setSorted] = useState(false);
-    const [merged, setMerged] = useState(false);
+    const merged = useRef(false);
     const sorting = useRef(false);
     const interval = useRef(null);
     const toggleSortingButton = useRef();
@@ -80,46 +80,63 @@ const MergeSort = () => {
 		forceRender(renders => renders+1);
 	}
 
+    //function to initialize list of empty arrays to be merged into
+    const initializeMergedArrays = () => {
+        mergedArrays.current = [];
+        const length = Math.ceil(arrays.current.length/2);
+        for (let i = 0; i < length; i++)
+            mergedArrays.current.push([]);
+    }
+
     //function to do a single step of merge sorting
     const sortingStep = () => {
-        if(!merged) {
+        console.log(arrays);
+        console.log(mergedArrays);
+        if(!merged.current) {
             //find the index of a row that still needs merging
             var mergeRowIndex = null;
-            for (let i = 0; i < arrays.length; i++) {
-                if (arrays[i].length !== 0) {
+            for (let i = 0; i < arrays.current.length; i++) {
+                if (arrays.current[i].length !== 0) {
                     mergeRowIndex = Math.floor(i/2);
                     break;
                 }
             }
             //if no rows found that still need to merge set merged to true
             if (mergeRowIndex === null) {
-                setMerged(true);
+                merged.current = true;
                 return;
             }
             //perform 1 merge operation for the found row
-            var array1 = arrays[2*mergeRowIndex];
+            var array1 = arrays.current[2*mergeRowIndex];
             var array2 = [];
-            if (2*mergeRowIndex+1 < arrays.length)
-                array2 = arrays[2*mergeRowIndex+1];
+            if (2*mergeRowIndex+1 < arrays.current.length)
+                array2 = arrays.current[2*mergeRowIndex+1];
             //if either array is empty concatenate the other to the merged array
             if (array1.length === 0) {
-                mergedArrays[mergeRowIndex] = array2.concat(mergedArrays[mergeRowIndex]);
-                arrays[2*mergeRowIndex+1] = [];
+                mergedArrays.current[mergeRowIndex] = array2.concat(mergedArrays.current[mergeRowIndex]);
+                arrays.current[2*mergeRowIndex+1] = [];
             } else if (array2.length === 0) {
-                mergedArrays[mergeRowIndex] = array1.concat(mergedArrays[mergeRowIndex]);
-                arrays[2*mergeRowIndex] = [];
+                mergedArrays.current[mergeRowIndex] = array1.concat(mergedArrays.current[mergeRowIndex]);
+                arrays.current[2*mergeRowIndex] = [];
             //add the max of the last elements to the merged array
             } else {
                 if (array1[array1.length-1] >= array2[array2.length-1]) {
-                    mergedArrays[mergeRowIndex].unshift(array1[array1.length-1]);
-                    arrays[2*mergeRowIndex].pop();
+                    mergedArrays.current[mergeRowIndex].unshift(array1[array1.length-1]);
+                    arrays.current[2*mergeRowIndex].pop();
                 } else {
-                    mergedArrays[mergeRowIndex].unshift(array2[array2.length-1]);
-                    arrays[2*mergeRowIndex+1].pop();
+                    mergedArrays.current[mergeRowIndex].unshift(array2[array2.length-1]);
+                    arrays.current[2*mergeRowIndex+1].pop();
                 }
             }
         } else {
-
+            if (mergedArrays.current.length === 1) {
+                setSorted(true);
+                toggleSorting();
+                return;
+            }
+            arrays.current = mergedArrays.current;
+            initializeMergedArrays();
+            merged.current = false;
         }
     }
 
@@ -164,7 +181,7 @@ const MergeSort = () => {
                 </span>
             </div>
             <div className="visualization">
-                <MergeSortDisplay arrays={arrays} mergedArrays={mergedArrays} />
+                <MergeSortDisplay arrays={arrays.current} mergedArrays={mergedArrays.current} />
             </div>
         </div>
     );
