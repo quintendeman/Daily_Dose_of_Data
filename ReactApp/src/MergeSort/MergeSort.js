@@ -1,9 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import './MergeSort.scss';
 import Element from '../Element/Element';
-
-const exampleArrays = [[-4,0,3,7],[-8,1,2,11],[-5,3,8,9],[-9,-4,-3,2],[1,3,6]];
-const exampleNextArrays = [[],[],[]];
 
 //react component to display merge sort arrays
 const MergeSortDisplay = (props) => {
@@ -66,12 +63,13 @@ const MergeSortDisplayRowHelper2 = (props) => {
 const MergeSort = () => {
 
     const [, forceRender] = useState(0);
-    const arrays = useRef(exampleArrays);
-    const mergedArrays = useRef(exampleNextArrays);
+    const arrays = useRef([[]]);
+    const mergedArrays = useRef([[]]);
     const [sorted, setSorted] = useState(false);
     const merged = useRef(false);
     const sorting = useRef(false);
     const interval = useRef(null);
+    const arraySizeInput = useRef();
     const toggleSortingButton = useRef();
     const speedSlider = useRef();
 
@@ -79,6 +77,40 @@ const MergeSort = () => {
 	const forceUpdate = () => {
 		forceRender(renders => renders+1);
 	}
+
+    //sets state array to a random array for sorting
+    const generateArrays = () => {
+        if (sorting.current) {
+            toggleSorting();
+        }
+        const size = parseInt(arraySizeInput.current.value);
+        if (!isNaN(size) && size > 0) {
+            arrays.current = randomArrays(size);
+            setSorted(false);
+            merged.current = false;
+            initializeMergedArrays();
+            forceUpdate();
+        }
+        arraySizeInput.current.value = null;
+    }
+    //generates a random array within reasonable bounds
+    const randomArrays = useCallback((size) => {
+        var newArrays = new Array(size);
+            for (let i = 0; i < size; i++) {
+                newArrays[i] = [randInt(-999, 1000)];
+            }
+        return newArrays;
+    }, []);
+    const randInt = (min, max) => {
+        return Math.floor(Math.random() * (max-min) + min);
+    }
+
+    //initialize the arrays randomly
+    useEffect(() => {
+        arrays.current = randomArrays(randInt(5,20));
+        initializeMergedArrays();
+        forceUpdate();
+    }, [randomArrays]);
 
     //function to initialize list of empty arrays to be merged into
     const initializeMergedArrays = () => {
@@ -90,8 +122,6 @@ const MergeSort = () => {
 
     //function to do a single step of merge sorting
     const sortingStep = () => {
-        console.log(arrays);
-        console.log(mergedArrays);
         if(!merged.current) {
             //find the index of a row that still needs merging
             var mergeRowIndex = null;
@@ -173,6 +203,12 @@ const MergeSort = () => {
     return (
         <div className="merge-sort">
             <div className="controls">
+                <button id="randomButton" onClick={generateArrays}>Random</button>
+                <span className="labeledInput">
+                    <label>Array Size</label>
+                    <input id="arraySizeInput" ref={arraySizeInput} type="text"></input>
+                </span>
+                <br />
                 <button ref={toggleSortingButton} className="greenButton" onClick={toggleSorting}>Sort</button>
                 <br />
                 <span className="labeledSlider">

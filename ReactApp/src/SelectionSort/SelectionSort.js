@@ -27,7 +27,6 @@ const SelectionSort = () => {
     const currentFocus = useRef(-1);
     const currentMinimum = useRef(-1);
     const toggleSortingButton = useRef();
-    const generateArrayButton = useRef();
     const arraySizeInput = useRef();
     const speedSlider = useRef();
 
@@ -126,7 +125,7 @@ const SelectionSort = () => {
         <div className="selection-sort">
             <div id="main">
                 <div className="controls">
-                    <button id="generateArrayButton" ref={generateArrayButton} onClick={generateArray}>Random</button>
+                    <button id="generateArrayButton" onClick={generateArray}>Random</button>
                     <span className="labeledInput">
                         <label>Array Size</label>
                         <input id="arraySizeInput" ref={arraySizeInput} type="text"></input>
