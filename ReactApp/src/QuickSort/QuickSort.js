@@ -2,211 +2,6 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import './QuickSort.scss';
 import Element from '../Element/Element';
 
-//const PartitionDisplay = (props) => {
-//    var finalArray = props.array.map((value, index) => {
-//        if (index === props.low.current || index === props.high.current)
-//            return <Element key={index} value={value} border="bordered" color={index === props.low.current ? "pink" : "green"} />
-//        else if (index === props.pivot.current)
-//            return <Element key={index} value={value} color="yellow" />
-//        else
-//            return <Element key={index} value={value} />
-//    });
-//    //if (props.array.length <= 1) { 
-//    //    finalArray = props.array.map((value, index) => {
-//    //        console.log("sorted element $value");
-//    //        return <Element key={index} value={value} color="green"/>
-//    //    });
-//    //}
-//    return finalArray;
-//}
-
-////takes array
-//const Partition = (props) => {
-//    const [, forceRender] = useState(0);
-//    const [array, setArray] = useState(props.array);
-//    const [sorted, setSorted] = useState(false);
-//    //const sorted = useRef();
-//    const pivot = useRef(array.length - 1);
-//    const low = useRef(0);
-//    const high = useRef(array.length - 2);
-
-//    //const sorting = useRef(false);
-//    const interval = useRef(null);
-
-//    function swap(arr, x, y) {
-//        var temp = arr[x];
-//        arr[x] = arr[y];
-//        arr[y] = temp;
-//    }
-
-//    useEffect(() => {
-//        clearInterval(interval.current);
-//        if (low.current !== null) {
-//            interval.current = setInterval(() => {
-//                if (props.sorting) {
-//                    sortingStep();
-//                    //forceUpdate();
-//                }
-//            }, 2000);
-//        }
-//    });
-
-
-//    //We call update on fake state variable to force rerender
-//    const forceUpdate = () => {
-//        forceRender(renders => renders + 1);
-//    }
-
-//    //completes one step of the sorting algorithm
-//    const sortingStep = () => {
-
-//        if (!sorted) {
-//            if (low.current === -1) {
-//                setSorted(true);
-//                return;
-//            }
-//            else if (low.current > high.current) {
-//                var toInsert = array.pop();
-//                array.splice(low.current, 0, toInsert);
-//                pivot.current = low.current;
-//                low.current = -1;
-//                high.current = -1;
-//                setSorted(true);
-
-
-//            }
-//            else if (array[low.current] >= array[pivot.current] || pivot.current - low.current === 1) {
-//                if (array[high.current] <= array[pivot.current]) {
-//                    swap(array, low.current, high.current);
-//                }
-//                else high.current--;
-//            }
-//            else low.current++;
-
-//            props.nextPartitions.current.push(array);
-//        }
-//        else {
-//            console.log(pivot.current);
-//            console.log(array.slice(0, pivot.current));
-//            props.nextPartitions.current.push(array.slice(0, pivot.current));
-//            props.nextPartitions.current.push(array.slice(pivot.current, pivot.current + 1));
-//            props.nextPartitions.current.push(array.slice(pivot.current + 1));
-//            low.current = null;
-//            setSorted(false);
-            
-//            //console.log(array);
-//            //console.log(array.slice[pivot.current, pivot.current + 1]);
-//            //console.log(array.slice[pivot.current + 1]);
-//        }
-//        if (props.index === props.partitions.current.length - 1) {
-//            props.partitions.current = props.nextPartitions.current;
-//            props.nextPartitions.current = [];
-
-
-//            //
-//            //low.current = -1;
-            
-//            //console.log(props.partitions.current);
-//        }
-        
-//        forceUpdate();
-//        console.log(props.partitions.current);
-        
-//    }
-
-//    const sort = () => {
-//        if (props.sorting && !sorted) {
-//            interval.current = setInterval(() => {
-//                sortingStep();
-//                forceUpdate();
-//            }, 100);
-//        }
-//    }
-
-    
-
-
-
-//    return (
-//        <div >
-//            <PartitionDisplay array={array} low={low} high={high} pivot={pivot} />
-//        </div>
-//        );
-
-//}
-
-//const QuickSortDisplay = (props) => {
-//    const [, forceRender] = useState(0);
-//    const [size, setSize] = useState(props.partitions.current.length);
-//    const interval = useRef(null);
-//    const forceUpdate = () => {
-//        forceRender(renders => renders + 1);
-//    }
-//    useEffect(() => {
-//        clearInterval(interval.current);
-//        interval.current = setInterval(() => {
-//            //console.log(props.partitions.current);
-//            setSize(props.partitions.current.length);
-//        }, 100);
-//    });
-    
-//    return props.partitions.current.map((value, index) => {
-//        console.log(`rendering ${value}`);
-//        return <Partition sorting={props.sorting} array={value} key={index} index={index} partitions={props.partitions} nextPartitions={props.nextPartitions} />;
-//    });
-
-//}
-
-//const QuickSort = () => {
-
-//    const [sorting, setSorting] = useState(false);
-//    const toggleSortingButton = useRef();
-//    const [sorted, setSorted] = useState(false);
-//    const partitions = useRef([[2, 4, 3]]);
-//    //2, 3, 5, 7, 6, 4
-//    //, [5, 7, 6], [6]
-//    const nextPartitions = useRef([]);
-    
-
-    
-//    useEffect(() => {
-//        //clearInterval(interval.current);
-        
-//    });
-
-
-
-//    //function to turn sorting on and off by button click
-//    const toggleSorting = () => {
-//        if (sorting) {
-//            //clearInterval(interval.current);
-//            setSorting(!sorting);
-//            toggleSortingButton.current.innerHTML = "Sort";
-//            toggleSortingButton.current.classList.remove("pinkButton");
-//            toggleSortingButton.current.classList.add("greenButton");
-//        } else if (!sorted) { 
-//            setSorting(!sorting);
-//            toggleSortingButton.current.innerHTML = "Stop";
-//            toggleSortingButton.current.classList.remove("greenButton");
-//            toggleSortingButton.current.classList.add("pinkButton");
-//        }
-//    }
-
-
-
-//    return (
-//        <div className="quick-sort">
-//            <div id="main">
-//        <div className="controls">
-//                    <br />
-//                    <button id="toggleSortingButton" ref={toggleSortingButton} className="greenButton" onClick={toggleSorting}>Sort</button>
-            
-//                </div>
-//                <QuickSortDisplay sorting={sorting} partitions={partitions} nextPartitions={nextPartitions} />
-//                </div>
-//            </div>);
-//}
-
 const QuickSortDisplay = (props) => {
     return props.array.map((value, index) => {
         if (index === props.pivot.current)
@@ -254,6 +49,14 @@ const QuickSort = () => {
     }
 
     const sortingStep = () => {
+        if (sortedElements.current.length === array.length) {
+            clearInterval(interval.current);
+            sorting.current = false;
+            toggleSortingButton.current.innerHTML = "Sort";
+            toggleSortingButton.current.classList.remove("pinkButton");
+            toggleSortingButton.current.classList.add("greenButton");
+        }
+
         
         if (array.length === 1) {
             sortedElements.current.push(0);
@@ -340,7 +143,7 @@ const QuickSort = () => {
             }
             else low.current++;
         }
-        console.log(worklist.current);
+        
     }
 
 
@@ -416,7 +219,7 @@ const QuickSort = () => {
         <div className="quick-sort">
             <div id="main">
                 <div className="controls">
-                    <button id="generateArrayButton" ref={generateArrayButton} onClick={generateArray}>Random</button>
+                    <button id="randomButton" ref={generateArrayButton} onClick={generateArray}>Random</button>
                     <span className="labeledInput">
                         <label>Array Size</label>
                         <input id="arraySizeInput" ref={arraySizeInput} type="text"></input>
@@ -432,6 +235,23 @@ const QuickSort = () => {
                 <div className="visualization">
                     <QuickSortDisplay array={array} low={low} high={high} pivot={pivot} sortedElements={sortedElements} />
                 </div>
+                
+            </div>
+            <div className="legend">
+                <Element color="green"></Element>
+                <p>= Sorted</p>
+                < br />
+                <Element></Element>
+                <p>= Unsorted</p>
+                <br />
+                <Element color="pink" border="bordered"></Element>
+                <p>= Current Low</p>
+                <br />
+                <Element color="green" border="bordered"></Element>
+                <p>= Current High</p>
+                <br />
+                <Element color="purple" ></Element>
+                <p>= Pivot</p>
             </div>
         </div>
         );
