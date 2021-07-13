@@ -97,7 +97,7 @@ const QuickSort = () => {
 
                 if (low.current !== 0) {
                     //find low partition
-                    var temp = sortedElements.current.filter(n => n < low.current);
+                    let temp = sortedElements.current.filter(n => n < low.current);
                     
                     if (temp.length === 0) {
 
@@ -115,7 +115,7 @@ const QuickSort = () => {
                 }
                 //find high bound
                 if (low.current !== array.length - 1) {
-                    var temp = sortedElements.current.filter(n => n > low.current);
+                    let temp = sortedElements.current.filter(n => n > low.current);
                     if (temp.length === 0) {
                         worklist.current.push(low.current + 1);
                         worklist.current.push(array.length - 1);
@@ -172,8 +172,10 @@ const QuickSort = () => {
         if (sorting.current) {
             toggleSorting();
         }
-        const size = parseInt(arraySizeInput.current.value);
-        if (!isNaN(size) && size > 0) {
+        var size = parseInt(arraySizeInput.current.value);
+        if (isNaN(size))
+            size = randInt(5, 50);
+        if (size > 0) {
             setArray(randomArray(size));
             setSorted(false);
 
