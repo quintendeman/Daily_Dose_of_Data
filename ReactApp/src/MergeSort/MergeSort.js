@@ -83,8 +83,10 @@ const MergeSort = () => {
         if (sorting.current) {
             toggleSorting();
         }
-        const size = parseInt(arraySizeInput.current.value);
-        if (!isNaN(size) && size > 0) {
+        var size = parseInt(arraySizeInput.current.value);
+        if(isNaN(size))
+            size = randInt(5,20);
+        if (size > 0) {
             arrays.current = randomArrays(size);
             setSorted(false);
             merged.current = false;

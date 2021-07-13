@@ -50,8 +50,10 @@ const BubbleSort = () => {
         if (sorting.current) {
             toggleSorting();
         }
-        const size = parseInt(arraySizeInput.current.value);
-        if (!isNaN(size) && size > 0) {
+        var size = parseInt(arraySizeInput.current.value);
+        if(isNaN(size))
+            size = randInt(5,50);
+        if (size > 0) {
             setArray(randomArray(size));
             setSorted(false);
             sortedStart.current = size - 1;
@@ -182,7 +184,7 @@ const BubbleSort = () => {
         <div className="bubble-sort">
             <div id="main">
                 <div className="controls">
-                    <button id="generateArrayButton" ref={generateArrayButton} onClick={generateArray}>Random</button>
+                    <button id="randomButton" ref={generateArrayButton} onClick={generateArray}>Random</button>
                     <span className="labeledInput">
                         <label>Array Size</label>
                         <input id="arraySizeInput" ref={arraySizeInput} type="text"></input>

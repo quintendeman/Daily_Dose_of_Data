@@ -4,6 +4,10 @@
     align-items: flex-start;
     margin: 10px;
 
+    #randomButton {
+        width: 100px;
+        background-color:#EDF;
+    }
     .greenButton {
         width: 210px;
         background-color: #CFC;
@@ -12,10 +16,10 @@
         width: 210px;
         background-color: #FCC;
     }
-    .greenButton:hover, .pinkButton:hover {
+    #randomButton:hover, .greenButton:hover, .pinkButton:hover {
         background-color: #FFF;
     }
-    .greenButton:active, .pinkButton:active {
+    #randomButton:active, .greenButton:active, .pinkButton:active {
         background-color: #000;
         color: #FFF;
     }

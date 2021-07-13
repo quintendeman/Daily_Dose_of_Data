@@ -5,6 +5,10 @@
         align-items: center;
         margin: 10px;
     }
+    #randomButton {
+        width: 100px;
+        background-color:#EDF;
+    }
     #toggleSortingButton {
         width: 210px;
     }
@@ -12,10 +16,10 @@
         width: 100px;
         background-color: #EEE;
     }
-    #toggleSortingButton:hover, #generateArrayButton:hover {
+    #randomButton:hover, #toggleSortingButton:hover, #generateArrayButton:hover {
 		background-color: White;
 	}
-	#toggleSortingButton:active, #generateArrayButton:active {
+	#randomButton:active, #toggleSortingButton:active, #generateArrayButton:active {
 		background-color: Black;
 		color: White;
 	}
