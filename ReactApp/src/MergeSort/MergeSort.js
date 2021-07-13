@@ -55,7 +55,8 @@ const MergeSortDisplayRowHelper2 = (props) => {
     var componentList = [];
     componentList.push(<p className="arrow" key={0}>&#x2192;</p>);
     for (let i = 0; i < props.array.length; i++)
-        componentList.push(<Element key={componentList.length} color="green" value={props.array[i]} />);
+        if (props.array[i] !== null)
+            componentList.push(<Element key={componentList.length} color="green" value={props.array[i]} />);
     return componentList;
 }
 
@@ -65,8 +66,8 @@ const MergeSort = () => {
     const [, forceRender] = useState(0);
     const arrays = useRef([[]]);
     const mergedArrays = useRef([[]]);
+    const mergedArraysCurrs = useRef([]);
     const [sorted, setSorted] = useState(false);
-    const [merged, setMerged] = useState(false);
     const sorting = useRef(false);
     const interval = useRef(null);
     const arraySizeInput = useRef();
@@ -91,7 +92,6 @@ const MergeSort = () => {
             initializeMergedArrays();
             forceUpdate();
             setSorted(false);
-            setMerged(false);
         }
         arraySizeInput.current.value = null;
     }
@@ -117,15 +117,24 @@ const MergeSort = () => {
     //function to initialize list of empty arrays to be merged into
     const initializeMergedArrays = () => {
         mergedArrays.current = [];
+        mergedArraysCurrs.current = [];
         const length = Math.ceil(arrays.current.length/2);
-        for (let i = 0; i < length; i++)
+        for (let i = 0; i < length; i++) {
             mergedArrays.current.push([]);
+            if (2*i+1 < arrays.current.length) {
+                for (let j = 0; j < arrays.current[2*i].length+arrays.current[2*i+1].length; j++)
+                    mergedArrays.current[i].push(null);
+                mergedArraysCurrs.current.push(arrays.current[2*i].length+arrays.current[2*i+1].length-1);
+            } else {
+                for (let j = 0; j < arrays.current[2*i].length; j++)
+                    mergedArrays.current[i].push(null);
+                mergedArraysCurrs.current.push(arrays.current[2*i].length-1);
+            }
+        }
     }
 
     //function to do a single step of merge sorting
-    const sortingStep = useCallback(() => {
-        console.log(merged);
-        if(!merged) {
+    const sortingStep = () => {
             //find the index of a row that still needs merging
             var mergeRowIndex = null;
             for (let i = 0; i < arrays.current.length; i++) {
@@ -136,8 +145,17 @@ const MergeSort = () => {
             }
             //if no rows found that still need to merge set merged to true
             if (mergeRowIndex === null) {
-                clearInterval(interval.current);
-                setMerged(true);
+                if (mergedArrays.current.length === 1) {
+                    setSorted(true);
+                    clearInterval(interval.current);
+                    sorting.current = false;
+                    toggleSortingButton.current.innerHTML = "Sort";
+                    toggleSortingButton.current.classList.remove("pinkButton");
+                    toggleSortingButton.current.classList.add("greenButton");
+                    return;
+                }
+                arrays.current = mergedArrays.current;
+                initializeMergedArrays();
                 return;
             }
             //perform 1 merge operation for the found row
@@ -147,36 +165,30 @@ const MergeSort = () => {
                 array2 = arrays.current[2*mergeRowIndex+1];
             //if either array is empty concatenate the other to the merged array
             if (array1.length === 0) {
-                mergedArrays.current[mergeRowIndex] = array2.concat(mergedArrays.current[mergeRowIndex]);
+                for (let i = array2.length-1; i >= 0; i--) {
+                    mergedArrays.current[mergeRowIndex][mergedArraysCurrs.current[mergeRowIndex]] = array2[i];
+                    mergedArraysCurrs.current[mergeRowIndex]--;
+                }
                 arrays.current[2*mergeRowIndex+1] = [];
             } else if (array2.length === 0) {
-                mergedArrays.current[mergeRowIndex] = array1.concat(mergedArrays.current[mergeRowIndex]);
+                for (let i = array1.length-1; i >= 0; i--) {
+                    mergedArrays.current[mergeRowIndex][mergedArraysCurrs.current[mergeRowIndex]] = array1[i];
+                    mergedArraysCurrs.current[mergeRowIndex]--;
+                }
                 arrays.current[2*mergeRowIndex] = [];
             //add the max of the last elements to the merged array
             } else {
                 if (array1[array1.length-1] >= array2[array2.length-1]) {
-                    mergedArrays.current[mergeRowIndex].unshift(array1[array1.length-1]);
+                    mergedArrays.current[mergeRowIndex][mergedArraysCurrs.current[mergeRowIndex]] = array1[array1.length-1];
+                    mergedArraysCurrs.current[mergeRowIndex]--;
                     arrays.current[2*mergeRowIndex].pop();
                 } else {
-                    mergedArrays.current[mergeRowIndex].unshift(array2[array2.length-1]);
+                    mergedArrays.current[mergeRowIndex][mergedArraysCurrs.current[mergeRowIndex]] = array2[array2.length-1];
+                    mergedArraysCurrs.current[mergeRowIndex]--;
                     arrays.current[2*mergeRowIndex+1].pop();
                 }
             }
-        } else {
-            if (mergedArrays.current.length === 1) {
-                setSorted(true);
-                clearInterval(interval.current);
-                sorting.current = false;
-                toggleSortingButton.current.innerHTML = "Sort";
-                toggleSortingButton.current.classList.remove("pinkButton");
-                toggleSortingButton.current.classList.add("greenButton");
-                return;
-            }
-            arrays.current = mergedArrays.current;
-            initializeMergedArrays();
-            setMerged(false);
-        }
-    }, [merged]);
+    }
 
     //function to turn sorting on and off by button click
     const toggleSorting = () => {
@@ -197,6 +209,7 @@ const MergeSort = () => {
             toggleSortingButton.current.classList.add("pinkButton");
         }
     }
+
     //changes the animation speed of sorting when the slider changes
     const updateSpeed = () => {
         if (sorting.current) {
@@ -207,9 +220,6 @@ const MergeSort = () => {
             }, 1000-speedSlider.current.value);
         }
     }
-
-    //we need to clear and reset the interval everytime states changes
-    useEffect(updateSpeed, [merged, sorted, sortingStep]);
 
     return (
         <div className="merge-sort">
