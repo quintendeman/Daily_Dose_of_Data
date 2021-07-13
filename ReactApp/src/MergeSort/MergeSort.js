@@ -66,7 +66,7 @@ const MergeSort = () => {
     const arrays = useRef([[]]);
     const mergedArrays = useRef([[]]);
     const [sorted, setSorted] = useState(false);
-    const merged = useRef(false);
+    const [merged, setMerged] = useState(false);
     const sorting = useRef(false);
     const interval = useRef(null);
     const arraySizeInput = useRef();
@@ -88,10 +88,10 @@ const MergeSort = () => {
             size = randInt(5,20);
         if (size > 0) {
             arrays.current = randomArrays(size);
-            setSorted(false);
-            merged.current = false;
             initializeMergedArrays();
             forceUpdate();
+            setSorted(false);
+            setMerged(false);
         }
         arraySizeInput.current.value = null;
     }
@@ -123,8 +123,9 @@ const MergeSort = () => {
     }
 
     //function to do a single step of merge sorting
-    const sortingStep = () => {
-        if(!merged.current) {
+    const sortingStep = useCallback(() => {
+        console.log(merged);
+        if(!merged) {
             //find the index of a row that still needs merging
             var mergeRowIndex = null;
             for (let i = 0; i < arrays.current.length; i++) {
@@ -135,7 +136,8 @@ const MergeSort = () => {
             }
             //if no rows found that still need to merge set merged to true
             if (mergeRowIndex === null) {
-                merged.current = true;
+                clearInterval(interval.current);
+                setMerged(true);
                 return;
             }
             //perform 1 merge operation for the found row
@@ -163,14 +165,18 @@ const MergeSort = () => {
         } else {
             if (mergedArrays.current.length === 1) {
                 setSorted(true);
-                toggleSorting();
+                clearInterval(interval.current);
+                sorting.current = false;
+                toggleSortingButton.current.innerHTML = "Sort";
+                toggleSortingButton.current.classList.remove("pinkButton");
+                toggleSortingButton.current.classList.add("greenButton");
                 return;
             }
             arrays.current = mergedArrays.current;
             initializeMergedArrays();
-            merged.current = false;
+            setMerged(false);
         }
-    }
+    }, [merged]);
 
     //function to turn sorting on and off by button click
     const toggleSorting = () => {
@@ -201,6 +207,9 @@ const MergeSort = () => {
             }, 1000-speedSlider.current.value);
         }
     }
+
+    //we need to clear and reset the interval everytime states changes
+    useEffect(updateSpeed, [merged, sorted, sortingStep]);
 
     return (
         <div className="merge-sort">
