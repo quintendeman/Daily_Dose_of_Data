@@ -67,6 +67,7 @@ const MergeSort = () => {
     const arrays = useRef([[]]);
     const mergedArrays = useRef([[]]);
     const mergedArraysCurrs = useRef([]);
+    const mergeRowIndex = useRef(0);
     const [sorted, setSorted] = useState(false);
     const sorting = useRef(false);
     const interval = useRef(null);
@@ -118,6 +119,7 @@ const MergeSort = () => {
     const initializeMergedArrays = () => {
         mergedArrays.current = [];
         mergedArraysCurrs.current = [];
+        mergeRowIndex.current = 0;
         const length = Math.ceil(arrays.current.length/2);
         for (let i = 0; i < length; i++) {
             mergedArrays.current.push([]);
@@ -135,16 +137,16 @@ const MergeSort = () => {
 
     //function to do a single step of merge sorting
     const sortingStep = () => {
-            //find the index of a row that still needs merging
-            var mergeRowIndex = null;
-            for (let i = 0; i < arrays.current.length; i++) {
-                if (arrays.current[i].length !== 0) {
-                    mergeRowIndex = Math.floor(i/2);
-                    break;
-                }
-            }
-            //if no rows found that still need to merge set merged to true
-            if (mergeRowIndex === null) {
+        //get the two arrays we are currently merging
+        var array1 = arrays.current[2 * mergeRowIndex.current];
+        var array2 = [];
+        if (2 * mergeRowIndex.current + 1 < arrays.current.length)
+            array2 = arrays.current[2 * mergeRowIndex.current + 1];
+        //if both arrays are empty increase the current mergeRowIndex
+        if (array1.length === 0 && array2.length === 0)
+            mergeRowIndex.current++;
+            //if done with merging all rows then move mergedArrays into main arrays
+            if (mergeRowIndex.current > mergedArrays.current.length-1) {
                 if (mergedArrays.current.length === 1) {
                     setSorted(true);
                     clearInterval(interval.current);
@@ -158,34 +160,34 @@ const MergeSort = () => {
                 initializeMergedArrays();
                 return;
             }
-            //perform 1 merge operation for the found row
-            var array1 = arrays.current[2*mergeRowIndex];
-            var array2 = [];
-            if (2*mergeRowIndex+1 < arrays.current.length)
-                array2 = arrays.current[2*mergeRowIndex+1];
+            //get the two arrays we are currently merging
+            array1 = arrays.current[2 * mergeRowIndex.current];
+            array2 = [];
+            if (2 * mergeRowIndex.current + 1 < arrays.current.length)
+                array2 = arrays.current[2 * mergeRowIndex.current + 1];
             //if either array is empty concatenate the other to the merged array
             if (array1.length === 0) {
                 for (let i = array2.length-1; i >= 0; i--) {
-                    mergedArrays.current[mergeRowIndex][mergedArraysCurrs.current[mergeRowIndex]] = array2[i];
-                    mergedArraysCurrs.current[mergeRowIndex]--;
+                    mergedArrays.current[mergeRowIndex.current][mergedArraysCurrs.current[mergeRowIndex.current]] = array2[i];
+                    mergedArraysCurrs.current[mergeRowIndex.current]--;
                 }
-                arrays.current[2*mergeRowIndex+1] = [];
+                arrays.current[2*mergeRowIndex.current+1] = [];
             } else if (array2.length === 0) {
                 for (let i = array1.length-1; i >= 0; i--) {
-                    mergedArrays.current[mergeRowIndex][mergedArraysCurrs.current[mergeRowIndex]] = array1[i];
-                    mergedArraysCurrs.current[mergeRowIndex]--;
+                    mergedArrays.current[mergeRowIndex.current][mergedArraysCurrs.current[mergeRowIndex.current]] = array1[i];
+                    mergedArraysCurrs.current[mergeRowIndex.current]--;
                 }
-                arrays.current[2*mergeRowIndex] = [];
+                arrays.current[2*mergeRowIndex.current] = [];
             //add the max of the last elements to the merged array
             } else {
                 if (array1[array1.length-1] >= array2[array2.length-1]) {
-                    mergedArrays.current[mergeRowIndex][mergedArraysCurrs.current[mergeRowIndex]] = array1[array1.length-1];
-                    mergedArraysCurrs.current[mergeRowIndex]--;
-                    arrays.current[2*mergeRowIndex].pop();
+                    mergedArrays.current[mergeRowIndex.current][mergedArraysCurrs.current[mergeRowIndex.current]] = array1[array1.length-1];
+                    mergedArraysCurrs.current[mergeRowIndex.current]--;
+                    arrays.current[2*mergeRowIndex.current].pop();
                 } else {
-                    mergedArrays.current[mergeRowIndex][mergedArraysCurrs.current[mergeRowIndex]] = array2[array2.length-1];
-                    mergedArraysCurrs.current[mergeRowIndex]--;
-                    arrays.current[2*mergeRowIndex+1].pop();
+                    mergedArrays.current[mergeRowIndex.current][mergedArraysCurrs.current[mergeRowIndex.current]] = array2[array2.length-1];
+                    mergedArraysCurrs.current[mergeRowIndex.current]--;
+                    arrays.current[2*mergeRowIndex.current+1].pop();
                 }
             }
     }
