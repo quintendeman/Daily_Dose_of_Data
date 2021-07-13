@@ -19,6 +19,7 @@ import BubbleSort from './BubbleSort/BubbleSort'
 import ArrayList from './ArrayList/ArrayList';
 import ArrayListInformation from './ArrayList/ArrayListInformation';
 import MergeSort from './MergeSort/MergeSort';
+import QuickSort from './QuickSort/QuickSort';
 
 const App = () => {
 		return (
@@ -85,7 +86,7 @@ const App = () => {
 								<MergeSort />
 							</Route>
 							<Route exact path="/Quick Sort">
-
+								<QuickSort />
 							</Route>
 						</Switch>
 						</div>
