@@ -15,7 +15,8 @@ import LinkedList from './LinkedList/LinkedList';
 import LinkedListInformation from './LinkedList/LinkedListInformation';
 import InsertionSort from './InsertionSort/InsertionSort';
 import Array from './Array/Array';
-import BubbleSort from './BubbleSort/BubbleSort'
+import ArrayInformation from './Array/ArrayInformation';
+import BubbleSort from './BubbleSort/BubbleSort';
 import ArrayList from './ArrayList/ArrayList';
 import ArrayListInformation from './ArrayList/ArrayListInformation';
 import MergeSort from './MergeSort/MergeSort';
@@ -48,6 +49,7 @@ const App = () => {
 								<Queue />
 							</Route>
 							<Route exact path="/Array">
+								<ArrayInformation />
 								<Array />
 							</Route>
 							<Route exact path="/Linked List">
