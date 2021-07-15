@@ -9,6 +9,7 @@ import StackInformation from './Stack/StackInformation';
 import Queue from './Queue/Queue';
 import QueueInformation from './Queue/QueueInformation';
 import BinaryTree from './BinaryTree/BinaryTree';
+import BinaryTreeInformation from './BinaryTree/BinaryTreeInformation';
 import BinarySearchTree from './BinarySearchTree/BinarySearchTree';
 import SelectionSort from './SelectionSort/SelectionSort';
 import LinkedList from './LinkedList/LinkedList';
@@ -61,6 +62,7 @@ const App = () => {
 								<ArrayList />
 							</Route>
 							<Route exact path="/Binary Tree">
+								<BinaryTreeInformation />
 								<BinaryTree />
 							</Route>
 							<Route exact path="/Binary Search Tree">
