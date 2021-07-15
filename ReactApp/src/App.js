@@ -60,7 +60,7 @@ const App = () => {
 								<ArrayListInformation />
 								<ArrayList />
 							</Route>
-							<Route exact path="/Tree">
+							<Route exact path="/Binary Tree">
 								<BinaryTree />
 							</Route>
 							<Route exact path="/Binary Search Tree">
