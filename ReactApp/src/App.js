@@ -28,7 +28,7 @@ const App = () => {
 		return (
 			<>
 				<BrowserRouter>
-					<header>WEBSITE NAME WEBSITE NAME WEBSITE NAME</header>
+					<header>DAILY DOSE OF DATA</header>
 					<div className="main">
 						<Navigation />
 						<div className="content">
