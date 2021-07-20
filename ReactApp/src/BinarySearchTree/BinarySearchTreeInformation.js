@@ -13,7 +13,7 @@ const BinarySearchTreeInformation = () => {
                 <li><b>Find:</b> searches for an element in the tree</li>
             </ul>
             <br />
-            <p>In order to maintain the ordered property of the tree, insertion and removal of elements must be done in a careful manner. For insertion the tree is traversed going left if new value is less than the current node and going right if the new value is greater than the current node. Once we reach an empty spot, a new node is created there with the new value.</p>
+            <p>In order to maintain the ordered property of the tree, insertion and removal of elements must be done in a careful manner. For insertion the tree is traversed going left if the new value is less than the current node and going right if the new value is greater than the current node. Once we reach an empty spot, a new node is created there with the new value.</p>
             <br />
             <p>To remove a value from the tree, it becomes more complex. First we traverse the tree to find the node of the value we want to remove. If it has no children, we simply set its parent's child to null. If it has 1 child, we set its parent's child to its child. If it has 2 children, we find the leftmost child of the right sub-tree of the current node, set the current node to that value, and then delete the leftmost child of the right sub-tree. This can also be done with the rightmost child of the left sub-tree.</p>
             <br />

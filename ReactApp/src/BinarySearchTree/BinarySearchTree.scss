@@ -16,16 +16,15 @@
         background-color: #FCC;
         width: 100px;
     }
-    #randomButton:hover, #insertButton:hover, #removeButton:hover {
+    #findButton {
+        background-color: #EEA;
+        width: 100px;
+    }
+    #randomButton:hover, #insertButton:hover, #removeButton:hover, #findButton:hover {
         background-color: White;
     }
-    #randomButton:active, #insertButton:active, #removeButton:active {
+    #randomButton:active, #insertButton:active, #removeButton:active, #findButton:active {
         background-color: Black;
         color: White;
     }
-    .animatingButton {
-        background-color: #000;
-        color: #FFF;
-    }
-
 }

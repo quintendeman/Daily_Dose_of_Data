@@ -118,10 +118,6 @@ class BinarySearchTreeClass {
             }
         }
     }
-
-    find (value) {
-
-    }
 }
 
 //react component for binary search tree
@@ -131,10 +127,12 @@ const BinarySearchTree = () => {
     const [tree, setTree] = useState(new BinarySearchTreeClass());
     const insertInput = useRef();
     const removeInput = useRef();
+    const findInput = useRef();
     const speedSlider = useRef();
     const focus = useRef();
     const green = useRef();
     const pink = useRef();
+    const yellow = useRef();
     const interval = useRef();
     const animating = useRef();
     const animationFunction = useRef();
@@ -177,6 +175,7 @@ const BinarySearchTree = () => {
                 forceUpdate();
             }, 1000-speedSlider.current.value);
             green.current = null;
+            yellow.current = null;
             animating.current = true;
         }
     }, []);
@@ -270,6 +269,48 @@ const BinarySearchTree = () => {
         }
     }
 
+    //function to start find animation
+    const find = () => {
+        if (animating.current)
+            toggleAnimation();
+        if(tree.root !== null) {
+            var data = parseInt(findInput.current.value);
+            if (isNaN(data))
+                data = tree.root.value;
+            focus.current = tree.root;
+            animationFunction.current = findStep;
+            animationValue.current = data;
+            toggleAnimation();
+            if (focus.current.value === data)
+                yellow.current = focus.current;
+            forceUpdate();
+        }
+        findInput.current.value = null;
+    }
+
+    //function to to a single step of find animation
+    const findStep = () => {
+        if (animationValue.current < focus.current.value) {
+            if (focus.current.left === null)
+                toggleAnimation();
+            else {
+                focus.current = focus.current.left;
+                if (focus.current.value === animationValue.current)
+                    yellow.current = focus.current;
+            }
+        } else if (animationValue.current > focus.current.value) {
+            if (focus.current.right === null)
+                toggleAnimation();
+            else {
+                focus.current = focus.current.right;
+                if (focus.current.value === animationValue.current)
+                    yellow.current = focus.current;
+            }
+        } else {
+            toggleAnimation();
+        }
+    }
+
     //changes the animation speed when the slider changes
     const updateSpeed = () => {
         if (animationFunction.current != null) {
@@ -292,13 +333,16 @@ const BinarySearchTree = () => {
                 <button id="removeButton" onClick={remove}>Remove</button>
                 <input ref={removeInput} type="text"></input>
                 <br />
+                <button id="findButton" onClick={find}>Find</button>
+                <input ref={findInput} type="text"></input>
+                <br />
                 <span className="labeledSlider">
                     <label>Animation Speed</label>
                     <input className="slider" ref={speedSlider} onChange={updateSpeed} min="0" max="990" type="range"></input>
                 </span>
             </div>
             <div className="visualization">
-                <BinaryTreeDisplay tree={tree} border={focus.current} green={green.current} pink={pink.current} />
+                <BinaryTreeDisplay tree={tree} border={focus.current} green={green.current} pink={pink.current} yellow={yellow.current} />
             </div>
         </div>
     );
