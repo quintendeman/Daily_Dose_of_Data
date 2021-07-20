@@ -8,6 +8,10 @@ const BinaryTreeLevel = (props) => {
     return props.list.map((node, index) => {
         if (node === null)
             return <Element key={index} value={""} color={"none"} />;
+        else if (node === props.border)
+            return <Element key={index} value={node.value} border="bordered" />;
+        else if (node === props.green)
+            return <Element key={index} value={node.value} color="green" />;
         else
             return <Element key={index} value={node.value} />;
     });
@@ -52,7 +56,7 @@ const BinaryTreeDisplay = (props) => {
         //add a level of nodes
         levelComponents.push(
             <div key={levelComponents.length} className="binary-tree-level">
-                <BinaryTreeLevel list={currQueue} />
+                <BinaryTreeLevel list={currQueue} border={props.border} green={props.green} />
             </div>
         );
         //break loop if entire level is null
