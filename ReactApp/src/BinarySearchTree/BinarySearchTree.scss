@@ -1,8 +1,10 @@
 .binary-search-tree {
     
-    display: flex;
-	align-items: flex-start;
-	margin: 10px;
+    #main {
+        display: flex;
+        align-items: flex-start;
+        margin: 10px;
+    }
 
     #randomButton {
         background-color: #EDF;

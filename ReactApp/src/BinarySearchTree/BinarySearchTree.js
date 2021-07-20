@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import './BinarySearchTree.scss';
 import BinaryTreeDisplay from '../BinaryTree/BinaryTreeDisplay.js';
+import Element from '../Element/Element.js';
 
 //class for node in binary tree
 class BinaryTreeNode {
@@ -324,38 +325,40 @@ const BinarySearchTree = () => {
 
     return (
         <div className="binary-search-tree">
-            <div className="controls">
-                <button id="randomButton" onClick={randomTree}>Random</button>
-                <br />
-                <button id="insertButton" onClick={insert}>Insert</button>
-                <input ref={insertInput} type="text"></input>
-                <br />
-                <button id="removeButton" onClick={remove}>Remove</button>
-                <input ref={removeInput} type="text"></input>
-                <br />
-                <button id="findButton" onClick={find}>Find</button>
-                <input ref={findInput} type="text"></input>
-                <br />
-                <span className="labeledSlider">
-                    <label>Animation Speed</label>
-                    <input className="slider" ref={speedSlider} onChange={updateSpeed} min="0" max="990" type="range"></input>
-                </span>
-            </div>
-            <div className="visualization">
-                <BinaryTreeDisplay tree={tree} border={focus.current} green={green.current} pink={pink.current} yellow={yellow.current} />
+            <div id="main">
+                <div className="controls">
+                    <button id="randomButton" onClick={randomTree}>Random</button>
+                    <br />
+                    <button id="insertButton" onClick={insert}>Insert</button>
+                    <input ref={insertInput} type="text"></input>
+                    <br />
+                    <button id="removeButton" onClick={remove}>Remove</button>
+                    <input ref={removeInput} type="text"></input>
+                    <br />
+                    <button id="findButton" onClick={find}>Find</button>
+                    <input ref={findInput} type="text"></input>
+                    <br />
+                    <span className="labeledSlider">
+                        <label>Animation Speed</label>
+                        <input className="slider" ref={speedSlider} onChange={updateSpeed} min="0" max="990" type="range"></input>
+                    </span>
+                </div>
+                <div className="visualization">
+                    <BinaryTreeDisplay tree={tree} border={focus.current} green={green.current} pink={pink.current} yellow={yellow.current} />
+                </div>
             </div>
             <div className="legend">
-                <Element color="green"></Element>
-                <p>= Sorted</p>
-                < br />
-                <Element></Element>
-                <p>= Unsorted</p>
-                <br />
-                <Element color="pink"></Element>
-                <p>= Current Minimum</p>
-                <br />
                 <Element border="bordered"></Element>
                 <p>= Current Focus</p>
+                <br />
+                <Element color="green"></Element>
+                <p>= Last Inserted Element</p>
+                < br />
+                <Element color="pink"></Element>
+                <p>= Element to Delete</p>
+                <br />
+                <Element color="yellow"></Element>
+                <p>= Last Found Element</p>
             </div>
         </div>
     );
