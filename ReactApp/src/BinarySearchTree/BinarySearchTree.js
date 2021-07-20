@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import './BinarySearchTree.scss';
 import BinaryTreeDisplay from '../BinaryTree/BinaryTreeDisplay.js';
 
@@ -134,6 +134,7 @@ const BinarySearchTree = () => {
     const speedSlider = useRef();
     const focus = useRef();
     const green = useRef();
+    const pink = useRef();
     const interval = useRef();
     const animating = useRef();
     const animationFunction = useRef();
@@ -146,6 +147,8 @@ const BinarySearchTree = () => {
 
     //function to generate a random BST
     const randomTree = () => {
+        if (animating.current)
+            toggleAnimation();
         const height = randInt(2,6);
         var newTree = new BinarySearchTreeClass();
         var insertValue = null;
@@ -160,8 +163,26 @@ const BinarySearchTree = () => {
         return Math.floor(Math.random() * (max-min) + min);
     }
 
+    //function to pause or continue animation
+    const toggleAnimation = useCallback(() => {
+        if (animating.current) {
+            clearInterval(interval.current);
+            animating.current = false;
+            focus.current = null;
+            animationFunction.current = null;
+            animationValue.current = null;
+        } else {
+            interval.current = setInterval(() => {
+                animationFunction.current();
+                forceUpdate();
+            }, 1000-speedSlider.current.value);
+            green.current = null;
+            animating.current = true;
+        }
+    }, []);
+    
     //initialize the tree to a random BST
-    useEffect(randomTree, []);
+    useEffect(randomTree, [toggleAnimation]);
 
     //function to insert into the binary search tree on button click
     const insert = () => {
@@ -171,11 +192,17 @@ const BinarySearchTree = () => {
         if (isNaN(data))
             data = randInt(-999, 1000);
         insertInput.current.value = null;
-        focus.current = tree.root;
-        forceUpdate();
-        animationFunction.current = insertStep;
-        animationValue.current = data;
-        toggleAnimation();
+        if (tree.root === null) {
+            tree.insert(data);
+            green.current = tree.root;
+            forceUpdate();
+        } else {
+            focus.current = tree.root;
+            forceUpdate();
+            animationFunction.current = insertStep;
+            animationValue.current = data;
+            toggleAnimation();
+        }
     }
 
     //function to do a single step of insertion animation
@@ -184,9 +211,6 @@ const BinarySearchTree = () => {
             if (focus.current.left === null) {
                 tree.insert(animationValue.current);
                 green.current = focus.current.left;
-                focus.current = null;
-                animationFunction.current = null;
-                animationValue.current = null;
                 toggleAnimation();
             } else
                 focus.current = focus.current.left;
@@ -194,44 +218,55 @@ const BinarySearchTree = () => {
             if (focus.current.right === null) {
                 tree.insert(animationValue.current);
                 green.current = focus.current.right;
-                focus.current = null;
-                animationFunction.current = null;
-                animationValue.current = null;
                 toggleAnimation();
             } else
                 focus.current = focus.current.right;
         } else {
-            focus.current = null;
-            animationFunction.current = null;
-            animationValue.current = null;
             toggleAnimation();
         }
     }
 
     //function to remove from binary search tree on button click
     const remove = () => {
+        if (animating.current)
+            toggleAnimation();
         if(tree.root !== null) {
             var data = parseInt(removeInput.current.value);
-            if(isNaN(data))
+            if (isNaN(data))
                 data = tree.root.value;
-            tree.remove(data);
+            focus.current = tree.root;
+            if (focus.current.value === data)
+                pink.current = focus.current;
             forceUpdate();
+            animationFunction.current = removeStep;
+            animationValue.current = data;
+            toggleAnimation();
         }
         removeInput.current.value = null;
     }
 
-    //function to pause or continue animation
-    const toggleAnimation = () => {
-        if (animating.current) {
-            clearInterval(interval.current);
-            animating.current = false;
+    //function to do a single step of remove animation
+    const removeStep = () => {
+        if (animationValue.current < focus.current.value) {
+            if (focus.current.left === null)
+                toggleAnimation();
+            else {
+                focus.current = focus.current.left;
+                if (focus.current.value === animationValue.current)
+                    pink.current = focus.current;
+            }
+        } else if (animationValue.current > focus.current.value) {
+            if (focus.current.right === null)
+                toggleAnimation();
+            else {
+                focus.current = focus.current.right;
+                if (focus.current.value === animationValue.current)
+                    pink.current = focus.current;
+            }
         } else {
-            interval.current = setInterval(() => {
-                animationFunction.current();
-                forceUpdate();
-            }, 1000-speedSlider.current.value);
-            green.current = null;
-            animating.current = true;
+            tree.remove(animationValue.current);
+            pink.current = null;
+            toggleAnimation();
         }
     }
 
@@ -263,7 +298,7 @@ const BinarySearchTree = () => {
                 </span>
             </div>
             <div className="visualization">
-                <BinaryTreeDisplay tree={tree} border={focus.current} green={green.current} />
+                <BinaryTreeDisplay tree={tree} border={focus.current} green={green.current} pink={pink.current} />
             </div>
         </div>
     );
