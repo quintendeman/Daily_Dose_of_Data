@@ -344,6 +344,19 @@ const BinarySearchTree = () => {
             <div className="visualization">
                 <BinaryTreeDisplay tree={tree} border={focus.current} green={green.current} pink={pink.current} yellow={yellow.current} />
             </div>
+            <div className="legend">
+                <Element color="green"></Element>
+                <p>= Sorted</p>
+                < br />
+                <Element></Element>
+                <p>= Unsorted</p>
+                <br />
+                <Element color="pink"></Element>
+                <p>= Current Minimum</p>
+                <br />
+                <Element border="bordered"></Element>
+                <p>= Current Focus</p>
+            </div>
         </div>
     );
 
