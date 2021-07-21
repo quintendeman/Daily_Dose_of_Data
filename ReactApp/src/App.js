@@ -13,6 +13,7 @@ import BinaryTreeInformation from './BinaryTree/BinaryTreeInformation';
 import BinarySearchTree from './BinarySearchTree/BinarySearchTree';
 import BinarySearchTreeInformation from './BinarySearchTree/BinarySearchTreeInformation';
 import SelectionSort from './SelectionSort/SelectionSort';
+import SelectionSortInformation from './SelectionSort/SelectionSortInformation';
 import LinkedList from './LinkedList/LinkedList';
 import LinkedListInformation from './LinkedList/LinkedListInformation';
 import InsertionSort from './InsertionSort/InsertionSort';
@@ -80,6 +81,7 @@ const App = () => {
 
 								</Route>
 								<Route exact path="/Selection Sort">
+									<SelectionSortInformation />
 									<SelectionSort />
 								</Route>
 								<Route exact path="/Insertion Sort">
