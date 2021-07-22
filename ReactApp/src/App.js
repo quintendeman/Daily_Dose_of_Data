@@ -12,6 +12,7 @@ import BinaryTree from './BinaryTree/BinaryTree';
 import BinaryTreeInformation from './BinaryTree/BinaryTreeInformation';
 import BinarySearchTree from './BinarySearchTree/BinarySearchTree';
 import BinarySearchTreeInformation from './BinarySearchTree/BinarySearchTreeInformation';
+import BinaryHeap from './BinaryHeap/BinaryHeap';
 import SelectionSort from './SelectionSort/SelectionSort';
 import SelectionSortInformation from './SelectionSort/SelectionSortInformation';
 import LinkedList from './LinkedList/LinkedList';
@@ -71,8 +72,8 @@ const App = () => {
 									<BinarySearchTreeInformation />
 									<BinarySearchTree />
 								</Route>
-								<Route exact path="/Graph">
-
+								<Route exact path="/Binary Heap">
+									<BinaryHeap />
 								</Route>
 								<Route exact path="/Set">
 
