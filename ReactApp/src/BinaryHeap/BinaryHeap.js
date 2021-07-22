@@ -26,15 +26,57 @@ class BinaryHeapClass {
 
     insert(value) {
         this.heap.push(value);
-        this.refactor();
+        var current = this.heap.length-1;
+        var parent = Math.floor((current-1)/2);
+        while(parent >= 0) {
+            if (this.heap[current] < this.heap[parent]) {
+                let temp = this.heap[parent];
+                this.heap[parent] = this.heap[current];
+                this.heap[current] = temp;
+                current = parent;
+                parent = Math.floor((current-1)/2);
+            } else
+                break;
+        }
     }
 
     remove() {
-
-    }
-
-    refactor() {
-
+        if (this.heap.length !== 0) {
+            if (this.heap.length === 1)
+                this.heap = [];
+            else {
+                this.heap[0] = this.heap.pop();
+                var current = 0;
+                while (current < this.heap.length) {
+                    if (2 * current + 2 < this.heap.length) {
+                        if (this.heap[current] <= this.heap[2 * current + 1] && this.heap[current] <= this.heap[2 * current + 2]) {
+                            break;
+                        } else if (this.heap[2 * current + 1] < this.heap[2 * current + 2]) {
+                            let temp = this.heap[current];
+                            this.heap[current] = this.heap[2 * current + 1];
+                            this.heap[2 * current + 1] = temp;
+                            current = 2 * current + 1;
+                        } else {
+                            let temp = this.heap[current];
+                            this.heap[current] = this.heap[2 * current + 2];
+                            this.heap[2 * current + 2] = temp;
+                            current = 2 * current + 2;
+                        }
+                    } else if (2 * current + 1 < this.heap.length) {
+                        if (this.heap[current] > this.heap[2 * current + 1]) {
+                            let temp = this.heap[current];
+                            this.heap[current] = this.heap[2 * current + 1];
+                            this.heap[2 * current + 1] = temp;
+                            current = 2 * current + 1;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     getTree() {
@@ -46,8 +88,6 @@ class BinaryHeapClass {
             var indices = [0];
             var newIndices = [];
             while (nodes.length !== 0) {
-                console.log(nodes);
-                console.log(indices);
                 for (let i = 0; i < nodes.length; i++) {
                     if (2*indices[i]+1 < this.heap.length) {
                         nodes[i].left = new BinaryTreeNode(this.heap[2*indices[i]+1]);
@@ -76,7 +116,6 @@ const BinaryHeap = () => {
     const [, forceRender] = useState(0);
     const [heap, setHeap] = useState(new BinaryHeapClass());
     const insertInput = useRef();
-    const removeInput = useRef();
     const speedSlider = useRef();
     const interval = useRef();
 
@@ -112,7 +151,8 @@ const BinaryHeap = () => {
 
     //function to remove a value from the heap
     const remove = () => {
-
+        heap.remove();
+        forceUpdate();
     }
 
     //changes the animation speed when the slider changes
@@ -133,7 +173,6 @@ const BinaryHeap = () => {
                 <input ref={insertInput} type="text"></input>
                 <br />
                 <button id="removeButton" onClick={remove}>Remove</button>
-                <input ref={removeInput} type="text"></input>
                 <br />
                 <span className="labeledSlider">
                     <label>Animation Speed</label>
