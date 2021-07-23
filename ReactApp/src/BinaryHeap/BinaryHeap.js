@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import './BinaryHeap.scss';
 import BinaryTreeDisplay from '../BinaryTree/BinaryTreeDisplay.js';
 
@@ -22,6 +22,12 @@ class BinaryTreeClass {
 class BinaryHeapClass {
     constructor() {
         this.heap = [];
+        this.focus = null;
+        this.focusNode = null;
+        this.green = null;
+        this.greenNode = null;
+        this.pink = null;
+        this.pinkNode = null;
     }
 
     insert(value) {
@@ -81,8 +87,17 @@ class BinaryHeapClass {
 
     getTree() {
         var tree = new BinaryTreeClass(null);
+        this.focusNode = null;
+        this.greenNode = null;
+        this.pinkNode = null;
         if (this.heap.length !== 0) {
             tree.root = new BinaryTreeNode(this.heap[0]);
+            if (this.focus === 0)
+                this.focusNode = tree.root;
+            if (this.green === 0)
+                this.greenNode = tree.root;
+            if (this.pink === 0)
+                this.pinkNode = tree.root;
             var nodes = [tree.root];
             var newNodes = [];
             var indices = [0];
@@ -91,11 +106,23 @@ class BinaryHeapClass {
                 for (let i = 0; i < nodes.length; i++) {
                     if (2*indices[i]+1 < this.heap.length) {
                         nodes[i].left = new BinaryTreeNode(this.heap[2*indices[i]+1]);
+                        if (2*indices[i]+1 === this.focus)
+                            this.focusNode = nodes[i].left;
+                        if (2*indices[i]+1 === this.green)
+                            this.greenNode = nodes[i].left;
+                        if (2*indices[i]+1 === this.pink)
+                            this.pinkNode = nodes[i].left;
                         newNodes.push(nodes[i].left);
                         newIndices.push(2*indices[i]+1);
                     }
                     if (2*indices[i]+2 < this.heap.length) {
                         nodes[i].right = new BinaryTreeNode(this.heap[2*indices[i]+2]);
+                        if (2*indices[i]+2 === this.focus)
+                            this.focusNode = nodes[i].right;
+                        if (2*indices[i]+2 === this.green)
+                            this.greenNode = nodes[i].right;
+                        if (2*indices[i]+2 === this.pink)
+                            this.pinkNode = nodes[i].right;
                         newNodes.push(nodes[i].right);
                         newIndices.push(2*indices[i]+2);
                     }
@@ -118,6 +145,9 @@ const BinaryHeap = () => {
     const insertInput = useRef();
     const speedSlider = useRef();
     const interval = useRef();
+    const animating = useRef();
+    const animationFunction = useRef();
+    const animationCurrent = useRef();
 
     //We call update on fake state variable to force rerender
 	const forceUpdate = () => {
@@ -126,6 +156,8 @@ const BinaryHeap = () => {
 
     //function to create a random heap
     const randomHeap = () => {
+        if (animating.current)
+            toggleAnimation();
         const elements = randInt(2,32);
         var newHeap = new BinaryHeapClass();
         for (let i = 0; i < elements; i++)
@@ -136,32 +168,89 @@ const BinaryHeap = () => {
         return Math.floor(Math.random() * (max-min) + min);
     }
 
+    //function to pause or continue animation
+    const toggleAnimation = useCallback(() => {
+        if (animating.current) {
+            clearInterval(interval.current);
+            animating.current = false;
+            animationFunction.current = null;
+            animationCurrent.current = null;
+        } else {
+            interval.current = setInterval(() => {
+                animationFunction.current();
+                forceUpdate();
+            }, 1000-speedSlider.current.value);
+            animating.current = true;
+        }
+    }, []);
+
     //initialize the tree to a random binary heap
-    useEffect(randomHeap, []);
+    useEffect(randomHeap, [toggleAnimation]);
 
     //function to insert a value into the heap
     const insert = () => {
-        var data = parseInt(insertInput.current.value);
-        if (isNaN(data))
-            data = randInt(-999, 1000);
-        heap.insert(data);
-        forceUpdate();
-        insertInput.current.value = null;
+        if (!animating.current) {
+            var data = parseInt(insertInput.current.value);
+            if (isNaN(data))
+                data = randInt(-999, 1000);
+            insertInput.current.value = null;
+            heap.heap.push(data);
+            heap.green = heap.heap.length - 1;
+            forceUpdate();
+            animationFunction.current = insertStep;
+            animationCurrent.current = heap.heap.length - 1;
+            toggleAnimation();
+        }
+    }
+
+    //function to do a single step of insertion animation
+    const insertStep = () => {
+        var parent = Math.floor((animationCurrent.current-1)/2);
+        if (parent < 0)
+            toggleAnimation();
+        else {
+            if (heap.heap[parent] > heap.heap[animationCurrent.current]) {
+                let temp = heap.heap[parent];
+                heap.heap[parent] = heap.heap[animationCurrent.current];
+                heap.heap[animationCurrent.current] = temp;
+                animationCurrent.current = parent;
+                heap.green = animationCurrent.current;
+            } else
+                toggleAnimation();
+        }
     }
 
     //function to remove a value from the heap
     const remove = () => {
-        heap.remove();
-        forceUpdate();
+        if (!animating.current && heap.heap.length > 0) {
+            if(heap.length === 1)
+                heap.remove();
+            else {
+                heap.green = null;
+                heap.pink = 0;
+                heap.focus = heap.heap.length-1;
+                forceUpdate();
+                animationFunction.current = removeStep;
+                animationCurrent.current = 0;
+                toggleAnimation();
+            }
+        }
+    }
+
+    //function to one step of remove animation
+    const removeStep = () => {
+        
     }
 
     //changes the animation speed when the slider changes
     const updateSpeed = () => {
-        clearInterval(interval.current);
-        interval.current = setInterval(() => {
-            
-            forceUpdate();
-        }, 1000 - speedSlider.current.value);
+        if (animationFunction.current != null) {
+            clearInterval(interval.current);
+            interval.current = setInterval(() => {
+                animationFunction.current();
+                forceUpdate();
+            }, 1000-speedSlider.current.value);
+        }
     }
 
     return (
@@ -180,7 +269,7 @@ const BinaryHeap = () => {
                 </span>
             </div>
             <div className="visualization">
-                <BinaryTreeDisplay tree={heap.getTree()} />
+                <BinaryTreeDisplay tree={heap.getTree()} border={heap.focusNode} green={heap.greenNode} pink={heap.pinkNode} />
             </div>
         </div>
     );
