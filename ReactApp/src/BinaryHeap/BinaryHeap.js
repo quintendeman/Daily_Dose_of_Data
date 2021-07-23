@@ -195,6 +195,7 @@ const BinaryHeap = () => {
                 data = randInt(-999, 1000);
             insertInput.current.value = null;
             heap.heap.push(data);
+            heap.pink = null;
             heap.green = heap.heap.length - 1;
             forceUpdate();
             animationFunction.current = insertStep;
@@ -223,9 +224,10 @@ const BinaryHeap = () => {
     //function to remove a value from the heap
     const remove = () => {
         if (!animating.current && heap.heap.length > 0) {
-            if(heap.length === 1)
+            if (heap.heap.length === 1) {
                 heap.remove();
-            else {
+                forceUpdate();
+            } else {
                 heap.green = null;
                 heap.pink = 0;
                 heap.focus = heap.heap.length-1;
@@ -239,7 +241,40 @@ const BinaryHeap = () => {
 
     //function to one step of remove animation
     const removeStep = () => {
-        
+        if (heap.focus !== null) {
+            heap.heap[0] = heap.heap.pop();
+            heap.focus = null;
+        } else {
+            if (2 * animationCurrent.current + 2 < heap.heap.length) {
+                if (heap.heap[animationCurrent.current] <= heap.heap[2 * animationCurrent.current + 1] && heap.heap[animationCurrent.current] <= heap.heap[2 * animationCurrent.current + 2]) {
+                    toggleAnimation();
+                } else if (heap.heap[2 * animationCurrent.current + 1] < heap.heap[2 * animationCurrent.current + 2]) {
+                    let temp = heap.heap[animationCurrent.current];
+                    heap.heap[animationCurrent.current] = heap.heap[2 * animationCurrent.current + 1];
+                    heap.heap[2 * animationCurrent.current + 1] = temp;
+                    animationCurrent.current = 2 * animationCurrent.current + 1;
+                    heap.pink = animationCurrent.current;
+                } else {
+                    let temp = heap.heap[animationCurrent.current];
+                    heap.heap[animationCurrent.current] = heap.heap[2 * animationCurrent.current + 2];
+                    heap.heap[2 * animationCurrent.current + 2] = temp;
+                    animationCurrent.current = 2 * animationCurrent.current + 2;
+                    heap.pink = animationCurrent.current;
+                }
+            } else if (2 * animationCurrent.current + 1 < heap.heap.length) {
+                if (heap.heap[animationCurrent.current] > heap.heap[2 * animationCurrent.current + 1]) {
+                    let temp = heap.heap[animationCurrent.current];
+                    heap.heap[animationCurrent.current] = heap.heap[2 * animationCurrent.current + 1];
+                    heap.heap[2 * animationCurrent.current + 1] = temp;
+                    animationCurrent.current = 2 * animationCurrent.current + 1;
+                    heap.pink = animationCurrent.current;
+                } else {
+                    toggleAnimation();
+                }
+            } else {
+                toggleAnimation();
+            }
+        }
     }
 
     //changes the animation speed when the slider changes
