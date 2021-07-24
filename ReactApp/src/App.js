@@ -25,6 +25,7 @@ import ArrayList from './ArrayList/ArrayList';
 import ArrayListInformation from './ArrayList/ArrayListInformation';
 import MergeSort from './MergeSort/MergeSort';
 import QuickSort from './QuickSort/QuickSort';
+import AvlTree from './AvlTree/AvlTree';
 
 const App = () => {
 		return (
@@ -71,6 +72,9 @@ const App = () => {
 								<Route exact path="/Binary Search Tree">
 									<BinarySearchTreeInformation />
 									<BinarySearchTree />
+								</Route>
+								<Route exact path="/Avl Tree">
+									<AvlTree />
 								</Route>
 								<Route exact path="/Binary Heap">
 									<BinaryHeap />
