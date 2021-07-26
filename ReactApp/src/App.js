@@ -25,6 +25,7 @@ import ArrayList from './ArrayList/ArrayList';
 import ArrayListInformation from './ArrayList/ArrayListInformation';
 import MergeSort from './MergeSort/MergeSort';
 import QuickSort from './QuickSort/QuickSort';
+import HeapSort from './HeapSort/HeapSort';
 import AvlTree from './AvlTree/AvlTree';
 
 const App = () => {
@@ -100,6 +101,9 @@ const App = () => {
 								</Route>
 								<Route exact path="/Quick Sort">
 									<QuickSort />
+								</Route>
+								<Route exact path="/Heap Sort">
+									<HeapSort />
 								</Route>
 							</Switch>
 						</div>
