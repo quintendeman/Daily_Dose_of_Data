@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import './LinkedList.scss';
 import Element from '../Element/Element';
 
@@ -96,12 +96,42 @@ const LinkedListDisplay = (props) => {
     var index = 0;
     var componentList = [];
     while (current != null) {
-        componentList.push(
-            <div key={2*index} className="labeledElement">
-                <label>{index}</label>
-                <Element value={current.value}></Element>
-            </div>
-        );
+        if (current === props.focus) {
+            componentList.push(
+                <div key={2*index} className="labeledElement">
+                    <label>{index}</label>
+                    <Element value={current.value} border="bordered"></Element>
+                </div>
+            );
+        } else if (current === props.green) {
+            componentList.push(
+                <div key={2*index} className="labeledElement">
+                    <label>{index}</label>
+                    <Element value={current.value} color="green"></Element>
+                </div>
+            );
+        } else if (current === props.yellow) {
+            componentList.push(
+                <div key={2*index} className="labeledElement">
+                    <label>{index}</label>
+                    <Element value={current.value} color="yellow"></Element>
+                </div>
+            );
+        } else if (current === props.pink) {
+            componentList.push(
+                <div key={2*index} className="labeledElement">
+                    <label>{index}</label>
+                    <Element value={current.value} color="pink"></Element>
+                </div>
+            );
+        } else {
+            componentList.push(
+                <div key={2*index} className="labeledElement">
+                    <label>{index}</label>
+                    <Element value={current.value}></Element>
+                </div>
+            );
+        }
         componentList.push(
             <p className="arrow" key={2*index+1}>&#x2192;</p>
         );
@@ -124,6 +154,17 @@ const LinkedList = () => {
     const removeIndex = useRef();
     const listOutput = useRef();
     const getIndex = useRef();
+    const speedSlider = useRef();
+    const interval = useRef();
+    const animationFunction = useRef();
+    const animationValue = useRef();
+    const targetIndex = useRef();
+    const animating = useRef();
+    const currentNode = useRef();
+    const currentIndex = useRef();
+    const green = useRef();
+    const yellow = useRef(null);
+    const pink = useRef(null);
 
     //We call update on fake state variable to force rerender
     const forceUpdate = () => {
@@ -132,6 +173,8 @@ const LinkedList = () => {
 
     //sets list to a randomly generated list
     const randomList = () => {
+        if (animating.current)
+            toggleAnimation();
         var size = randomSize.current.value;
         if (size === "") {
             size = randInt(8, 40);
@@ -148,52 +191,153 @@ const LinkedList = () => {
         return Math.floor(Math.random() * (max-min) + min);
     }
 
+    //function to pause or continue animation
+    const toggleAnimation = useCallback(() => {
+        if (animating.current) {
+            clearInterval(interval.current);
+            animating.current = false;
+            animationFunction.current = null;
+            animationValue.current = null;
+            targetIndex.current = null;
+            currentNode.current = null;
+            currentIndex.current = null;
+            pink.current = null;
+        } else {
+            interval.current = setInterval(() => {
+                animationFunction.current();
+                forceUpdate();
+            }, 1000-speedSlider.current.value);
+            animating.current = true;
+            green.current = null;
+            yellow.current = null;
+        }
+    }, []);
+
     //initialize list to random list
-    useEffect(randomList, []);
+    useEffect(randomList, [toggleAnimation]);
 
     //insertion only occurs at head for now
     function insert() {
+        if (animating.current)
+            toggleAnimation();
         var data = parseInt(insertValue.current.value);
         var index = parseInt(insertIndex.current.value);
         if(isNaN(data))
-            data = 0;
+            data = randInt(-999,1000);
         if(isNaN(index))
             index = 0;
-        if (index >= 0 && index < list.size) {
-            list.insertAt(data, index);
+        if (index === 0) {
+            list.insertAt(data, 0);
+            green.current = list.head;
+            yellow.current = null;
             forceUpdate();
+        } else if (index > 0 && index < list.size) {
+            animationFunction.current = insertStep;
+            animationValue.current = data;
+            targetIndex.current = index;
+            currentNode.current = list.head;
+            currentIndex.current = 0;
+            forceUpdate();
+            toggleAnimation();
         } else {
             listOutput.current.value = "Invalid";
         }
         insertValue.current.value = null;
         insertIndex.current.value = null;
-        
+    }
+
+    //function for a single step of insertion animation
+    const insertStep = () => {
+        if(currentIndex.current === targetIndex.current-1) {
+            list.insertAt(animationValue.current, targetIndex.current);
+            green.current = currentNode.current.next;
+            toggleAnimation();
+        } else {
+            currentNode.current = currentNode.current.next;
+            currentIndex.current++;
+        }
     }
 
     function get() {
+        if (animating.current)
+            toggleAnimation();
         var index = parseInt(getIndex.current.value);
         if(isNaN(index))
             index = 0;
         if (index >= 0 && index < list.size) {
-            listOutput.current.value = list.get(index);
+            animationFunction.current = getStep;
+            targetIndex.current = index;
+            currentIndex.current = 0;
+            currentNode.current = list.head;
+            forceUpdate();
+            toggleAnimation();
         } else {
             listOutput.current.value = "Invalid";
         }
         getIndex.current.value = null;
     }
 
+    //function for a single step of get animation
+    const getStep = () => {
+        if (targetIndex.current === currentIndex.current) {
+            if (yellow.current === null) {
+                yellow.current = currentNode.current;
+                currentNode.current = null;
+            } else {
+                listOutput.current.value = list.get(targetIndex.current);
+                toggleAnimation();
+            }
+        } else {
+            currentNode.current = currentNode.current.next;
+            currentIndex.current++;
+        }
+    }
+
     function remove() {
+        if (animating.current)
+            toggleAnimation();
         var index = parseInt(removeIndex.current.value);
         if(isNaN(index))
             index = 0;
         if (index >= 0 && index < list.size) {
-            listOutput.current.value = list.get(index);
-            list.remove(index);
+            animationFunction.current = removeStep;
+            targetIndex.current = index;
+            currentIndex.current = 0;
+            currentNode.current = list.head;
             forceUpdate();
+            toggleAnimation();
         } else {
             listOutput.current.value = "Invalid";
         }
         removeIndex.current.value = null;
+    }
+
+    //function to do 1 step of remove animation
+    const removeStep = () => {
+        if (targetIndex.current === currentIndex.current) {
+            if (pink.current === null) {
+                pink.current = currentNode.current;
+                currentNode.current = null;
+            } else {
+                listOutput.current.value = list.get(targetIndex.current);
+                list.remove(targetIndex.current);
+                toggleAnimation();
+            }
+        } else {
+            currentNode.current = currentNode.current.next;
+            currentIndex.current++;
+        }
+    }
+
+    //changes the animation speed when the slider changes
+    const updateSpeed = () => {
+        if (animationFunction.current != null) {
+            clearInterval(interval.current);
+            interval.current = setInterval(() => {
+                animationFunction.current();
+                forceUpdate();
+            }, 1000-speedSlider.current.value);
+        }
     }
 
     return (
@@ -215,7 +359,7 @@ const LinkedList = () => {
                     <input id="insertValue" ref={insertValue} type="text"></input>
                 </span>
                 <br />
-                <button onClick={ remove }id="removeButton" >Remove</button>
+                <button onClick={remove} id="removeButton" >Remove</button>
                 <span className="labeledInput">
                     <label>Index</label>
                     <input id="removeIndex" ref={removeIndex} type="text"></input>
@@ -228,10 +372,15 @@ const LinkedList = () => {
                     <label>Index</label>
                     <input id="getIndex" ref={getIndex} type="text"></input>
                 </span>
+                <br />
+                <span className="labeledSlider">
+                    <label>Animation Speed</label>
+                    <input className="slider" ref={speedSlider} onChange={updateSpeed} min="0" max="990" type="range"></input>
+                </span>
             </div>
 
             <div className="visualization">
-                <LinkedListDisplay list={list} />
+                <LinkedListDisplay list={list} focus={currentNode.current} green={green.current} yellow={yellow.current} pink={pink.current} />
             </div>
         </div>
     );
