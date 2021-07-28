@@ -30,6 +30,7 @@ import AvlTree from './AvlTree/AvlTree';
 import DepthFirstSearch from './DepthFirstSearch/DepthFirstSearch';
 import DepthFirstSearchInformation from './DepthFirstSearch/DepthFirstSearchInformation';
 import BreadthFirstSearch from './BreadthFirstSearch/BreadthFirstSearch';
+import BreadthFirstSearchInformation from './BreadthFirstSearch/BreadthFirstSearchInformation';
 
 const App = () => {
 		return (
@@ -119,6 +120,7 @@ const App = () => {
 									<DepthFirstSearch />
 								</Route>
 								<Route exact path="/Breadth First Search">
+									<BreadthFirstSearchInformation />
 									<BreadthFirstSearch />
 								</Route>
 							</Switch>
