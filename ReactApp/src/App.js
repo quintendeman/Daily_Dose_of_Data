@@ -28,6 +28,7 @@ import QuickSort from './QuickSort/QuickSort';
 import HeapSort from './HeapSort/HeapSort';
 import AvlTree from './AvlTree/AvlTree';
 import DepthFirstSearch from './DepthFirstSearch/DepthFirstSearch';
+import BreadthFirstSearch from './BreadthFirstSearch/BreadthFirstSearch';
 
 const App = () => {
 		return (
@@ -116,7 +117,7 @@ const App = () => {
 									<DepthFirstSearch />
 								</Route>
 								<Route exact path="/Breadth First Search">
-
+									<BreadthFirstSearch />
 								</Route>
 							</Switch>
 						</div>
