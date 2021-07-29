@@ -387,7 +387,7 @@ const AvlTree = () => {
         }
         
 
-        var inserted = green.current;
+        //var inserted = green.current;
         //rotateRight(tree.root, tree);
         //rotateLeft(tree.root, tree);
         //var family = familyLine.current;
@@ -417,11 +417,11 @@ const AvlTree = () => {
         if (getBalance(firstUnbalanced) === -2 && getBalance(firstUnbalanced.left) === -1) {
 
 
-            var l = firstUnbalanced.left;
+            let l = firstUnbalanced.left;
             rotateRight(firstUnbalanced, tree);
 
             //insert on correct side
-            var grandP = family.pop();
+            let grandP = family.pop();
             if (grandP) {
                 if (grandP.value < firstUnbalanced.value) {
                     grandP.right = l;
@@ -437,17 +437,17 @@ const AvlTree = () => {
 
         //Left Right case
         if (getBalance(firstUnbalanced) === -2 && getBalance(firstUnbalanced.left) === 1) {
-            var r = firstUnbalanced.left.right;
+            let r = firstUnbalanced.left.right;
             rotateLeft(firstUnbalanced.left, tree);
             firstUnbalanced.left = r;
         }
 
         //Right Right case
         if (getBalance(firstUnbalanced) === 2 && getBalance(firstUnbalanced.right) === 1) {
-            var r = firstUnbalanced.right;
+            let r = firstUnbalanced.right;
             rotateLeft(firstUnbalanced, tree);
             //insert on correct side
-            var grandP = family.pop();
+            let grandP = family.pop();
             if (grandP) {
                 if (grandP.value < firstUnbalanced.value) {
                     grandP.right = r;
@@ -460,7 +460,7 @@ const AvlTree = () => {
 
         //Right Left Case
         if (getBalance(firstUnbalanced) === 2 && getBalance(firstUnbalanced.right) === -1) {
-            var l = firstUnbalanced.right.left;
+            let l = firstUnbalanced.right.left;
             rotateRight(firstUnbalanced.right, tree);
             familyLine.current.pop();
             firstUnbalanced.right = l;
