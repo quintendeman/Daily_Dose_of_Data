@@ -3,7 +3,7 @@ import './BinaryTree.scss';
 import BinaryTreeDisplay from './BinaryTreeDisplay.js';
 
 //class for node in binary tree
-class BinaryTreeNode {
+export class BinaryTreeNode {
     constructor(value) {
         this.value = value;
         this.left = null;
@@ -12,7 +12,7 @@ class BinaryTreeNode {
 }
 
 //class for binary tree data structure
-class BinaryTreeClass {
+export class BinaryTreeClass {
     constructor(root) {
         this.root = root;
     }

@@ -1,25 +1,10 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import './BinaryHeap.scss';
 import BinaryTreeDisplay from '../BinaryTree/BinaryTreeDisplay.js';
-
-//class for node in binary tree
-class BinaryTreeNode {
-    constructor(value) {
-        this.value = value;
-        this.left = null;
-        this.right = null;
-    }
-}
-
-//class for binary tree data structure
-class BinaryTreeClass {
-    constructor(root) {
-        this.root = root;
-    }
-}
+import { BinaryTreeNode, BinaryTreeClass } from '../BinaryTree/BinaryTree.js';
 
 //class for binary heap data structure
-class BinaryHeapClass {
+export class BinaryHeapClass {
     constructor() {
         this.heap = [];
         this.focus = null;
@@ -48,6 +33,7 @@ class BinaryHeapClass {
 
     remove() {
         if (this.heap.length !== 0) {
+            var returnValue = this.heap[0];
             if (this.heap.length === 1)
                 this.heap = [];
             else {
@@ -82,6 +68,7 @@ class BinaryHeapClass {
                     }
                 }
             }
+            return returnValue;
         }
     }
 
