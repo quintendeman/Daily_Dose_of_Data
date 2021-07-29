@@ -31,11 +31,22 @@ function getBalance(node) {
 
 function rotateRight(node, tree) {
     var newRoot = node.left;
+    if (node === tree.root) tree.root = newRoot;
     var T2 = newRoot.right;
 
     newRoot.right = node;
     node.left = T2;
-    tree.root = newRoot;
+    
+    
+    //tree.root = newRoot;
+}
+
+function rotateLeft(node, tree) {
+    var newRoot = node.right;
+    if (node === tree.root) tree.root = newRoot;
+    var T2 = newRoot.left;
+    newRoot.left = node;
+    node.right = T2;
 }
 
 //class for binary search tree
@@ -157,6 +168,8 @@ const AvlTree = () => {
 
     const [, forceRender] = useState(0);
     const [tree, setTree] = useState(new AvlTreeClass());
+    const secondRot = useRef(false);
+    const familyLine = useRef([]);
     const insertInput = useRef();
     const removeInput = useRef();
     const findInput = useRef();
@@ -186,8 +199,11 @@ const AvlTree = () => {
             insertValue = randInt(-999, 1000);
             newTree.insert(insertValue);
         }
+        
         newTree.remove(insertValue);
         setTree(newTree);
+        //toggleAnimation();
+        //animationFunction.current = rotateStep;
     }
     const randInt = (min, max) => {
         return Math.floor(Math.random() * (max - min) + min);
@@ -195,6 +211,7 @@ const AvlTree = () => {
 
     //function to pause or continue animation
     const toggleAnimation = useCallback(() => {
+        
         if (animating.current) {
             clearInterval(interval.current);
             animating.current = false;
@@ -234,29 +251,40 @@ const AvlTree = () => {
             animationValue.current = data;
             toggleAnimation();
         }
+        familyLine.current = [];
     }
 
     //function to do a single step of insertion animation
     const insertStep = () => {
+        
         if (animationValue.current < focus.current.value) {
+            familyLine.current.push(focus.current);
             if (focus.current.left === null) {
                 tree.insert(animationValue.current);
+                //familyLine.current.push(focus.current);
                 green.current = focus.current.left;
                 //toggleAnimation();
-                animationFunction.current = rotateStep();
+                //animationFunction.current = rotateStep();
+                focus.current = focus.current.left;
             } else
                 focus.current = focus.current.left;
+            
         } else if (animationValue.current > focus.current.value) {
+            familyLine.current.push(focus.current);
             if (focus.current.right === null) {
                 tree.insert(animationValue.current);
+                //familyLine.current.push(focus.current);
                 green.current = focus.current.right;
+                focus.current = focus.current.right;
                 //toggleAnimation();
-                animationFunction.current = rotateStep();
+                //animationFunction.current = rotateStep();
             } else
                 focus.current = focus.current.right;
+            
         } else {
-            toggleAnimation();
+            animationFunction.current = rotateStep;
         }
+        //console.log(familyLine.current);
     }
 
     //function to remove from binary search tree on button click
@@ -276,11 +304,14 @@ const AvlTree = () => {
             toggleAnimation();
         }
         removeInput.current.value = null;
+        familyLine.current = [];
     }
 
     //function to do a single step of remove animation
     const removeStep = () => {
+        
         if (animationValue.current < focus.current.value) {
+            familyLine.current.push(focus.current);
             if (focus.current.left === null)
                 toggleAnimation();
             else {
@@ -289,6 +320,7 @@ const AvlTree = () => {
                     pink.current = focus.current;
             }
         } else if (animationValue.current > focus.current.value) {
+            familyLine.current.push(focus.current);
             if (focus.current.right === null)
                 toggleAnimation();
             else {
@@ -299,13 +331,14 @@ const AvlTree = () => {
         } else {
             tree.remove(animationValue.current);
             pink.current = null;
-            toggleAnimation();
+            animationFunction.current = rotateStep;
         }
     }
 
     //function to start find animation
     const find = () => {
         if (animating.current)
+            familyLine.current = [];
             toggleAnimation();
         if (tree.root !== null) {
             var data = parseInt(findInput.current.value);
@@ -346,9 +379,116 @@ const AvlTree = () => {
     }
 
     const rotateStep = () => {
-        rotateRight(tree.root, tree);
+        console.log(familyLine.current);
+        //create new array copy of family line
+        var family = [];
+        for (var i = 0; i < familyLine.current.length; i++) {
+            family.push(familyLine.current[i]);
+        }
+        
+
+        var inserted = green.current;
+        //rotateRight(tree.root, tree);
+        //rotateLeft(tree.root, tree);
+        //var family = familyLine.current;
+        
+        var firstUnbalanced = family.pop();
+        //console.log(getBalance(firstUnbalanced));
+        //var child;
+        
+        while (Math.abs(getBalance(firstUnbalanced)) < 2 && family.length > 0) {
+            firstUnbalanced = family.pop();
+            
+        }
+        
+
+        if (Math.abs(getBalance(firstUnbalanced)) < 2) {
+            //tree is balanced 
+            console.log("tree is balanced");
+            toggleAnimation();
+            
+        }
+        
+
+
+        
+            
+        //Left Left case
+        if (getBalance(firstUnbalanced) === -2 && getBalance(firstUnbalanced.left) === -1) {
+
+
+            var l = firstUnbalanced.left;
+            rotateRight(firstUnbalanced, tree);
+
+            //insert on correct side
+            var grandP = family.pop();
+            if (grandP) {
+                if (grandP.value < firstUnbalanced.value) {
+                    grandP.right = l;
+                }
+                else grandP.left = l;
+            } else tree.root = l;
+            secondRot.current = true;
+            familyLine.current.splice(familyLine.current.indexOf(l.right), 1);
+            
+            
+        }
+
+
+        //Left Right case
+        if (getBalance(firstUnbalanced) === -2 && getBalance(firstUnbalanced.left) === 1) {
+            var r = firstUnbalanced.left.right;
+            rotateLeft(firstUnbalanced.left, tree);
+            firstUnbalanced.left = r;
+        }
+
+        //Right Right case
+        if (getBalance(firstUnbalanced) === 2 && getBalance(firstUnbalanced.right) === 1) {
+            var r = firstUnbalanced.right;
+            rotateLeft(firstUnbalanced, tree);
+            //insert on correct side
+            var grandP = family.pop();
+            if (grandP) {
+                if (grandP.value < firstUnbalanced.value) {
+                    grandP.right = r;
+                }
+                else grandP.left = r;
+            } else tree.root = r;
+            familyLine.current.splice(familyLine.current.indexOf(firstUnbalanced), 1);
+            
+        }
+
+        //Right Left Case
+        if (getBalance(firstUnbalanced) === 2 && getBalance(firstUnbalanced.right) === -1) {
+            var l = firstUnbalanced.right.left;
+            rotateRight(firstUnbalanced.right, tree);
+            familyLine.current.pop();
+            firstUnbalanced.right = l;
+            
+            
+
+        }
+
+        ////Left Right case
+        //if (getBalance(firstUnbalanced) === -2 && getBalance(firstUnbalanced.left) === 1) {
+
+        //    var r = firstUnbalanced.left.right;
+        //    rotateLeft(firstUnbalanced.left, tree);
+        //    firstUnbalanced.left = r;
+
+
+            
+        //}
+
+
+        //console.log(firstUnbalanced.left)
+        //rotateRight(firstUnbalanced, tree);
+
+        //}
+        
+        //animationFunction.current = rotateStep();
         forceUpdate();
-        toggleAnimation();
+        
     }
 
     //changes the animation speed when the slider changes
