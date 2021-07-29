@@ -13,6 +13,7 @@ import BinaryTreeInformation from './BinaryTree/BinaryTreeInformation';
 import BinarySearchTree from './BinarySearchTree/BinarySearchTree';
 import BinarySearchTreeInformation from './BinarySearchTree/BinarySearchTreeInformation';
 import BinaryHeap from './BinaryHeap/BinaryHeap';
+import BinaryHeapInformation from './BinaryHeap/BinaryHeapInformation';
 import SelectionSort from './SelectionSort/SelectionSort';
 import SelectionSortInformation from './SelectionSort/SelectionSortInformation';
 import LinkedList from './LinkedList/LinkedList';
@@ -82,6 +83,7 @@ const App = () => {
 									<AvlTree />
 								</Route>
 								<Route exact path="/Binary Heap">
+									<BinaryHeapInformation />
 									<BinaryHeap />
 								</Route>
 								<Route exact path="/Set">
