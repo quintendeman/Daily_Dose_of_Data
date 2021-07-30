@@ -16,18 +16,18 @@
         background-color: #FCC;
         width: 100px;
     }
-    #containsButton {
-        background-color: #EEE;
+    #findButton {
+        background-color: #EEA;
         width: 100px;
     }
     #buildButton {
-        background-color: #EEA;
+        background-color: #EEE;
         width: 64px;
     }
-    #randomButton:hover, #insertButton:hover, #removeButton:hover, #containsButton:hover, #buildButton:hover {
+    #randomButton:hover, #insertButton:hover, #removeButton:hover, #findButton:hover, #buildButton:hover {
         background-color: White;
     }
-    #randomButton:active, #insertButton:active, #removeButton:active, #containsButton:active, #buildButton:active {
+    #randomButton:active, #insertButton:active, #removeButton:active, #findButton:active, #buildButton:active {
         background-color: Black;
         color: White;
     }

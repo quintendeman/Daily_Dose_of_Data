@@ -13,13 +13,15 @@ class HashTableClass {
         this.LOADFACTOR = loadFactor;
     }
 
+    //hash function to return normal modulus results with + or - numbers (value % size)
     hash (value) {
-        return value % this.size;
+        return ((value % this.size)+this.size)%this.size;
     }
 
     resize () {
         let oldArray = this.array;
         this.array = [];
+        this.elements = 0;
         for (let i = 0; i < 2*this.size; i++)
             this.array.push(null);
         this.size = 2*this.size;
@@ -43,23 +45,64 @@ class HashTableClass {
     }
 
     remove (value) {
-
+        let hashCode = this.hash(value);
+        while (this.array[hashCode] !== value) {
+            hashCode++;
+            if (hashCode === this.array.length)
+                hashCode = 0;
+            if (this.array[hashCode] === null)
+                return null;
+        }
+        this.array[hashCode] = null;
+        this.elements--;
+        return hashCode;
     }
 
-    contains (value) {
-
+    find (value) {
+        let hashCode = this.hash(value);
+        while (this.array[hashCode] !== value) {
+            hashCode++;
+            if (hashCode === this.array.length)
+                hashCode = 0;
+            if (this.array[hashCode] === null)
+                return null;
+        }
+        return hashCode;
     }
 }
 
 //react component to display a hashtable
 const HashTableDisplay = (props) => {
     return props.hashTable.array.map((value, index) => {
-        return (
-            <div key={index} className="labeledElement">
-                <label>{index}</label>
-                <Element value={value}></Element>
-            </div>
-        );
+        if (index === props.green) {
+            return (
+                <div key={index} className="labeledElement">
+                    <label>{index}</label>
+                    <Element value={value} color="green"></Element>
+                </div>
+            );
+        } else if (index === props.pink) {
+            return (
+                <div key={index} className="labeledElement">
+                    <label>{index}</label>
+                    <Element value={value} color="pink"></Element>
+                </div>
+            );
+        } else if (index === props.yellow) {
+            return (
+                <div key={index} className="labeledElement">
+                    <label>{index}</label>
+                    <Element value={value} color="yellow"></Element>
+                </div>
+            );
+        } else {
+            return (
+                <div key={index} className="labeledElement">
+                    <label>{index}</label>
+                    <Element value={value}></Element>
+                </div>
+            );
+        }
     });
 }
 
@@ -74,7 +117,10 @@ const HashTable = () => {
     const buildLF = useRef();
     const insertInput = useRef();
     const removeInput = useRef();
-    const containsInput = useRef();
+    const findInput = useRef();
+    const lastInserted = useRef();
+    const lastRemoved = useRef();
+    const lastFound = useRef();
 
     //We call update on fake state variable to force rerender
 	const forceUpdate = () => {
@@ -96,21 +142,39 @@ const HashTable = () => {
 
     //function to insert into hash table
     const insert = () => {
+        lastInserted.current = null;
+        lastRemoved.current = null;
+        lastFound.current = null;
         var data = parseInt(insertInput.current.value);
         if (isNaN(data))
             data = randInt(-999,1000);
-        hashTable.insert(data);
+        lastInserted.current = hashTable.insert(data);
         forceUpdate();
+        insertInput.current.value = null;
     }
 
     //function to remove from hash table
     const remove = () => {
-
+        lastInserted.current = null;
+        lastRemoved.current = null;
+        lastFound.current = null;
+        var data = parseInt(removeInput.current.value);
+        if (!isNaN(data))
+            lastRemoved.current = hashTable.remove(data);
+        forceUpdate();
+        removeInput.current.value = null;
     }
 
-    //function to check if hash table contains value
-    const contains = () => {
-
+    //function to find a value in the hash table
+    const find = () => {
+        lastInserted.current = null;
+        lastRemoved.current = null;
+        lastFound.current = null;
+        var data = parseInt(findInput.current.value);
+        if (!isNaN(data))
+            lastFound.current = hashTable.find(data);
+        forceUpdate();
+        findInput.current.value = null;
     }
 
     return (
@@ -142,11 +206,11 @@ const HashTable = () => {
                 <button id="removeButton" onClick={remove}>Remove</button>
                 <input id="removeInput" ref={removeInput} type="text"></input>
                 <br />
-                <button id="containsButton" onClick={contains}>Contains</button>
-                <input id="containsInput" ref={containsInput} type="text"></input>
+                <button id="findButton" onClick={find}>Find</button>
+                <input id="findInput" ref={findInput} type="text"></input>
             </div>
             <div className="visualization">
-                <HashTableDisplay hashTable={hashTable} />
+                <HashTableDisplay hashTable={hashTable} green={lastInserted.current} pink={lastRemoved.current} yellow={lastFound.current} />
             </div>
         </div>
     )
