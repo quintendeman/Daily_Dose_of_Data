@@ -129,15 +129,43 @@ const HashTable = () => {
 
     //function to create a random hashTable
     const randomHashTable = () => {
-
+        lastInserted.current = null;
+        lastRemoved.current = null;
+        lastFound.current = null;
+        var size = parseInt(buildSize.current.value);
+        buildSize.current.value = null;
+        if (isNaN(size))
+            size = randInt(20, 100);
+        var loadFactor = parseFloat(buildLF.current.value);
+        buildLF.current.value = null;
+        if(isNaN(loadFactor))
+            loadFactor = Math.random() * 0.4 + 0.5;
+        const newHashTable = new HashTableClass(size, loadFactor);
+        for (let i = 0; i < size*loadFactor/2; i++)
+            newHashTable.insert(randInt(-999,1000));
+        setHashTable(newHashTable);
     }
     const randInt = (min, max) => {
         return Math.floor(Math.random() * (max-min) + min);
     }
 
+    //initialize to a random hash table
+    useEffect(randomHashTable, []);
+
     //function to build an empty hash table
     const build = () => {
-
+        lastInserted.current = null;
+        lastRemoved.current = null;
+        lastFound.current = null;
+        var size = parseInt(buildSize.current.value);
+        buildSize.current.value = null;
+        if (isNaN(size))
+            size = randInt(20, 100);
+        var loadFactor = parseFloat(buildLF.current.value);
+        buildLF.current.value = null;
+        if(isNaN(loadFactor))
+            loadFactor = Math.random() * 0.4 + 0.5;
+        setHashTable(new HashTableClass(size, loadFactor));
     }
 
     //function to insert into hash table
