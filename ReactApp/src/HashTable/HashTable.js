@@ -132,16 +132,16 @@ const HashTable = () => {
         lastInserted.current = null;
         lastRemoved.current = null;
         lastFound.current = null;
-        var size = parseInt(buildSize.current.value);
-        buildSize.current.value = null;
-        if (isNaN(size))
+        var size = parseInt(randomSize.current.value);
+        randomSize.current.value = null;
+        if (isNaN(size) || size < 1)
             size = randInt(20, 100);
-        var loadFactor = parseFloat(buildLF.current.value);
-        buildLF.current.value = null;
-        if(isNaN(loadFactor))
-            loadFactor = Math.random() * 0.4 + 0.5;
+        var loadFactor = parseFloat(randomLF.current.value);
+        randomLF.current.value = null;
+        if(isNaN(loadFactor) || loadFactor > 1.0 || loadFactor <= 0.0)
+            loadFactor = Math.random() * 0.5 + 0.25;
         const newHashTable = new HashTableClass(size, loadFactor);
-        for (let i = 0; i < size*loadFactor/2; i++)
+        for (let i = 0; i < (size*loadFactor-1)*(Math.random()*0.75+0.25); i++)
             newHashTable.insert(randInt(-999,1000));
         setHashTable(newHashTable);
     }
@@ -159,12 +159,12 @@ const HashTable = () => {
         lastFound.current = null;
         var size = parseInt(buildSize.current.value);
         buildSize.current.value = null;
-        if (isNaN(size))
+        if (isNaN(size) || size < 1)
             size = randInt(20, 100);
         var loadFactor = parseFloat(buildLF.current.value);
         buildLF.current.value = null;
-        if(isNaN(loadFactor))
-            loadFactor = Math.random() * 0.4 + 0.5;
+        if(isNaN(loadFactor) || loadFactor > 1.0 || loadFactor <= 0.0)
+            loadFactor = Math.random() * 0.5 + 0.25;
         setHashTable(new HashTableClass(size, loadFactor));
     }
 
@@ -207,38 +207,51 @@ const HashTable = () => {
 
     return (
         <div className="hash-table">
-            <div className="controls">
-                <button id="randomButton" onClick={randomHashTable}>Rand</button>
-                <span className="labeledInput">
-                    <label>Size</label>
-                    <input id="randomSizeInput" ref={randomSize} type="text"></input>
-                </span>
-                <span className="labeledInput">
-                    <label>Load Factor</label>
-                    <input id="randomLFInput" ref={randomLF} type="text"></input>
-                </span>
-                <br />
-                <button id="buildButton" onClick={build}>Build</button>
-                <span className="labeledInput">
-                    <label>Size</label>
-                    <input id="buildSizeInput" ref={buildSize} type="text"></input>
-                </span>
-                <span className="labeledInput">
-                    <label>Load Factor</label>
-                    <input id="buildLFInput" ref={buildLF} type="text"></input>
-                </span>
-                <br />
-                <button id="insertButton" onClick={insert}>Insert</button>
-                <input id="insertInput" ref={insertInput} type="text"></input>
-                <br />
-                <button id="removeButton" onClick={remove}>Remove</button>
-                <input id="removeInput" ref={removeInput} type="text"></input>
-                <br />
-                <button id="findButton" onClick={find}>Find</button>
-                <input id="findInput" ref={findInput} type="text"></input>
+            <div id="main">
+                <div className="controls">
+                    <button id="randomButton" onClick={randomHashTable}>Rand</button>
+                    <span className="labeledInput">
+                        <label>Size</label>
+                        <input id="randomSizeInput" ref={randomSize} type="text"></input>
+                    </span>
+                    <span className="labeledInput">
+                        <label>Load Factor</label>
+                        <input id="randomLFInput" ref={randomLF} type="text"></input>
+                    </span>
+                    <br />
+                    <button id="buildButton" onClick={build}>Build</button>
+                    <span className="labeledInput">
+                        <label>Size</label>
+                        <input id="buildSizeInput" ref={buildSize} type="text"></input>
+                    </span>
+                    <span className="labeledInput">
+                        <label>Load Factor</label>
+                        <input id="buildLFInput" ref={buildLF} type="text"></input>
+                    </span>
+                    <br />
+                    <button id="insertButton" onClick={insert}>Insert</button>
+                    <input id="insertInput" ref={insertInput} type="text"></input>
+                    <br />
+                    <button id="removeButton" onClick={remove}>Remove</button>
+                    <input id="removeInput" ref={removeInput} type="text"></input>
+                    <br />
+                    <button id="findButton" onClick={find}>Find</button>
+                    <input id="findInput" ref={findInput} type="text"></input>
+                </div>
+                <div className="visualization">
+                    <HashTableDisplay hashTable={hashTable} green={lastInserted.current} pink={lastRemoved.current} yellow={lastFound.current} />
+                    <p>Current Load Factor: {(hashTable.elements / hashTable.size).toFixed(2)} / {(hashTable.LOADFACTOR).toFixed(2)}</p>
+                </div>
             </div>
-            <div className="visualization">
-                <HashTableDisplay hashTable={hashTable} green={lastInserted.current} pink={lastRemoved.current} yellow={lastFound.current} />
+            <div className="legend">
+                <Element color="green"></Element>
+                <p>= Last Inserted</p>
+                < br />
+                <Element color="pink"></Element>
+                <p>= Last Removed</p>
+                <br />
+                <Element color="yellow"></Element>
+                <p>= Last Found</p>
             </div>
         </div>
     )
