@@ -2,8 +2,14 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.scss';
 import Navigation from './Navigation/Navigation';
+import Array from './Array/Array';
+import ArrayInformation from './Array/ArrayInformation';
 import List from './List/List';
 import ListInformation from './List/ListInformation';
+import ArrayList from './ArrayList/ArrayList';
+import ArrayListInformation from './ArrayList/ArrayListInformation';
+import LinkedList from './LinkedList/LinkedList';
+import LinkedListInformation from './LinkedList/LinkedListInformation';
 import Stack from './Stack/Stack';
 import StackInformation from './Stack/StackInformation';
 import Queue from './Queue/Queue';
@@ -12,24 +18,20 @@ import BinaryTree from './BinaryTree/BinaryTree';
 import BinaryTreeInformation from './BinaryTree/BinaryTreeInformation';
 import BinarySearchTree from './BinarySearchTree/BinarySearchTree';
 import BinarySearchTreeInformation from './BinarySearchTree/BinarySearchTreeInformation';
+import AvlTree from './AvlTree/AvlTree';
 import BinaryHeap from './BinaryHeap/BinaryHeap';
 import BinaryHeapInformation from './BinaryHeap/BinaryHeapInformation';
+import HashTable from './HashTable/HashTable';
+
+import InsertionSort from './InsertionSort/InsertionSort';
 import SelectionSort from './SelectionSort/SelectionSort';
 import SelectionSortInformation from './SelectionSort/SelectionSortInformation';
-import LinkedList from './LinkedList/LinkedList';
-import LinkedListInformation from './LinkedList/LinkedListInformation';
-import InsertionSort from './InsertionSort/InsertionSort';
-import Array from './Array/Array';
-import ArrayInformation from './Array/ArrayInformation';
 import BubbleSort from './BubbleSort/BubbleSort';
-import ArrayList from './ArrayList/ArrayList';
-import ArrayListInformation from './ArrayList/ArrayListInformation';
 import MergeSort from './MergeSort/MergeSort';
 import MergeSortInformation from './MergeSort/MergeSortInformation';
 import QuickSort from './QuickSort/QuickSort';
 import HeapSort from './HeapSort/HeapSort';
 import HeapSortInformation from './HeapSort/HeapSortInformation';
-import AvlTree from './AvlTree/AvlTree';
 import DepthFirstSearch from './DepthFirstSearch/DepthFirstSearch';
 import DepthFirstSearchInformation from './DepthFirstSearch/DepthFirstSearchInformation';
 import BreadthFirstSearch from './BreadthFirstSearch/BreadthFirstSearch';
@@ -49,9 +51,21 @@ const App = () => {
 										<p>Home page</p>
 									</div>
 								</Route>
+								<Route exact path="/Array">
+									<ArrayInformation />
+									<Array />
+								</Route>
 								<Route exact path="/List">
 									<ListInformation />
 									<List />
+								</Route>
+								<Route exact path="/Array List">
+									<ArrayListInformation />
+									<ArrayList />
+								</Route>
+								<Route exact path="/Linked List">
+									<LinkedListInformation />
+									<LinkedList />
 								</Route>
 								<Route exact path="/Stack">
 									<StackInformation />
@@ -60,18 +74,6 @@ const App = () => {
 								<Route exact path="/Queue">
 									<QueueInformation />
 									<Queue />
-								</Route>
-								<Route exact path="/Array">
-									<ArrayInformation />
-									<Array />
-								</Route>
-								<Route exact path="/Linked List">
-									<LinkedListInformation />
-									<LinkedList />
-								</Route>
-								<Route exact path="/Array List">
-									<ArrayListInformation />
-									<ArrayList />
 								</Route>
 								<Route exact path="/Binary Tree">
 									<BinaryTreeInformation />
@@ -88,18 +90,21 @@ const App = () => {
 									<BinaryHeapInformation />
 									<BinaryHeap />
 								</Route>
+								<Route exact path="/Hash Table">
+									<HashTable />
+								</Route>
 								<Route exact path="/Set">
 
 								</Route>
 								<Route exact path="/Map">
 
 								</Route>
+								<Route exact path="/Insertion Sort">
+									<InsertionSort />
+								</Route>
 								<Route exact path="/Selection Sort">
 									<SelectionSortInformation />
 									<SelectionSort />
-								</Route>
-								<Route exact path="/Insertion Sort">
-									<InsertionSort />
 								</Route>
 								<Route exact path="/Bubble Sort">
 									<BubbleSort />
