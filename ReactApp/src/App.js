@@ -23,6 +23,8 @@ import BinaryHeap from './BinaryHeap/BinaryHeap';
 import BinaryHeapInformation from './BinaryHeap/BinaryHeapInformation';
 import HashTable from './HashTable/HashTable';
 import HashTableInformation from './HashTable/HashTableInformation';
+import Set from './Set/Set';
+
 import InsertionSort from './InsertionSort/InsertionSort';
 import SelectionSort from './SelectionSort/SelectionSort';
 import SelectionSortInformation from './SelectionSort/SelectionSortInformation';
@@ -95,7 +97,7 @@ const App = () => {
 									<HashTable />
 								</Route>
 								<Route exact path="/Set">
-
+									<Set />
 								</Route>
 								<Route exact path="/Map">
 
