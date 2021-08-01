@@ -13,7 +13,7 @@ const SetDisplay = (props) => {
     return componentList;
 }
 
-//react component for hash table visualization
+//react component for set visualization
 const MySet = () => {
 
     const [, forceRender] = useState(0);

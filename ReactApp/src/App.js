@@ -25,6 +25,8 @@ import HashTable from './HashTable/HashTable';
 import HashTableInformation from './HashTable/HashTableInformation';
 import Set from './Set/Set';
 
+import Map from './Map/Map';
+
 import InsertionSort from './InsertionSort/InsertionSort';
 import SelectionSort from './SelectionSort/SelectionSort';
 import SelectionSortInformation from './SelectionSort/SelectionSortInformation';
@@ -100,7 +102,7 @@ const App = () => {
 									<Set />
 								</Route>
 								<Route exact path="/Map">
-
+									<Map />
 								</Route>
 								<Route exact path="/Insertion Sort">
 									<InsertionSort />
