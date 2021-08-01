@@ -22,7 +22,7 @@ import AvlTree from './AvlTree/AvlTree';
 import BinaryHeap from './BinaryHeap/BinaryHeap';
 import BinaryHeapInformation from './BinaryHeap/BinaryHeapInformation';
 import HashTable from './HashTable/HashTable';
-
+import HashTableInformation from './HashTable/HashTableInformation';
 import InsertionSort from './InsertionSort/InsertionSort';
 import SelectionSort from './SelectionSort/SelectionSort';
 import SelectionSortInformation from './SelectionSort/SelectionSortInformation';
@@ -91,6 +91,7 @@ const App = () => {
 									<BinaryHeap />
 								</Route>
 								<Route exact path="/Hash Table">
+									<HashTableInformation />
 									<HashTable />
 								</Route>
 								<Route exact path="/Set">
