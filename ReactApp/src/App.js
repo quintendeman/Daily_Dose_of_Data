@@ -24,7 +24,7 @@ import BinaryHeapInformation from './BinaryHeap/BinaryHeapInformation';
 import HashTable from './HashTable/HashTable';
 import HashTableInformation from './HashTable/HashTableInformation';
 import Set from './Set/Set';
-
+import SetInformation from './Set/SetInformation';
 import Map from './Map/Map';
 
 import InsertionSort from './InsertionSort/InsertionSort';
@@ -99,6 +99,7 @@ const App = () => {
 									<HashTable />
 								</Route>
 								<Route exact path="/Set">
+									<SetInformation />
 									<Set />
 								</Route>
 								<Route exact path="/Map">
