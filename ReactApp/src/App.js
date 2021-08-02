@@ -38,6 +38,8 @@ import HeapSort from './HeapSort/HeapSort';
 import HeapSortInformation from './HeapSort/HeapSortInformation';
 import LinearSearch from './LinearSearch/LinearSearch';
 
+import BinarySearch from './BinarySearch/BinarySearch';
+
 import DepthFirstSearch from './DepthFirstSearch/DepthFirstSearch';
 import DepthFirstSearchInformation from './DepthFirstSearch/DepthFirstSearchInformation';
 import BreadthFirstSearch from './BreadthFirstSearch/BreadthFirstSearch';
@@ -133,7 +135,7 @@ const App = () => {
 									<LinearSearch />
 								</Route>
 								<Route exact path="/Binary Search">
-
+									<BinarySearch />
 								</Route>
 								<Route exact path="/Depth First Search">
 									<DepthFirstSearchInformation />
