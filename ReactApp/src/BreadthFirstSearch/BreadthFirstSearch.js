@@ -90,8 +90,6 @@ const BreadthFirstSearch = () => {
 
     //function to 1 step of searching animation
     const searchingStep = () => {
-        console.log(index.current);
-        console.log(nodeQueue.current.length);
         if (current.current.value === searchValue.current) {
             green.current = current.current;
             current.current = null;

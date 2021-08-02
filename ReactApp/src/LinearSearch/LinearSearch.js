@@ -1,20 +1,32 @@
-import React, { useState, useRef, useEffect } from 'react';
-import './DepthFirstSearch.scss';
-import { BinaryTreeNode, BinaryTreeClass } from '../BinaryTree/BinaryTree.js';
-import BinaryTreeDisplay from '../BinaryTree/BinaryTreeDisplay';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import './LinearSearch.scss';
 import Element from '../Element/Element';
 
-const DepthFirstSearch = () => {
+//react component to display a linear search array
+const ArrayDisplay = (props) => {
+    return props.array.map((value, index) => {
+        if (index === props.focus)
+            return <Element key={index} value={value} border="bordered" />;
+        else if (index === props.green)
+            return <Element key={index} value={value} color="green" />;
+        else if (index === props.pink)
+            return <Element key={index} value={value} color="pink" />;
+        else
+            return <Element key={index} value={value} />;
+    });
+}
+
+//react component for linear search
+const LinearSearch = () => {
 
     const [, forceRender] = useState(0);
-    const [tree, setTree] = useState(new BinaryTreeClass(null));
-    const nodeQueue = useRef([]);
-    const index = useRef();
+    const [array, setArray] = useState([]);
+    const arraySizeInput = useRef();
     const searchInput = useRef();
     const speedSlider = useRef();
     const searching = useRef();
     const searchValue = useRef(null);
-    const current = useRef(null);
+    const focus = useRef(null);
     const interval = useRef();
     const green = useRef();
     const pink = useRef();
@@ -24,45 +36,38 @@ const DepthFirstSearch = () => {
 		forceRender(renders => renders+1);
 	}
 
-    //function to generate random tree
-    const randomTree = () => {
-        var newNodeChance = 0.9;
-        const levels = randInt(1,5);
-        var newTree = new BinaryTreeClass(new BinaryTreeNode(randInt(-999,1000)));
-        var nodes = [newTree.root];
-        var newNodes = [];
-        for (let level = 0; level < levels; level++) {
-            for (let i = 0; i < nodes.length; i++) {
-                if (Math.random() < Math.pow(newNodeChance, level)) {
-                    nodes[i].left = new BinaryTreeNode(randInt(-999,1000));
-                    newNodes.push(nodes[i].left);
-                }
-                if (Math.random() < Math.pow(newNodeChance, level)) {
-                    nodes[i].right = new BinaryTreeNode(randInt(-999,1000));
-                    newNodes.push(nodes[i].right);
-                }
-            }
-            nodes = newNodes;
-            newNodes = [];
+    //sets state array to a random array for sorting
+    const generateArray = () => {
+        if (searching.current) {
+            toggleAnimation();
         }
-        setTree(newTree);
+        focus.current = null;
+        green.current = null;
+        pink.current = null;
+        var size = parseInt(arraySizeInput.current.value);
+        if(isNaN(size))
+            size = randInt(5,50);
+        if (size > 0) {
+            setArray(randomArray(size));
+        }
+        arraySizeInput.current.value = null;
     }
+    //generates a random array within reasonable bounds
+    const randomArray = useCallback((size) => {
+        var newArray = new Array(size);
+            for (let i = 0; i < size; i++) {
+                newArray[i] = randInt(-999, 1000);
+            }
+        return newArray;
+    }, []);
     const randInt = (min, max) => {
         return Math.floor(Math.random() * (max-min) + min);
     }
 
-    //initialize tree to a random tree
-    useEffect(randomTree, []);
-
-    //function to add nodes to queue in DFS order
-    const dfs = (node) => {
-        if (node !== null) {
-            nodeQueue.current.push(node);
-            dfs(node.left);
-            dfs(node.right);
-        }
-
-    }
+    //initialize the array randomly at start
+    useEffect(() => {
+        setArray(randomArray(randInt(5,50)));
+    }, [randomArray]);
 
     //function to start searching animation
     const search = () => {
@@ -72,28 +77,24 @@ const DepthFirstSearch = () => {
         if (isNaN(data))
             data = 0;
         searchInput.current.value = null;
-        nodeQueue.current = [];
-        dfs(tree.root);
-        current.current = nodeQueue.current[0];
-        index.current = 0;
         searchValue.current = data;
         toggleAnimation();
+        focus.current = 0;
         forceUpdate();
     }
 
     //function to 1 step of searching animation
     const searchingStep = () => {
-        if (current.current.value === searchValue.current) {
-            green.current = current.current;
-            current.current = null;
+        if (array[focus.current] === searchValue.current) {
+            green.current = focus.current;
+            focus.current = null;
             toggleAnimation();
-        } else if (index.current === nodeQueue.current.length-1) {
-            pink.current = current.current;
-            current.current = null;
+        } else if (focus.current === array.length-1) {
+            pink.current = array.length-1;
+            focus.current = null;
             toggleAnimation();
         } else {
-            index.current++;
-            current.current = nodeQueue.current[index.current];
+            focus.current++;
         }
     }
 
@@ -108,6 +109,7 @@ const DepthFirstSearch = () => {
                 forceUpdate();
             }, 1000-speedSlider.current.value);
             searching.current = true;
+            focus.current = null;
             green.current = null;
             pink.current = null;
         }
@@ -125,10 +127,14 @@ const DepthFirstSearch = () => {
     }
 
     return (
-        <div className="depth-first-search">
+        <div className="linear-search">
             <div id="main">
                 <div className="controls">
-                    <button id="randomButton" onClick={randomTree}>Random</button>
+                    <button id="randomButton" onClick={generateArray}>Random</button>
+                    <span className="labeledInput">
+                        <label>Array Size</label>
+                        <input id="arraySizeInput" ref={arraySizeInput} type="text"></input>
+                    </span>
                     <br />
                     <button id="searchButton" onClick={search}>Search</button>
                     <input id="searchInput" ref={searchInput} type="text"></input>
@@ -139,7 +145,7 @@ const DepthFirstSearch = () => {
                     </span>
                 </div>
                 <div className="visualization">
-                    <BinaryTreeDisplay tree={tree} border={current.current} green={green.current} pink={pink.current} />
+                    <ArrayDisplay array={array} focus={focus.current} green={green.current} pink={pink.current} />
                 </div>
             </div>
             <div className="legend">
@@ -157,4 +163,4 @@ const DepthFirstSearch = () => {
 
 }
 
-export default DepthFirstSearch;
+export default LinearSearch;
