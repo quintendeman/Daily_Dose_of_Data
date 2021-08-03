@@ -14,3 +14,35 @@ header, footer {
 footer {
 	font-size: 20px;
 }
+
+#about-us {
+	padding: 25px 150px;
+}
+
+.personal-information {
+
+	display: flex;
+	align-items: center;
+
+	img {
+		width: 200px;
+		border-radius: 10px;
+		margin-right: 25px;
+	}
+
+	.information-header {
+		display: flex;
+		align-items: center;
+	}
+
+	.personal-information-section {
+		font-size: 16px;
+		margin-left: 25px;
+	}
+
+	.biography {
+		margin-top: 25px;
+		margin-left: 25px;
+	}
+
+}
