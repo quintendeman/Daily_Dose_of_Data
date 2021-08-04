@@ -19,6 +19,7 @@ import BinaryTreeInformation from './BinaryTree/BinaryTreeInformation';
 import BinarySearchTree from './BinarySearchTree/BinarySearchTree';
 import BinarySearchTreeInformation from './BinarySearchTree/BinarySearchTreeInformation';
 import AvlTree from './AvlTree/AvlTree';
+import AvlTreeInformation from './AvlTree/AvlTreeInformation';
 import BinaryHeap from './BinaryHeap/BinaryHeap';
 import BinaryHeapInformation from './BinaryHeap/BinaryHeapInformation';
 import HashTable from './HashTable/HashTable';
@@ -92,7 +93,9 @@ const App = () => {
 									<BinarySearchTree />
 								</Route>
 								<Route exact path="/Avl Tree">
+									<AvlTreeInformation />
 									<AvlTree />
+									
 								</Route>
 								<Route exact path="/Binary Heap">
 									<BinaryHeapInformation />
