@@ -13,8 +13,30 @@ class BinaryTreeNode {
 
 }
 
+function getParent(node, tree) {
+    var parent = null;
+    var cur = tree.root;
+    if (node != null) {
+
+        while (cur != node) {
+            if (node.value > cur.value) {
+                parent = cur;
+                cur = parent.right;
+            }
+            else {
+                parent = cur;
+                cur = parent.left;
+            }
+        }
+        return parent;
+    }
+    else console.log("node is null, no parent")
+}
+
 function getHeight(node) {
-    if (node !== null) {
+
+    if (typeof node === "object" && node != null) {
+
         if (getHeight(node.left) > getHeight(node.right)) {
             return 1 + getHeight(node.left);
         }
@@ -23,11 +45,12 @@ function getHeight(node) {
     else return 0;
 }
 
+
 function getBalance(node) {
-    if (node !== null) {
+    if (node !== null && typeof node != "undefined") {
         return getHeight(node.right) - getHeight(node.left);
     }
-} 
+}
 
 function rotateRight(node, tree) {
     var newRoot = node.left;
@@ -36,9 +59,7 @@ function rotateRight(node, tree) {
 
     newRoot.right = node;
     node.left = T2;
-    
-    
-    //tree.root = newRoot;
+
 }
 
 function rotateLeft(node, tree) {
@@ -49,11 +70,72 @@ function rotateLeft(node, tree) {
     node.right = T2;
 }
 
+function getLeftmost(node) {
+    var leftmost = node;
+    if (leftmost != null) {
+        while (leftmost.left != null) {
+            leftmost = leftmost.left;
+        }
+    }
+    return leftmost;
+}
+
+function getRightMost(node) {
+    var rightmost = node;
+    if (rightmost != null) {
+        while (rightmost.right != null) {
+            rightmost = rightmost.right;
+        }
+    }
+    return rightmost;
+}
+
 //class for binary search tree
 class AvlTreeClass {
     constructor() {
         this.root = null;
         this.height = 0;
+        this.list = [];
+    }
+
+
+
+
+    inOrder(node) {
+        if (node == null) {
+            return
+        }
+        this.inOrder(node.left);
+        this.list.push(node.value);
+        this.inOrder(node.right);
+    }
+
+    insertWithRot(value) {
+        var current = this.root;
+        var parent = null;
+        var height = 1;
+        while (current != null) {
+            if (value < current.value) {
+                parent = current;
+                current = current.left;
+                height++;
+            } else if (value > current.value) {
+                parent = current;
+                current = current.right;
+                height++;
+            } else
+                return;
+        }
+        if (parent === null)
+            this.root = new BinaryTreeNode(value);
+        else if (value < parent.value)
+            parent.left = new BinaryTreeNode(value);
+        else
+            parent.right = new BinaryTreeNode(value);
+        if (height > this.height)
+            this.height = height;
+
+        //do rotations
     }
 
     insert(value) {
@@ -163,6 +245,21 @@ class AvlTreeClass {
 
 }
 
+//converts sorted array to AVL Tree
+function sortedArrayToAVL(arr, start, end) {
+    if (start > end) {
+        return null;
+    }
+
+    var mid = parseInt((start + end) / 2);
+    var node = new BinaryTreeNode(arr[mid]);
+
+    node.left = sortedArrayToAVL(arr, start, mid - 1);
+
+    node.right = sortedArrayToAVL(arr, mid + 1, end);
+    return node;
+}
+
 //react component for binary search tree
 const AvlTree = () => {
 
@@ -182,6 +279,7 @@ const AvlTree = () => {
     const animating = useRef();
     const animationFunction = useRef();
     const animationValue = useRef();
+    const status = useRef("Tree is balanced");
 
     //We call update on fake state variable to force rerender
     const forceUpdate = () => {
@@ -199,19 +297,28 @@ const AvlTree = () => {
             insertValue = randInt(-999, 1000);
             newTree.insert(insertValue);
         }
-        
+
         newTree.remove(insertValue);
+        newTree.inOrder(newTree.root)
+
+
+        var treeList = newTree.list;
+        var n = newTree.list.length;
+        newTree.root = sortedArrayToAVL(treeList, 0, n - 1);
+
         setTree(newTree);
-        //toggleAnimation();
-        //animationFunction.current = rotateStep;
     }
+
+
+
+
     const randInt = (min, max) => {
         return Math.floor(Math.random() * (max - min) + min);
     }
 
     //function to pause or continue animation
     const toggleAnimation = useCallback(() => {
-        
+
         if (animating.current) {
             clearInterval(interval.current);
             animating.current = false;
@@ -256,7 +363,8 @@ const AvlTree = () => {
 
     //function to do a single step of insertion animation
     const insertStep = () => {
-        
+        status.current = "Inserting node";
+        forceUpdate();
         if (animationValue.current < focus.current.value) {
             familyLine.current.push(focus.current);
             if (focus.current.left === null) {
@@ -268,7 +376,7 @@ const AvlTree = () => {
                 focus.current = focus.current.left;
             } else
                 focus.current = focus.current.left;
-            
+
         } else if (animationValue.current > focus.current.value) {
             familyLine.current.push(focus.current);
             if (focus.current.right === null) {
@@ -280,11 +388,11 @@ const AvlTree = () => {
                 //animationFunction.current = rotateStep();
             } else
                 focus.current = focus.current.right;
-            
+
         } else {
             animationFunction.current = rotateStep;
         }
-        //console.log(familyLine.current);
+
     }
 
     //function to remove from binary search tree on button click
@@ -309,7 +417,7 @@ const AvlTree = () => {
 
     //function to do a single step of remove animation
     const removeStep = () => {
-        
+        status.current = "Removing node";
         if (animationValue.current < focus.current.value) {
             familyLine.current.push(focus.current);
             if (focus.current.left === null)
@@ -329,17 +437,45 @@ const AvlTree = () => {
                     pink.current = focus.current;
             }
         } else {
+            if (familyLine.current.length === 0) {
+                var rightTree = tree.root.right;
+                if (rightTree != null) {
+                    if (getParent(getLeftmost(rightTree), tree) === tree.root) {
+                        tree.remove(animationValue.current);
+                        familyLine.current.push(tree.root);
+                        pink.current = null;
+                        animationFunction.current = rotateStepDelete;
+                        return;
+                    }
+                    else familyLine.current.push(getParent(getLeftmost(rightTree), tree));
+
+                }
+                else {
+
+                    if (getParent(getRightMost(tree.root.left), tree) === tree.root) {
+                        tree.remove(animationValue.current);
+                        familyLine.current.push(tree.root);
+                        pink.current = null;
+                        animationFunction.current = rotateStepDelete;
+                        return;
+                    }
+                    else familyLine.current.push(getParent(getRightMost(tree.root.left), tree));
+
+                }
+            }
             tree.remove(animationValue.current);
+
             pink.current = null;
-            animationFunction.current = rotateStep;
+            animationFunction.current = rotateStepDelete;
         }
     }
+
 
     //function to start find animation
     const find = () => {
         if (animating.current)
             familyLine.current = [];
-            toggleAnimation();
+        toggleAnimation();
         if (tree.root !== null) {
             var data = parseInt(findInput.current.value);
             if (isNaN(data))
@@ -378,117 +514,222 @@ const AvlTree = () => {
         }
     }
 
+    const rotateStepDelete = () => {
+
+        var family = [];
+        for (var i = 0; i < familyLine.current.length; i++) {
+            family.push(familyLine.current[i]);
+        }
+
+        if (family.length === 0) toggleAnimation();
+        else {
+
+            //z is first unbalanced node
+
+            var z = family.pop();
+
+
+
+            while (family.length > 0 && Math.abs(getBalance(z)) < 2) {
+                z = family.pop();
+
+            }
+            if (Math.abs(getBalance(z)) < 2) {
+                status.current = "Tree is balanced";
+
+                toggleAnimation();
+            }
+
+            familyLine.current = [];
+            familyLine.current.push(z);
+            //determine largest height child
+
+            if (z == null || typeof z == "undefined") {
+                status.current = "Tree is empty"
+                toggleAnimation();
+            }
+            else if (z.left != null || z.right != null) {
+                var y = null; //largest height child
+                if (getHeight(z.left) >= getHeight(z.right)) {
+                    y = z.left
+
+                }
+                else y = z.right;
+                var x = null;
+                if (y != null) {
+                    if (y.value < z.value) {
+                        if (getHeight(y.left) >= getHeight(y.right)) x = y.left;
+                        else x = y.right;
+                    }
+                    else {
+                        if (getHeight(y.left) > getHeight(y.right)) x = y.left;
+                        else x = y.right;
+                    }
+
+                }
+
+            }
+
+
+
+
+            ////left left
+            if (getBalance(z) < -1 && x.value < y.value) {
+                rotateRight(z, tree);
+                status.current = "Rotating Node: " + z.value + " right"
+                var parent = getParent(y, tree);
+                if (parent != null) {
+                    if (parent.value < z.value) {
+                        parent.right = y;
+                    }
+                    else parent.left = y;
+                }
+                //familyLine.current.shift();
+            }
+
+            ////left right
+            if (getBalance(z) < -1 && x.value > y.value) {
+
+                rotateLeft(y, tree);
+                status.current = "Rotating Node: " + y.value + " left"
+                z.left = x;
+
+
+            }
+
+            ////right left
+            if (getBalance(z) > 1 && x.value < y.value) {
+
+                rotateRight(y, tree);
+                status.current = "Rotating Node: " + y.value + " right"
+                z.right = x;
+
+
+
+
+            }
+
+            //right right
+            if (getBalance(z) > 1 && x.value > y.value) {
+                var parent = getParent(z, tree);
+                rotateLeft(z, tree);
+                status.current = "Rotating Node: " + z.value + " left"
+
+                if (parent != null) {
+                    if (parent.value < z.value) {
+                        parent.right = y;
+                    }
+                    else parent.left = y;
+                }
+                else tree.root = y;
+
+            }
+
+            forceUpdate();
+
+
+        }
+    }
+
     const rotateStep = () => {
-        console.log(familyLine.current);
+
         //create new array copy of family line
         var family = [];
         for (var i = 0; i < familyLine.current.length; i++) {
             family.push(familyLine.current[i]);
         }
-        
 
-        //var inserted = green.current;
-        //rotateRight(tree.root, tree);
-        //rotateLeft(tree.root, tree);
-        //var family = familyLine.current;
-        
-        var firstUnbalanced = family.pop();
-        //console.log(getBalance(firstUnbalanced));
-        //var child;
-        
-        while (Math.abs(getBalance(firstUnbalanced)) < 2 && family.length > 0) {
-            firstUnbalanced = family.pop();
-            
+
+        var inserted = green.current;
+
+        if (family.length === 0) toggleAnimation();
+        else {
+            var firstUnbalanced = family.pop();
+
+            //var child;
+
+            while (Math.abs(getBalance(firstUnbalanced)) < 2 && family.length > 0) {
+                firstUnbalanced = family.pop();
+
+            }
+
+
+            if (Math.abs(getBalance(firstUnbalanced)) < 2) {
+                //tree is balanced 
+                status.current = "Tree is balanced"
+                toggleAnimation();
+
+            }
+
+
+
+
+
+            //Left Left case
+            if (getBalance(firstUnbalanced) === -2 && getBalance(firstUnbalanced.left) === -1) {
+
+
+                var l = firstUnbalanced.left;
+                rotateRight(firstUnbalanced, tree);
+                status.current = "Rotating Node: " + firstUnbalanced.value + " right"
+
+                //insert on correct side
+                var grandP = family.pop();
+                if (grandP) {
+                    if (grandP.value < firstUnbalanced.value) {
+                        grandP.right = l;
+                    }
+                    else grandP.left = l;
+                } else tree.root = l;
+                secondRot.current = true;
+                familyLine.current.splice(familyLine.current.indexOf(l.right), 1);
+
+
+            }
+
+
+            //Left Right case
+            if (getBalance(firstUnbalanced) === -2 && getBalance(firstUnbalanced.left) === 1) {
+                var r = firstUnbalanced.left.right;
+                rotateLeft(firstUnbalanced.left, tree);
+                status.current = "Rotating Node: " + firstUnbalanced.left.value + " left";
+
+                firstUnbalanced.left = r;
+            }
+
+            //Right Right case
+            if (getBalance(firstUnbalanced) === 2 && getBalance(firstUnbalanced.right) === 1) {
+                var r = firstUnbalanced.right;
+                rotateLeft(firstUnbalanced, tree);
+                status.current = "Rotating Node: " + firstUnbalanced.value + " left";
+                //insert on correct side
+                var grandP = family.pop();
+                if (grandP) {
+                    if (grandP.value < firstUnbalanced.value) {
+                        grandP.right = r;
+                    }
+                    else grandP.left = r;
+                } else tree.root = r;
+                familyLine.current.splice(familyLine.current.indexOf(firstUnbalanced), 1);
+
+            }
+
+            //Right Left Case
+            if (getBalance(firstUnbalanced) === 2 && getBalance(firstUnbalanced.right) === -1) {
+                var l = firstUnbalanced.right.left;
+                rotateRight(firstUnbalanced.right, tree);
+                status.current = "Rotating Node: " + firstUnbalanced.right + " right";
+                familyLine.current.pop();
+                firstUnbalanced.right = l;
+
+
+
+            }
+
+
         }
-        
-
-        if (Math.abs(getBalance(firstUnbalanced)) < 2) {
-            //tree is balanced 
-            console.log("tree is balanced");
-            toggleAnimation();
-            
-        }
-        
-
-
-        
-            
-        //Left Left case
-        if (getBalance(firstUnbalanced) === -2 && getBalance(firstUnbalanced.left) === -1) {
-
-
-            let l = firstUnbalanced.left;
-            rotateRight(firstUnbalanced, tree);
-
-            //insert on correct side
-            let grandP = family.pop();
-            if (grandP) {
-                if (grandP.value < firstUnbalanced.value) {
-                    grandP.right = l;
-                }
-                else grandP.left = l;
-            } else tree.root = l;
-            secondRot.current = true;
-            familyLine.current.splice(familyLine.current.indexOf(l.right), 1);
-            
-            
-        }
-
-
-        //Left Right case
-        if (getBalance(firstUnbalanced) === -2 && getBalance(firstUnbalanced.left) === 1) {
-            let r = firstUnbalanced.left.right;
-            rotateLeft(firstUnbalanced.left, tree);
-            firstUnbalanced.left = r;
-        }
-
-        //Right Right case
-        if (getBalance(firstUnbalanced) === 2 && getBalance(firstUnbalanced.right) === 1) {
-            let r = firstUnbalanced.right;
-            rotateLeft(firstUnbalanced, tree);
-            //insert on correct side
-            let grandP = family.pop();
-            if (grandP) {
-                if (grandP.value < firstUnbalanced.value) {
-                    grandP.right = r;
-                }
-                else grandP.left = r;
-            } else tree.root = r;
-            familyLine.current.splice(familyLine.current.indexOf(firstUnbalanced), 1);
-            
-        }
-
-        //Right Left Case
-        if (getBalance(firstUnbalanced) === 2 && getBalance(firstUnbalanced.right) === -1) {
-            let l = firstUnbalanced.right.left;
-            rotateRight(firstUnbalanced.right, tree);
-            familyLine.current.pop();
-            firstUnbalanced.right = l;
-            
-            
-
-        }
-
-        ////Left Right case
-        //if (getBalance(firstUnbalanced) === -2 && getBalance(firstUnbalanced.left) === 1) {
-
-        //    var r = firstUnbalanced.left.right;
-        //    rotateLeft(firstUnbalanced.left, tree);
-        //    firstUnbalanced.left = r;
-
-
-            
-        //}
-
-
-        //console.log(firstUnbalanced.left)
-        //rotateRight(firstUnbalanced, tree);
-
-        //}
-        
-        //animationFunction.current = rotateStep();
         forceUpdate();
-        
+
     }
 
     //changes the animation speed when the slider changes
@@ -524,7 +765,8 @@ const AvlTree = () => {
                 </div>
                 <div className="visualization">
                     <BinaryTreeDisplay tree={tree} border={focus.current} green={green.current} pink={pink.current} yellow={yellow.current} />
-                    <p>Balance of Tree: {getBalance(tree.root)}</p>
+
+                    <p>{status.current}</p>
                 </div>
             </div>
             <div className="legend">
