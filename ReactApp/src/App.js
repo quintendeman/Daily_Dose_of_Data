@@ -178,6 +178,36 @@ const App = () => {
 													<p>Quinten is a rising junior at Stony Brook University with a double major in Computer Science and Applied Mathematics and Statistics. He has interests in Data Structures, Algorithms, Web Development, Machine Learning, and Artificial Intelligence. He has lots of experience with these topics from previous research experiences, work experiences, personal projects, and academic coursework. For more information visit his LinkedIn or GitHub pages.</p>
 												</div>
 											</div>
+											
+										</div>
+										<br />
+										<br />
+										<br />
+										<br />
+										<div className="personal-information">
+											<img src="zackpicture.jpg" alt="" style={{ width: "225px" }}></img>
+											<img src="northeasternlogo.png" alt="" style={{ width: "155px" }}></img>
+											<div id="zack-information">
+												<div className="information-header">
+													<div className="personal-information-section">
+														<p><b>Zackary Lassetter</b></p>
+														<p>Northeastern University</p>
+														<p>Northeastern National Merit Scholar</p>
+														<p>Data Science and Economics</p>
+													</div>
+													<div className="personal-information-section">
+														<p><b>Email:</b> zackary@lassetter.org</p>
+														<p><b>LinkedIn:</b> <a href="https://www.linkedin.com/in/zackary-lassetter/">https://www.linkedin.com/in/zackary-lassetter/</a></p>
+														<p><b>GitHub:</b> <a href="https://github.com/zlassetter">https://github.com/zlassetter</a></p>
+													</div>
+												</div>
+												<div className="biography">
+													<p><b>Biography</b></p>
+													<p>Zackary is a rising sophmore at Northeastern University and is currently pursing a combined major in Data Science and Economics. He is interested many topics across the field of computer science including Data Structures and Algorithms, but is also interested in the applications of these tools in the fields of Quantitative Finance, Econometrics, and Data Analytics. Please visit his LinkedIn and GitHub for more information.</p>
+												</div>
+											</div>
+											
+
 										</div>
 									</div>
 								</Route>
