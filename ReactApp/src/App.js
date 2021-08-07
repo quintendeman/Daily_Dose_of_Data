@@ -33,6 +33,7 @@ import InsertionSortInformation from './InsertionSort/InsertionSortInformation';
 import SelectionSort from './SelectionSort/SelectionSort';
 import SelectionSortInformation from './SelectionSort/SelectionSortInformation';
 import BubbleSort from './BubbleSort/BubbleSort';
+import BubbleSortInformation from './BubbleSort/BubbleSortInformation';
 import MergeSort from './MergeSort/MergeSort';
 import MergeSortInformation from './MergeSort/MergeSortInformation';
 import QuickSort from './QuickSort/QuickSort';
@@ -123,6 +124,7 @@ const App = () => {
 									<SelectionSort />
 								</Route>
 								<Route exact path="/Bubble Sort">
+									<BubbleSortInformation />
 									<BubbleSort />
 								</Route>
 								<Route exact path="/Merge Sort">
