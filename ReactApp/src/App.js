@@ -29,6 +29,7 @@ import SetInformation from './Set/SetInformation';
 import Map from './Map/Map';
 import MapInformation from './Map/MapInformation';
 import InsertionSort from './InsertionSort/InsertionSort';
+import InsertionSortInformation from './InsertionSort/InsertionSortInformation';
 import SelectionSort from './SelectionSort/SelectionSort';
 import SelectionSortInformation from './SelectionSort/SelectionSortInformation';
 import BubbleSort from './BubbleSort/BubbleSort';
@@ -114,6 +115,7 @@ const App = () => {
 									<Map />
 								</Route>
 								<Route exact path="/Insertion Sort">
+									<InsertionSortInformation />
 									<InsertionSort />
 								</Route>
 								<Route exact path="/Selection Sort">
