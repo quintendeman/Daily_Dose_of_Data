@@ -473,9 +473,10 @@ const AvlTree = () => {
 
     //function to start find animation
     const find = () => {
-        if (animating.current)
+        if (animating.current) {
             familyLine.current = [];
-        toggleAnimation();
+            toggleAnimation();
+        }
         if (tree.root !== null) {
             var data = parseInt(findInput.current.value);
             if (isNaN(data))

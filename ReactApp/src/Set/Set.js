@@ -7,7 +7,7 @@ const SetDisplay = (props) => {
     var componentList = [];
     componentList.push(<p className="curly-brace" key={-1}>&#123;</p>);
     componentList = componentList.concat([...props.set].map((value, index) => {
-        return <Element value={value}></Element>;
+        return <Element key={index} value={value}></Element>;
     }));
     componentList.push(<p className="curly-brace" key={componentList.length}>&#125;</p>);
     return componentList;
@@ -96,7 +96,7 @@ const MySet = () => {
                 <button id="findButton" onClick={find}>Find</button>
                 <input id="findInput" ref={findInput} type="text"></input>
                 <br />
-                <input id="findOutput" ref={findOutput} type="text" readonly></input>
+                <input id="findOutput" ref={findOutput} type="text" readOnly></input>
             </div>
             <div className="visualization">
                 <SetDisplay set={set} />
