@@ -48,6 +48,14 @@ const QuickSort = () => {
         arr[y] = temp;
     }
 
+    function buildSorted(size) {
+        var arr = [];
+        for (var i = 0; i < size; i++) {
+            arr.push(i);
+        }
+        return arr;
+    }
+
     const sortingStep = () => {
         if (sortedElements.current.length === array.length) {
             clearInterval(interval.current);
@@ -167,6 +175,28 @@ const QuickSort = () => {
         }
     }
 
+    const genWorstCase = () => {
+        if (sorting.current) {
+            toggleSorting();
+        }
+        var size = parseInt(arraySizeInput.current.value);
+        if (isNaN(size))
+            size = randInt(5, 50);
+        if (size > 0) {
+            setArray(buildSorted(size));
+            setSorted(false);
+
+            pivot.current = -1;
+            low.current = -1;
+            high.current = -1;
+            sortedElements.current = [];
+
+        }
+
+        arraySizeInput.current.value = null;
+        
+    }
+
     //sets state array to a random array for sorting
     const generateArray = () => {
         if (sorting.current) {
@@ -226,6 +256,8 @@ const QuickSort = () => {
                         <label>Array Size</label>
                         <input id="arraySizeInput" ref={arraySizeInput} type="text"></input>
                     </span>
+                    <br />
+                    <button id="worstButton" onClick={genWorstCase}>Worst-case</button>
                     <br />
                     <button id="toggleSortingButton" className="greenButton" ref={toggleSortingButton} onClick={toggleSorting}>Sort</button>
                     <br />
