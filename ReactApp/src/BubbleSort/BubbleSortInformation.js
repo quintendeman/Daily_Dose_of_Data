@@ -8,7 +8,7 @@ const BubbleSortInformation = () => {
             <br />
             <p>The visualization below shows an optimized version of Bubble sort. This version involves recognizing that after n passes over the array, the nth element in the array is in the sorted position. Thus, the algorithm need not pass over the final n-1 elements after n passes. This reduces the total number of necessary comparisons, however makes no change to the number of swaps (since swaps only occur on elements which are in the incorrect position).</p>
             <br />
-            <p>Other than its simplicity, Bubble sort has little else going for it. In practice, another sorting algorithm would likely be a better option.</p>
+            <p>In both versions of Bubble sort, the maximum number of passes needed to sort an an array with n elements will be O(n). Since each pass will also take on average O(n) time, the overall time complexity of Bubble sort is O(n<sup>2</sup>). No extra space is needed for Bubble sort.</p>
             <br />
             <table>
                 <tbody>
