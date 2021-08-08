@@ -11,7 +11,7 @@
     }
 
     #worstButton {
-        width: 100px;
+        width: 210px;
         background-color: #EAA;
     }
 
@@ -20,11 +20,11 @@
         background-color: #EDF;
     }
 
-    #randomButton:hover, #toggleSortingButton:hover, #generateArrayButton:hover {
+    #randomButton:hover, #toggleSortingButton:hover, #generateArrayButton:hover, #worstButton:hover {
         background-color: White;
     }
 
-    #randomButton:active, #toggleSortingButton:active, #generateArrayButton:active {
+    #randomButton:active, #toggleSortingButton:active, #generateArrayButton:active, #worstButton:active {
         background-color: Black;
         color: White;
     }

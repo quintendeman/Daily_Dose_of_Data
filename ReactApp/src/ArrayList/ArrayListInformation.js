@@ -3,7 +3,6 @@ import React from 'react';
 const ArrayListInformation = () => {
     return (
         <div className="information">
-            <h1>Array List</h1>
             <p>An Array List is a linear data structure. Values are stored in an array structure using a contiguous block of memory. An Array List is one possible implementation of a List, an Abstract Data Type (ADT).</p>
             <br />
             <p><u>An Array List has the following basic operations:</u></p>

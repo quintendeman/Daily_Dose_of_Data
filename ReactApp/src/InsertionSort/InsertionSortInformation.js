@@ -3,7 +3,6 @@ import React from 'react';
 const InsertionSortInformation = () => {
     return (
         <div className="information">
-            <h1>Insertion Sort</h1>
             <p>Insertion sort is an algorithm used to sort an array by partitioning an array into two subarrays: sorted and unsorted. It then builds the sorted subarray one element at a time until the unsorted subarray is depleted.</p>
             <br />
             <p>The algorithm repeatedly designates a value from the unsorted subarray as the current value to be inserted. It then iterates through the sorted array, comparing each element to the one to be inserted. Once the sorted position of the element to be inserted is determined, it is moved from the unsorted subarray into its proper sorted position in the sorted subarray. This process of designating the element to be inserted, finding its sorted position, and inserting it repeats until the unsorted subarray has been completely depleted and the whole starting list has been sorted.</p>

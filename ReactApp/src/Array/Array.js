@@ -59,6 +59,7 @@ const Array = () => {
                 size--;
         }
         setArray(newArray);
+        arraySize.current.value = null;
     }
 
     const set = () => {

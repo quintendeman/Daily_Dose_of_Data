@@ -3,7 +3,6 @@ import React from 'react';
 const MapInformation = () => {
     return (
         <div className="information">
-            <h1>Map</h1>
             <p>A Map is an Abstract Data Type (ADT) representing a collection of key and value pairs. Any value in the Map can be accessed using its corresponding key. Keys in a map must be unique, meaning each key can only have one corresponding value. The key value pairs in a map are stored in no particular order, they are simply a collection of data.</p>
             <br />
             <p><u>A Map has the following basic operations:</u></p>

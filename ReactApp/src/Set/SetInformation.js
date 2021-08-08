@@ -3,7 +3,6 @@ import React from 'react';
 const SetInformation = () => {
     return (
         <div className="information">
-            <h1>Set</h1>
             <p>A set is an Abstract Data Type (ADT) representing an unordered collection of data with no repeat elements. The data is stored in no particular order, and there can only be one of any given value in the set. Elements are either in or not in the set. There is no concept of order or quantities in a set. Thus sets are most useful for problems in which membership in the set is the most important property.</p>
             <br />
             <p><u>A Set has the following basic operations:</u></p>

@@ -3,7 +3,6 @@ import React from 'react';
 const AvlTreeInformation = () => {
     return (
         <div className="information">
-            <h1>AVL Tree</h1>
             <p>An AVL Tree is a self-balancing binary search tree. Thus, it inherits the properties of order as well as the restriction that each node has either zero, one, or two children. The additional restriction placed on AVL Trees is that the height of two sibling subtrees differ by at most one. It maintains this condition by performing a series of rotational operations on nodes following insertion and deletion.</p>
             
             <br />

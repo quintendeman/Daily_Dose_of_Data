@@ -3,7 +3,6 @@ import React from 'react';
 const HeapSortInformation = () => {
     return (
         <div className="information">
-            <h1>Heap Sort</h1>
             <p>Heap Sort is an algorithm to sort an array which adds all of the elements to a Binary Heap, and then repeatedly removes elements from the heap until it is empty. The elements are removed from the heap in a sorted order, and are added to a new sorted array in the order that they are removed.</p>
             <br />
             <p>In order to sort the elements in our array from least to greatest, the heap we use must be a Min Heap. This way the element at the root of the tree is guaranteed to be the smallest value in the heap. We repeatedly remove from the root to get the smallest remaining value in the tree. Once the heap is empty, all of the original elements have been removed in a sorted order.</p>

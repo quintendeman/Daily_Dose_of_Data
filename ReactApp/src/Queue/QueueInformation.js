@@ -3,7 +3,6 @@ import React from 'react';
 const QueueInformation = () => {
     return (
         <div className="information">
-            <h1>Queue</h1>
             <p>A queue is an Abstract Data Type (ADT) that represents a linear data structure. Elements may only be added to one end and removed from the other end of a queue. Therefore a queue is a first-in-first-out (FIFO) data structure. When an element is removed from the queue, it will be the earliest one added. The last element to be removed will be the last one added to the queue.</p>
             <br />
             <p><u>A queue has the following basic operations:</u></p>

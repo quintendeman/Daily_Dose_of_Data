@@ -3,7 +3,6 @@ import React from 'react';
 const ListInformation = () => {
     return (
         <div className="information">
-            <h1>List</h1>
             <p>A list is an Abstract Data Type (ADT) that represents data in a linear structure. Elements can be added or removed at any point in the list. The list maintains a specific order depending on where in the list elements were inserted and removed.</p>
             <br />
             <p><u>A list includes the following basic operations:</u></p>

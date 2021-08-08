@@ -3,7 +3,6 @@ import React from 'react';
 const ArrayInformation = () => {
     return (
         <div className="information">
-            <h1>Array</h1>
             <p>An array is a linear data structure where elements are stored in a contiguous block of memory. Each element typically takes up the same amount of space in memory so that the location of an element can be easily computed from its index. To find the location of the element in memory, the index is multiplied by the size of an element and then added to the base address of the array.</p>
             <br />
             <p><u>An Array has the following basic operations:</u></p>

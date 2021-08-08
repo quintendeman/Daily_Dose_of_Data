@@ -64,97 +64,119 @@ const App = () => {
 									</div>
 								</Route>
 								<Route exact path="/Array">
-									<ArrayInformation />
+									<header className="page-title">Array</header>
 									<Array />
+									<ArrayInformation />
 								</Route>
 								<Route exact path="/List">
-									<ListInformation />
+									<header className="page-title">List</header>
 									<List />
+									<ListInformation />
 								</Route>
 								<Route exact path="/Array List">
-									<ArrayListInformation />
+									<header className="page-title">Array List</header>
 									<ArrayList />
+									<ArrayListInformation />
 								</Route>
 								<Route exact path="/Linked List">
-									<LinkedListInformation />
+									<header className="page-title">Linked List</header>
 									<LinkedList />
+									<LinkedListInformation />
 								</Route>
 								<Route exact path="/Stack">
-									<StackInformation />
+									<header className="page-title">Stack</header>
 									<Stack />
+									<StackInformation />
 								</Route>
 								<Route exact path="/Queue">
-									<QueueInformation />
+									<header className="page-title">Queue</header>
 									<Queue />
+									<QueueInformation />
 								</Route>
 								<Route exact path="/Binary Tree">
-									<BinaryTreeInformation />
+									<header className="page-title">Binary Tree</header>
 									<BinaryTree />
+									<BinaryTreeInformation />
 								</Route>
 								<Route exact path="/Binary Search Tree">
-									<BinarySearchTreeInformation />
+									<header className="page-title">Binary Search Tree</header>
 									<BinarySearchTree />
+									<BinarySearchTreeInformation />
 								</Route>
 								<Route exact path="/Avl Tree">
-									<AvlTreeInformation />
+									<header className="page-title">AVL Tree</header>
 									<AvlTree />
-									
+									<AvlTreeInformation />
 								</Route>
 								<Route exact path="/Binary Heap">
-									<BinaryHeapInformation />
+									<header className="page-title">Binary Heap</header>
 									<BinaryHeap />
+									<BinaryHeapInformation />
 								</Route>
 								<Route exact path="/Hash Table">
-									<HashTableInformation />
+									<header className="page-title">Hash Table</header>
 									<HashTable />
+									<HashTableInformation />
 								</Route>
 								<Route exact path="/Set">
-									<SetInformation />
+									<header className="page-title">Set</header>
 									<Set />
+									<SetInformation />
 								</Route>
 								<Route exact path="/Map">
-									<MapInformation />
+									<header className="page-title">Map</header>
 									<Map />
+									<MapInformation />
 								</Route>
 								<Route exact path="/Insertion Sort">
-									<InsertionSortInformation />
+									<header className="page-title">Insertion Sort</header>
 									<InsertionSort />
+									<InsertionSortInformation />
 								</Route>
 								<Route exact path="/Selection Sort">
-									<SelectionSortInformation />
+									<header className="page-title">Selection Sort</header>
 									<SelectionSort />
+									<SelectionSortInformation />
 								</Route>
 								<Route exact path="/Bubble Sort">
-									<BubbleSortInformation />
+									<header className="page-title">Bubble Sort</header>
 									<BubbleSort />
+									<BubbleSortInformation />
 								</Route>
 								<Route exact path="/Merge Sort">
-									<MergeSortInformation />
+									<header className="page-title">Merge Sort</header>
 									<MergeSort />
+									<MergeSortInformation />
 								</Route>
 								<Route exact path="/Quick Sort">
-									<QuickSortInformation />
+									<header className="page-title">Quick Sort</header>
 									<QuickSort />
+									<QuickSortInformation />
 								</Route>
 								<Route exact path="/Heap Sort">
-									<HeapSortInformation />
+									<header className="page-title">Heap Sort</header>
 									<HeapSort />
+									<HeapSortInformation />
 								</Route>
 								<Route exact path="/Linear Search">
-									<LinearSearchInformation />
+									<header className="page-title">Linear Search</header>
 									<LinearSearch />
+									<LinearSearchInformation />
 								</Route>
 								<Route exact path="/Binary Search">
-									<BinarySearchInformation />
+									<header className="page-title">Binary Search</header>
 									<BinarySearch />
+									<BinarySearchInformation />
 								</Route>
 								<Route exact path="/Depth First Search">
-									<DepthFirstSearchInformation />
+									<header className="page-title">Depth First Search</header>
 									<DepthFirstSearch />
+									<DepthFirstSearchInformation />
 								</Route>
 								<Route exact path="/Breadth First Search">
-									<BreadthFirstSearchInformation />
+									<header className="page-title">Breadth First Search</header>
 									<BreadthFirstSearch />
+									<BreadthFirstSearchInformation />
 								</Route>
 								<Route exact path="/about">
 									<div id="about-us" className="information">

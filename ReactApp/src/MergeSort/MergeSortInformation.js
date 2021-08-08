@@ -3,7 +3,6 @@ import React from 'react';
 const MergeSortInformation = () => {
     return (
         <div className="information">
-            <h1>Merge Sort</h1>
             <p>Merge Sort is a divide and conquer algorithm for sorting an array. First the array is split up into several sub-arrays of size 1. Then every pair of arrays is merged in such a way that the new merged array contains the elements of the two previous arrays in sorted order. This is repeated until all arrays have been merged into one final sorted array.</p>
             <br />
             <p>Another way to think of Merge Sort is as a recursive algorithm. First the array is split into two parts, then both parts are recursively sorted, and finally the two parts are merged back together in a sorted order. The base case of this recursion would be a sub-array of size 1, which is already sorted.</p>

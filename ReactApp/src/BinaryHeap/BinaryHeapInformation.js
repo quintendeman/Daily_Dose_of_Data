@@ -3,7 +3,6 @@ import React from 'react';
 const BinaryHeapInformation = () => {
     return (
         <div className="information">
-            <h1>Binary Heap</h1>
             <p>A Binary Heap is special type of Binary Tree with a few special properties. The first property is that it is a complete tree. This means that every level in the tree is completely filled with nodes except the last level, where all of the nodes are as far left as possible. The second property is that any given node in the tree has a smaller or greater value than all of the nodes in its child sub-trees. In a Min Heap, the value will always be smaller than all of its children. In a Max Heap the value will always be larger than all of its children. Here we will be using a Min Heap.</p>
             <br />
             <p><u>A Binary Heap has the following basic operations:</u></p>

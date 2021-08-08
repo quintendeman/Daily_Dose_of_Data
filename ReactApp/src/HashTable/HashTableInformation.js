@@ -3,7 +3,6 @@ import React from 'react';
 const HashTableInformation = () => {
     return (
         <div className="information">
-            <h1>Hash Table</h1>
             <p>A Hash Table is a data structure that places values in an array at an index based on a hash code computed from the key using a hash function. In this visualization, the key and the value are the same integer value. An array is defined for the Hash Table with a fixed size. Once the array reaches a certain capacity of elements, a new larger array is created and all of the previous elements are inserted back into the new array. The maximum capacity of the array before it must be resized is called the load factor, and is typically a fixed percentage.</p>
             <br />
             <p><u>A Hash Table has the following basic operations:</u></p>

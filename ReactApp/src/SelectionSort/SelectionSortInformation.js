@@ -3,7 +3,6 @@ import React from 'react';
 const SelectionSortInformation = () => {
     return (
         <div className="information">
-            <h1>Selection Sort</h1>
             <p>Selection sort is an algorithm to sort an array that repeatedly finds the minimum value of the unsorted elements. Two subarrays are kept. At the beginning of the array is a subarray of elements that have been already been selected as the minimum and are placed in their correct position in the sorted array. The rest of the array is the remaining unsorted elements.</p>
             <br />
             <p>The algorithm repeatedly finds the minimum value of the unsorted subarray, and swaps it with the first element of the unsorted portion. That element is then considered sorted, so the sorted subarray grows in size, and the unsorted subarray decreases in size. This is repeated until the sorted portion of the array becomes as large as the entire array.</p>

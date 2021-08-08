@@ -3,7 +3,6 @@ import React from 'react';
 const BinarySearchTreeInformation = () => {
     return (
         <div className="information">
-            <h1>Binary Search Tree</h1>
             <p>A Binary Search Tree is a tree data structure where elements are kept in an ordered pattern. For any given node, all of the elements in the left sub-tree are less than or equal to the given node, and all of the elements in the right sub-tree are greater than or equal to the given node.</p>
             <br />
             <p><u>A Binary Search Tree has the following basic operations:</u></p>
