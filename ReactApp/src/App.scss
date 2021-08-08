@@ -17,6 +17,10 @@ footer {
 
 #about-us {
 	padding: 25px 150px;
+
+	hr {
+		margin: 50px 0px;
+	}
 }
 
 .personal-information {
@@ -25,7 +29,7 @@ footer {
 	align-items: center;
 
 	img {
-		width: 200px;
+		width: 180px;
 		border-radius: 10px;
 		margin-right: 25px;
 	}

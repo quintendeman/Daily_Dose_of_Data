@@ -160,11 +160,10 @@ const App = () => {
 									<div id="about-us" className="information">
 										<h1>About Us</h1>
 										<p>Thank you for visiting our website! We are two undergraduate college students studying in areas related to Computer Science. We decided to work together over an entire summer to bring to life this idea of a website to provide visualizations of various data structures and algorithms for educational purposes. We had little to no experience with web development before this, and we fully self-studied JavaScript, HTML, CSS, React.js, and Node.js, all of which were used to develop this website. This website is still a work in progress, and we plan to continue adding new content and features. Any feedback you would like to give us is appreciated, so feel free to contact us with the information below!</p>
-										<br />
-										<br />
+										<hr />
 										<div className="personal-information">
-											<img src="stonybrooklogo.jpg" alt=""></img>
 											<img src="quintenpicture.jpg" alt=""></img>
+											<img src="stonybrooklogo.jpg" alt=""></img>
 											<div id="quinten-information">
 												<div className="information-header">
 													<div className="personal-information-section">
@@ -184,15 +183,11 @@ const App = () => {
 													<p>Quinten is a rising junior at Stony Brook University with a double major in Computer Science and Applied Mathematics and Statistics. He has interests in Data Structures, Algorithms, Web Development, Machine Learning, and Artificial Intelligence. He has lots of experience with these topics from previous research experiences, work experiences, personal projects, and academic coursework. For more information visit his LinkedIn or GitHub pages.</p>
 												</div>
 											</div>
-											
 										</div>
-										<br />
-										<br />
-										<br />
-										<br />
+										<hr />
 										<div className="personal-information">
-											<img src="zackpicture.jpg" alt="" style={{ width: "225px" }}></img>
-											<img src="northeasternlogo.png" alt="" style={{ width: "155px" }}></img>
+											<img src="zackpicture.jpg" alt=""></img>
+											<img src="northeasternlogo.png" alt=""></img>
 											<div id="zack-information">
 												<div className="information-header">
 													<div className="personal-information-section">
@@ -212,8 +207,6 @@ const App = () => {
 													<p>Zackary is a rising sophmore at Northeastern University and is currently pursing a combined major in Data Science and Economics. He is interested many topics across the field of computer science including Data Structures and Algorithms, but is also interested in the applications of these tools in the fields of Quantitative Finance, Econometrics, and Data Analytics. Please visit his LinkedIn and GitHub for more information.</p>
 												</div>
 											</div>
-											
-
 										</div>
 									</div>
 								</Route>
