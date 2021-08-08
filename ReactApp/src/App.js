@@ -37,6 +37,7 @@ import BubbleSortInformation from './BubbleSort/BubbleSortInformation';
 import MergeSort from './MergeSort/MergeSort';
 import MergeSortInformation from './MergeSort/MergeSortInformation';
 import QuickSort from './QuickSort/QuickSort';
+import QuickSortInformation from './QuickSort/QuickSortInformation';
 import HeapSort from './HeapSort/HeapSort';
 import HeapSortInformation from './HeapSort/HeapSortInformation';
 import LinearSearch from './LinearSearch/LinearSearch';
@@ -132,6 +133,7 @@ const App = () => {
 									<MergeSort />
 								</Route>
 								<Route exact path="/Quick Sort">
+									<QuickSortInformation />
 									<QuickSort />
 								</Route>
 								<Route exact path="/Heap Sort">
