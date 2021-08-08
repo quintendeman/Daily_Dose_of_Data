@@ -14,11 +14,11 @@ const AvlTreeInformation = () => {
                 <li><b>Find:</b> searches for an element in the tree</li>
             </ul>
             <br />
-            <p>At insertion, a regular BST insertion is performed. Next, if there is an unbalanced node found on the path up from the newly inserted node to the root, then a rotation will occur. The exact rotation operation depeneds on the relative postions of the first unbalanced node and its two immediate adjacent ancestors on the path back to the newly inserted node.</p>
+            <p>At insertion, a regular BST insertion is performed. Next, if there is an unbalanced node found on the path up from the newly inserted node to the root, then a rotation will occur. The exact rotation operation depends on the relative postions of the first unbalanced node and its two immediate adjacent ancestors on the path back to the newly inserted node.</p>
             <br />
             <p>Likewise, at deletion, a regular BST deletion is performed and a rotation may also occur. However, whether or not the rotation occurs and the exact rotation operation depends instead on the relative positions of the first unbalanced node on the path up the tree as well as its two immediate ancestors that are each the largest height child of their parent node.</p>
             <br />
-            <p>As a consequence of an AVL Tree maintaining its balance. It accels over a traditional Binary Search Tree by improving the worst case time complexities for each basic operation </p>
+            <p>Because of the fact that AVL Trees maintain a balanced state, they have advantages over a traditional Binary Search Tree. The height of the tree will always be O(log n), where as a regular BST may have a height of O(n). The worst-case time complexities for each basic operation are O(log n) in an AVL Tree rather than O(n).</p>
             <br />
             <table>
                 <tbody>

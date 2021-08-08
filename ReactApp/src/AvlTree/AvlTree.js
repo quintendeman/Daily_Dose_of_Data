@@ -18,7 +18,7 @@ function getParent(node, tree) {
     var cur = tree.root;
     if (node != null) {
 
-        while (cur != node) {
+        while (cur !== node) {
             if (node.value > cur.value) {
                 parent = cur;
                 cur = parent.right;
@@ -577,7 +577,7 @@ const AvlTree = () => {
             if (getBalance(z) < -1 && x.value < y.value) {
                 rotateRight(z, tree);
                 status.current = "Rotating Node: " + z.value + " right"
-                var parent = getParent(y, tree);
+                let parent = getParent(y, tree);
                 if (parent != null) {
                     if (parent.value < z.value) {
                         parent.right = y;
@@ -611,7 +611,7 @@ const AvlTree = () => {
 
             //right right
             if (getBalance(z) > 1 && x.value > y.value) {
-                var parent = getParent(z, tree);
+                let parent = getParent(z, tree);
                 rotateLeft(z, tree);
                 status.current = "Rotating Node: " + z.value + " left"
 
@@ -640,7 +640,7 @@ const AvlTree = () => {
         }
 
 
-        var inserted = green.current;
+        //var inserted = green.current;
 
         if (family.length === 0) toggleAnimation();
         else {
@@ -669,12 +669,12 @@ const AvlTree = () => {
             if (getBalance(firstUnbalanced) === -2 && getBalance(firstUnbalanced.left) === -1) {
 
 
-                var l = firstUnbalanced.left;
+                let l = firstUnbalanced.left;
                 rotateRight(firstUnbalanced, tree);
                 status.current = "Rotating Node: " + firstUnbalanced.value + " right"
 
                 //insert on correct side
-                var grandP = family.pop();
+                let grandP = family.pop();
                 if (grandP) {
                     if (grandP.value < firstUnbalanced.value) {
                         grandP.right = l;
@@ -690,7 +690,7 @@ const AvlTree = () => {
 
             //Left Right case
             if (getBalance(firstUnbalanced) === -2 && getBalance(firstUnbalanced.left) === 1) {
-                var r = firstUnbalanced.left.right;
+                let r = firstUnbalanced.left.right;
                 rotateLeft(firstUnbalanced.left, tree);
                 status.current = "Rotating Node: " + firstUnbalanced.left.value + " left";
 
@@ -699,11 +699,11 @@ const AvlTree = () => {
 
             //Right Right case
             if (getBalance(firstUnbalanced) === 2 && getBalance(firstUnbalanced.right) === 1) {
-                var r = firstUnbalanced.right;
+                let r = firstUnbalanced.right;
                 rotateLeft(firstUnbalanced, tree);
                 status.current = "Rotating Node: " + firstUnbalanced.value + " left";
                 //insert on correct side
-                var grandP = family.pop();
+                let grandP = family.pop();
                 if (grandP) {
                     if (grandP.value < firstUnbalanced.value) {
                         grandP.right = r;
@@ -716,7 +716,7 @@ const AvlTree = () => {
 
             //Right Left Case
             if (getBalance(firstUnbalanced) === 2 && getBalance(firstUnbalanced.right) === -1) {
-                var l = firstUnbalanced.right.left;
+                let l = firstUnbalanced.right.left;
                 rotateRight(firstUnbalanced.right, tree);
                 status.current = "Rotating Node: " + firstUnbalanced.right + " right";
                 familyLine.current.pop();

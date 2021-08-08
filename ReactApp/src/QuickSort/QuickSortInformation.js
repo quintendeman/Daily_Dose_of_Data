@@ -14,7 +14,6 @@ const QuickSortInformation = () => {
                 <tbody>
                     <tr><th>Quick Sort</th><th>Complexity</th></tr>
                     <tr><td>Average-case Time Complexity</td><td>O(n log n)</td></tr>
-                    <tr><td>Best-case Time Complexity</td><td>O(n log n)</td></tr>
                     <tr><td>Worst-case Time Complexity</td><td>O(n<sup>2</sup>)</td></tr>
                     <tr><td>Space Complexity</td><td>O(n)</td></tr>
                 </tbody>

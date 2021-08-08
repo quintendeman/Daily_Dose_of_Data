@@ -12,7 +12,7 @@ const BubbleSortInformation = () => {
             <br />
             <table>
                 <tbody>
-                    <tr><th>Selection Sort</th><th>Complexity</th></tr>
+                    <tr><th>Bubble Sort</th><th>Complexity</th></tr>
                     <tr><td>Time Complexity</td><td>O(n<sup>2</sup>)</td></tr>
                     <tr><td>Space Complexity</td><td>O(1)</td></tr>
                 </tbody>
