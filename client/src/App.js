@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.scss';
 import Navigation from './Navigation/Navigation';
+import Visualization from './Visualization/Visualization';
 import Array from './Array/Array';
 import ArrayInformation from './Array/ArrayInformation';
 import List from './List/List';
@@ -69,9 +70,10 @@ const App = () => {
 				<div className="content">
 					<Switch>
 						<Route exact path="/">
+							<header className="page-title">Visualization of the Day: {visualization}</header>
+							<Visualization visualization={visualization} />
 							<div className="information">
-								<p>Home page</p>
-								<p>Visualization: {visualization}</p>
+								<p>Insert home page information here. Insert home page information here. Insert home page information here. Insert home page information here. Insert home page information here. Insert home page information here. Insert home page information here. Insert home page information here. Insert home page information here. Insert home page information here. Insert home page information here. Insert home page information here. Insert home page information here.</p>
 							</div>
 						</Route>
 						<Route exact path="/Array">
