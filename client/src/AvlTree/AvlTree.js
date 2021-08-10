@@ -279,6 +279,7 @@ const AvlTree = () => {
     const animating = useRef();
     const animationFunction = useRef();
     const animationValue = useRef();
+    const rotating = useRef(false);
     const status = useRef("Tree is balanced");
 
     //We call update on fake state variable to force rerender
@@ -318,6 +319,7 @@ const AvlTree = () => {
 
     //function to pause or continue animation
     const toggleAnimation = useCallback(() => {
+        rotating.current = false;
 
         if (animating.current) {
             clearInterval(interval.current);
@@ -341,6 +343,7 @@ const AvlTree = () => {
 
     //function to insert into the binary search tree on button click
     const insert = () => {
+        if (rotating.current) return;
         if (animating.current)
             toggleAnimation();
         var data = parseInt(insertInput.current.value);
@@ -363,6 +366,8 @@ const AvlTree = () => {
 
     //function to do a single step of insertion animation
     const insertStep = () => {
+        rotating.current = true;
+        console.log(rotating.current);
         status.current = "Inserting node";
         forceUpdate();
         if (animationValue.current < focus.current.value) {
@@ -397,6 +402,7 @@ const AvlTree = () => {
 
     //function to remove from binary search tree on button click
     const remove = () => {
+        if (rotating.current) return;
         if (animating.current)
             toggleAnimation();
         if (tree.root !== null) {
@@ -417,6 +423,7 @@ const AvlTree = () => {
 
     //function to do a single step of remove animation
     const removeStep = () => {
+        rotating.current = true;
         status.current = "Removing node";
         if (animationValue.current < focus.current.value) {
             familyLine.current.push(focus.current);
@@ -473,6 +480,7 @@ const AvlTree = () => {
 
     //function to start find animation
     const find = () => {
+        if (rotating.current) return;
         if (animating.current) {
             familyLine.current = [];
             toggleAnimation();
@@ -494,6 +502,7 @@ const AvlTree = () => {
 
     //function to to a single step of find animation
     const findStep = () => {
+        rotating.current = true;
         if (animationValue.current < focus.current.value) {
             if (focus.current.left === null)
                 toggleAnimation();
@@ -516,7 +525,7 @@ const AvlTree = () => {
     }
 
     const rotateStepDelete = () => {
-
+        rotating.current = true;
         var family = [];
         for (var i = 0; i < familyLine.current.length; i++) {
             family.push(familyLine.current[i]);
@@ -633,7 +642,7 @@ const AvlTree = () => {
     }
 
     const rotateStep = () => {
-
+        rotating.current = true;
         //create new array copy of family line
         var family = [];
         for (var i = 0; i < familyLine.current.length; i++) {
