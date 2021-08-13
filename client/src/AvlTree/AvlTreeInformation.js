@@ -16,7 +16,6 @@ class BinaryTreeNode {
         this.left = null;
         this.right = null;
     }
-
 }
 
 
@@ -89,12 +88,12 @@ const AvlTreeInformation = () => {
             
             
             <div style={{ border: '2px solid black', padding: "25px", borderRadius: "10px"}}>
-                <h1>Right Rotation (node z)</h1>
+                <p style={{ textAlign: "center" }}><b>Right Rotation (node z)</b></p>
                 <BinaryTreeDisplay tree={leftleft} />
                 <h2 style={{ textAlign: "center", fontSize: "50px"}}>&#129047;</h2>
                 <BinaryTreeDisplay tree={rrotation} />
                 <br />
-                <h1>Left Rotation (node z)</h1>
+                <p style={{ textAlign: "center" }}><b>Left Rotation (node z)</b></p>
                 <BinaryTreeDisplay tree={rightright} />
                 <h2 style={{ textAlign: "center", fontSize: "50px" }}>&#129047;</h2>
                 <BinaryTreeDisplay tree={lrotation} />
