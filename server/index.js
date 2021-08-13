@@ -7,7 +7,7 @@ const app = express();
 
 const visualizations = ["Array", "List", "Array List", "Linked List", "Stack", "Queue", "Binary Tree", "Binary Search Tree", "AVL Tree", "Binary Heap", "Hash Table", "Set", "Map", "Insertion Sort", "Selection Sort", "Bubble Sort", "Merge Sort", "Quick Sort", "Heap Sort", "Linear Search", "Binary Search", "Depth First Search", "Breadth First Search"];
 var visualization = visualizations[Math.floor(Math.random()*visualizations.length)];
-cron.schedule("0 * * * * *", () => {
+cron.schedule("0 4 * * *", () => {
     	let oldVisualization = visualization;
 	while (oldVisualization === visualization) {
 		visualization = visualizations[Math.floor(Math.random()*visualizations.length)];

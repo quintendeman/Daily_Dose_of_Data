@@ -70,11 +70,12 @@ const App = () => {
 				<div className="content">
 					<Switch>
 						<Route exact path="/">
-							<header className="page-title">Visualization of the Day: {visualization}</header>
-							<Visualization visualization={visualization} />
+							<header className="page-title">Home</header>
 							<div className="information">
-								<p>Insert home page information here. Insert home page information here. Insert home page information here. Insert home page information here. Insert home page information here. Insert home page information here. Insert home page information here. Insert home page information here. Insert home page information here. Insert home page information here. Insert home page information here. Insert home page information here. Insert home page information here.</p>
+								<p>Welcome to Daily Dose of Data! This is a website to provide visualizations of various data structures and algorithms, as well as information on them for educational purposes! Every day a random data structure or algorithm is featured on the home page so you can learn something new every day! This website is still a work in progress so any feedback is appreciated. Please view to about us page to learn more.</p>
 							</div>
+							<header className="page-title" style={{ fontSize: "16px", height: "30px", lineHeight: "30px" }} >Visualization of the Day: {visualization}</header>
+							<Visualization visualization={visualization} />
 						</Route>
 						<Route exact path="/Array">
 							<header className="page-title">Array</header>
