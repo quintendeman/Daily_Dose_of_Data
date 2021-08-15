@@ -72,7 +72,7 @@ const App = () => {
 						<Route exact path="/">
 							<header className="page-title">Home</header>
 							<div className="information">
-								<p>Welcome to Daily Dose of Data! This is a website to provide visualizations of various data structures and algorithms, as well as information on them for educational purposes! Every day a random data structure or algorithm is featured on the home page so you can learn something new every day! This website is still a work in progress so any feedback is appreciated. Please view to about us page to learn more.</p>
+								<p>Welcome to Daily Dose of Data! This is a website to provide visualizations of various data structures and algorithms, as well as information on them for educational purposes! Every day a random data structure or algorithm is featured on the home page so you can learn something new every day! This website is still a work in progress so any feedback is appreciated. Please view the about us page to learn more.</p>
 							</div>
 							<header className="page-title" style={{ fontSize: "16px", height: "30px", lineHeight: "30px" }} >Visualization of the Day: {visualization}</header>
 							<Visualization visualization={visualization} />
@@ -195,7 +195,7 @@ const App = () => {
 						<Route exact path="/about">
 							<div id="about-us" className="information">
 								<h1>About Us</h1>
-								<p>Thank you for visiting our website! We are two undergraduate college students studying in areas related to Computer Science. We decided to work together over an entire summer to bring to life this idea of a website to provide visualizations of various data structures and algorithms for educational purposes. We had little to no experience with web development before this, and we fully self-studied JavaScript, HTML, CSS, React.js, and Node.js, all of which were used to develop this website. This website is still a work in progress, and we plan to continue adding new content and features. Any feedback you would like to give us is appreciated, so feel free to contact us with the information below!</p>
+								<p>Thank you for visiting our website! We are two undergraduate college students studying in areas related to Computer Science. We decided to work together over an entire summer to bring to life this idea of a website to provide visualizations of various data structures and algorithms for educational purposes. We had little to no experience with web development before this, and we self-studied JavaScript, HTML, CSS, React.js, and Node.js, all of which were used to develop this website. This website is still a work in progress, and we plan to continue adding new content and features. Any feedback you would like to give us is appreciated, so feel free to contact us with the information below!</p>
 								<hr />
 								<div className="personal-information">
 									<img src="quintenpicture.jpg" alt=""></img>
